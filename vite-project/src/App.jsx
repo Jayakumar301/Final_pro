@@ -1,30 +1,21 @@
-import React from 'react';
-import FirstTab from './FirstTab';
-import SecondTab from './SecondTab';
-import ThirdTab from './ThirdTab';
-import { Routes, Route } from 'react-router-dom';
-import NavBar from './NavBar';
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import HomePage from './components/HomePage'
+import TabsPage from './components/TabsPage'
+import PartA from './components/PartA'
+import PartB from './components/PartB'
+import PartC from './components/PartC'
 
-const App = () => {
-  document.title = "HomeTab";
-
-
+function App() {
   return (
-    <div className="App">
-     <NavBar />
-      
-     
-      <div className="main-content">
-        <div className="content">
-          <Routes>
-            <Route path='/FirstTab' element={<FirstTab />} />
-            <Route path='/SecondTab' element={<SecondTab />} />
-            <Route path='/ThirdTab' element={<ThirdTab />} />
-          </Routes>
-        </div>
-      </div>
-    </div>
-  );
-};
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/tabs" element={<TabsPage />} />
+      <Route path="/partA" element={<PartA />} />
+      <Route path="/partB" element={<PartB />} />
+      <Route path="/partC" element={<PartC />} />
+    </Routes>
+  )
+}
 
-export default App;
+export default App
