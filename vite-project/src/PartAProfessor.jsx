@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function PartA({ category, openTab }) {
+function PartAProfessor({ category, openTab }) {
   const [educationRows, setEducationRows] = useState([]);
   const [experienceRows, setExperienceRows] = useState([]);
   const location = useLocation();
@@ -43,7 +43,7 @@ function PartA({ category, openTab }) {
 
   return (
     <div>
-      <h2>Part A</h2>
+      <h2>Part A - Professor</h2>
       <form>
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" required />
@@ -197,4 +197,4 @@ function PartA({ category, openTab }) {
   );
 }
 
-export default PartA;
+export default PartAProfessor;
