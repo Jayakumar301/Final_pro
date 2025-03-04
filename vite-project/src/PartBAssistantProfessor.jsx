@@ -106,6 +106,25 @@ function PartBAssistantProfessor({ openTab }) {
     setRows5(newRows5);
   };
 
+  const initialRows6 = [{ item: '', semester1: '', score1: '', semester2: '', score2: '' }];
+const [rows6, setRows6] = useState(initialRows6);
+
+const handleAddRow6 = () => {
+  setRows6([...rows6, { item: '', semester1: '', score1: '', semester2: '', score2: '' }]);
+};
+
+const handleDeleteRow6 = (index) => {
+  const newRows6 = rows6.filter((row, i) => i !== index);
+  setRows6(newRows6);
+};
+
+const handleChange6 = (index, event) => {
+  const { name, value } = event.target;
+  const newRows6 = [...rows6];
+  newRows6[index][name] = value;
+  setRows6(newRows6);
+};
+
   return (
     <div className="container">
       <h2 className="my-4">Part B - Assistant Professor</h2>
@@ -451,6 +470,87 @@ function PartBAssistantProfessor({ openTab }) {
         <div className="tab-buttons">
           <button type="button" onClick={() => openTab('PartA')} className="btn btn-secondary">Previous</button>
           <button type="button" onClick={() => openTab('PartC')} className="btn btn-primary">Next</button>
+        </div>
+       {/* Table 6 */}
+        <div className="form-group">
+          <label>6:</label>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Items</th>
+                <th>Semester1</th>
+                <th>Score</th>
+                <th>Semester2</th>
+                <th>Score</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows6.map((row, index) => (
+                <tr key={index}>
+                  <td>
+                    <select
+                      name="item"
+                      value={row.item}
+                      onChange={(e) => handleChange6(index, e)}
+                      className="form-control"
+                    >
+                      <option value="">Select an option</option>
+                      <option value="Remedial">Remedial</option>
+                      <option value="Bridge">Bridge</option>
+                      <option value="Career Oriented">Career Oriented</option>
+                      <option value="Content Beyond Syllabus">Content Beyond Syllabus</option>
+                      <option value="Additional Experiments">Additional Experiments</option>
+                      <option value="Job Oriented Certificates">Job Oriented Certificates</option>
+                      <option value="AnyOther">Any Other</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="semester1"
+                      value={row.semester1}
+                      onChange={(e) => handleChange6(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="score1"
+                      value={row.score1}
+                      onChange={(e) => handleChange6(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="semester2"
+                      value={row.semester2}
+                      onChange={(e) => handleChange6(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="score2"
+                      value={row.score2}
+                      onChange={(e) => handleChange6(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <button type="button" onClick={() => handleDeleteRow6(index)} className="btn btn-danger">
+                      Delete Row
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button type="button" onClick={handleAddRow6} className="btn btn-success">Add Row</button>
         </div>
       </form>
     </div>
