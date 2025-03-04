@@ -45,7 +45,7 @@ function PartA({ category, openTab }) {
     <div>
       <h2>Part A</h2>
       <form>
-        <label htmlFor="name">Name:</label>
+        <label htmlFor="name" required>Name:</label>
         <input type="text" id="name" name="name" required />
         <br /><br />
 
