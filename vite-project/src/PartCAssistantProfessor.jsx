@@ -8,6 +8,7 @@ function PartCAssistantProfessor({ submitForm, openTab }) {
       <div className="tab-buttons">
         <button type="button" onClick={() => openTab('PartB')} className="btn btn-secondary">Previous</button>
         <button type="button" className="btn btn-secondary">Save</button>
+        <span style={{ margin: '0 10px' }}></span> {/* Gap */}
         <button type="button" onClick={submitForm} className="btn btn-primary">Submit</button>
       </div>
     </div>

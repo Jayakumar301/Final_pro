@@ -1,8 +1,9 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
   margin: 0;
   padding: 0;
+  color: #333;
 }
 
 h1 {
@@ -10,10 +11,10 @@ h1 {
 }
 
 h2 {
-  color: #6c757d;
+  color: #333;
 }
 
-.HomePage, .PartsPage {
+.PowerAppPartsPage {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,52 +23,55 @@ h2 {
   text-align: center;
 }
 
-.tabs {
+.netflix-tabs .nav-tabs {
+  border-bottom: none;
   display: flex;
+  justify-content: center;
   margin-bottom: 20px;
-  border-bottom: 2px solid #ddd;
 }
 
-.tabs button {
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  cursor: pointer;
+.netflix-tabs .nav-item {
+  margin: 0 10px;
+}
+
+.netflix-tabs .nav-link {
+  background-color: #ffffff;
+  border: none;
+  color: #333;
   padding: 10px 20px;
-  margin-right: 5px;
-  text-align: center;
-  border-radius: 5px 5px 0 0;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.tabs button.active {
-  background-color: #fff;
-  border-bottom: 2px solid #fff;
+.netflix-tabs .nav-link.active {
+  background-color: #007bff;
+  color: #fff;
   font-weight: bold;
+  transform: translateY(-2px);
 }
 
-.tabs button:hover {
-  background-color: #ddd;
+.netflix-tabs .nav-link:hover {
+  background-color: #0056b3;
+  color: #fff;
+  transform: translateY(-2px);
 }
 
-.tab-content {
-  display: none;
-  background-color: #fff;
+.power-app-tab-content {
+  background-color: #ffffff;
   padding: 20px;
-  border: 40px solid #17171525;
-  border-radius: 0 5px 5px 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   width: 100%;
+  max-width: 900px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.tab-content.active {
-  display: block;
-}
-
-.tab-buttons {
+.power-app-tab-buttons {
   margin-top: 20px;
-  margin-left: 40px;
 }
 
-.tab-buttons button {
+.power-app-tab-buttons button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -78,7 +82,7 @@ h2 {
   transition: background-color 0.3s ease;
 }
 
-.tab-buttons button:hover {
+.power-app-tab-buttons button:hover {
   background-color: #0056b3;
 }
 

@@ -190,6 +190,7 @@ function PartA({ category, openTab }) {
 
         <div className="tab-buttons">
           <button type="button">Save</button>
+          <span style={{ margin: '0 10px' }}></span> {/* Gap */}
           <button type="button" onClick={() => openTab('PartB')}>Next</button>
         </div>
       </form>

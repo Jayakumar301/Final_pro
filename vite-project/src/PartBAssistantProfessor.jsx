@@ -26,11 +26,35 @@ function PartBAssistantProfessor({ openTab }) {
   const [rows4, setRows4] = useState(initialRows4);
   const [rows5, setRows5] = useState(initialRows5);
   const [subjectCodes, setSubjectCodes] = useState([]);
+  const initialRows7 = [{ item: 'How many counselling sessions done? for each 5 points', sem1: '', sem2: '', totalSessions: '', score: '' }];
+  const [rows7, setRows7] = useState(initialRows7);
+  const initialRows8 = [];
+  const [rows8, setRows8] = useState(initialRows8);
+
+  useEffect(() => {
+    const sem1Subjects = rows1.filter(row => row.sem === 'sem1').map(row => ({ subjectsSem1: row.subjectCode, passSem1: '' }));
+    const sem2Subjects = rows1.filter(row => row.sem === 'sem2').map(row => ({ subjectsSem2: row.subjectCode, passSem2: '' }));
+  
+    const maxRows = Math.max(sem1Subjects.length, sem2Subjects.length);
+    const newRows8 = Array.from({ length: maxRows }, (_, index) => ({
+      subjectsSem1: sem1Subjects[index]?.subjectsSem1 || '',
+      passSem1: sem1Subjects[index]?.passSem1 || '',
+      subjectsSem2: sem2Subjects[index]?.subjectsSem2 || '',
+      passSem2: sem2Subjects[index]?.passSem2 || '',
+      avg: ''
+    }));
+  
+    setRows8(newRows8);
+  }, [rows1]);
+  
+
 
   useEffect(() => {
     const codes = rows1.map(row => row.subjectCode).filter(code => code);
     setSubjectCodes(codes);
   }, [rows1]);
+
+  
 
   const handleAddRow1 = () => {
     setRows1([...rows1, { subjectType: '', subjectCode: '', weeklyLoad: '', sem: '', subjectTitle: '', lectures: '' }]);
@@ -123,6 +147,20 @@ const handleChange6 = (index, event) => {
   const newRows6 = [...rows6];
   newRows6[index][name] = value;
   setRows6(newRows6);
+};
+
+const handleChange7 = (index, event) => {
+  const { name, value } = event.target;
+  const newRows7 = [...rows7];
+  newRows7[index][name] = value;
+  setRows7(newRows7);
+};
+
+const handleChange8 = (index, event) => {
+  const { name, value } = event.target;
+  const newRows8 = [...rows8];
+  newRows8[index][name] = value;
+  setRows8(newRows8);
 };
 
   return (
@@ -467,10 +505,6 @@ const handleChange6 = (index, event) => {
           </table>
           <button type="button" onClick={handleAddRow5} className="btn btn-success">Add Row</button>
         </div>
-        <div className="tab-buttons">
-          <button type="button" onClick={() => openTab('PartA')} className="btn btn-secondary">Previous</button>
-          <button type="button" onClick={() => openTab('PartC')} className="btn btn-primary">Next</button>
-        </div>
        {/* Table 6 */}
         <div className="form-group">
           <label>6:</label>
@@ -551,6 +585,147 @@ const handleChange6 = (index, event) => {
             </tbody>
           </table>
           <button type="button" onClick={handleAddRow6} className="btn btn-success">Add Row</button>
+        </div>
+                        {/* Table 7 */}
+          <div className="form-group">
+            <label>7:</label>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Sem1</th>
+                  <th>Sem2</th>
+                  <th>Total no of Sessions taken</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows7.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="text"
+                        name="item"
+                        value={"How many counselling sessions done? for each 5 points"}
+                        className="form-control"
+                        readOnly
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="sem1"
+                        value={row.sem1}
+                        onChange={(e) => handleChange7(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="sem2"
+                        value={row.sem2}
+                        onChange={(e) => handleChange7(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="totalSessions"
+                        value={row.totalSessions}
+                        onChange={(e) => handleChange7(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="score"
+                        value={row.score}
+                        onChange={(e) => handleChange7(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+                  {/* Table 8 */}
+          <div className="form-group">
+            <label>8:</label>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th colSpan="2">Sem1</th>
+                  <th colSpan="2">Sem2</th>
+                  <th rowSpan="2">Avg%</th>
+                </tr>
+                <tr>
+                  <th>Subjects</th>
+                  <th>% Pass</th>
+                  <th>Subjects</th>
+                  <th>% Pass</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows8.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="text"
+                        name="subjectsSem1"
+                        value={row.subjectsSem1}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="passSem1"
+                        value={row.passSem1}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="subjectsSem2"
+                        value={row.subjectsSem2}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="passSem2"
+                        value={row.passSem2}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="avg"
+                        value={row.avg}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        <div className="tab-buttons">
+          <button type="button" onClick={() => openTab('PartA')} className="btn btn-secondary">Previous</button>
+          <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+          <button type="button" onClick={() => openTab('PartC')} className="btn btn-primary">Next</button>
         </div>
       </form>
     </div>
