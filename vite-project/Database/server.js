@@ -1,7 +1,7 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
 // Initialize app and middleware
 const app = express();
@@ -16,34 +16,60 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.log('Error connecting to MongoDB:', err));
 
-// Create a schema for your form data
-const formSchema = new mongoose.Schema({
+// Create schema for PartA data
+const partADataSchema = new mongoose.Schema({
   name: String,
-  email: String,
-  phone: String,
-  password: String,
+  postHeld: String,
+  employeeId: Number,
+  appointmentDate: Date,
+  address: String,
+  contact: String,
+  department: String,
+  category: String,
+  educationRows: Array,
+  experienceRows: Array
 });
 
-// Create a model from the schema
-const FormData = mongoose.model("Faculty1", formSchema);
+// Create schema for PartB data
+const partBDataSchema = new mongoose.Schema({
+  rows1: Array,
+  rows2: Array,
+  rows3: Array,
+  rows4: Array,
+  rows5: Array,
+  rows6: Array,
+  rows7: Array,
+  rows8: Array,
+  rows9: Array,
+  rows10: Array,
+  rows11: Array,
+  rows12: Array,
+  rows13: Array
+});
 
-// Define the POST endpoint to save data
-app.post('/submit-form', async (req, res) => {
+// Create models from schemas
+const PartAData = mongoose.model("PartAData", partADataSchema);
+const PartBData = mongoose.model("PartBData", partBDataSchema);
+
+// Endpoint to save PartA data
+app.post('/save-parta-data', async (req, res) => {
+  const partAData = new PartAData(req.body);
   try {
-    const { name, email, phone, password } = req.body;
-
-    const newForm = new FormData({
-      name,
-      email,
-      phone,
-      password,
-    });
-
-    await newForm.save();
-    res.status(200).send({ message: 'Form submitted successfully!' });
+    await partAData.save();
+    res.send({ message: 'PartA data saved successfully' });
   } catch (err) {
-    console.log(err);
-    res.status(500).send({ message: 'Error submitting form' });
+    res.status(500).send({ message: 'Error saving PartA data', error: err });
+  }
+});
+
+// Endpoint to save PartB data
+app.post('/save-partb-data', async (req, res) => {
+  const partBData = new PartBData(req.body);
+  try {
+    await partBData.save();
+    res.send({ message: 'PartB data saved successfully' });
+  } catch (err) {
+    res.status(500).send({ message: 'Error saving PartB data', error: err });
   }
 });
 

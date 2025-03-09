@@ -45,12 +45,10 @@ function PartBAssistantProfessor({ openTab }) {
   const initialRows13 = [{ involvement: 'Involvement of Faculty in Syllabus Framing (30)', selfScore: '', dfac: '' }];
   const [rows13, setRows13] = useState(initialRows13);
 
-  
-
   useEffect(() => {
     const sem1Subjects = rows1.filter(row => row.sem === 'sem1').map(row => ({ subjectsSem1: row.subjectCode, passSem1: '' }));
     const sem2Subjects = rows1.filter(row => row.sem === 'sem2').map(row => ({ subjectsSem2: row.subjectCode, passSem2: '' }));
-  
+
     const maxRows = Math.max(sem1Subjects.length, sem2Subjects.length);
     const newRows8 = Array.from({ length: maxRows }, (_, index) => ({
       subjectsSem1: sem1Subjects[index]?.subjectsSem1 || '',
@@ -59,11 +57,9 @@ function PartBAssistantProfessor({ openTab }) {
       passSem2: sem2Subjects[index]?.passSem2 || '',
       avg: ''
     }));
-  
+
     setRows8(newRows8);
   }, [rows1]);
-  
-
 
   useEffect(() => {
     const codes = rows1.map(row => row.subjectCode).filter(code => code);
@@ -73,7 +69,7 @@ function PartBAssistantProfessor({ openTab }) {
   useEffect(() => {
     const sem1Subjects = rows1.filter(row => row.sem === 'sem1').map(row => ({ subjectsSem1: row.subjectCode, feedbackSem1: '' }));
     const sem2Subjects = rows1.filter(row => row.sem === 'sem2').map(row => ({ subjectsSem2: row.subjectCode, feedbackSem2: '' }));
-  
+
     const maxRows = Math.max(sem1Subjects.length, sem2Subjects.length);
     const newRows9 = Array.from({ length: maxRows }, (_, index) => ({
       subjectsSem1: sem1Subjects[index]?.subjectsSem1 || '',
@@ -81,7 +77,7 @@ function PartBAssistantProfessor({ openTab }) {
       subjectsSem2: sem2Subjects[index]?.subjectsSem2 || '',
       feedbackSem2: sem2Subjects[index]?.feedbackSem2 || ''
     }));
-  
+
     setRows9(newRows9);
   }, [rows1]);
 
@@ -93,8 +89,6 @@ function PartBAssistantProfessor({ openTab }) {
     }));
     setRows11(newRows11);
   }, [rows10]);
-
-  
 
   const handleAddRow1 = () => {
     setRows1([...rows1, { subjectType: '', subjectCode: '', weeklyLoad: '', sem: '', subjectTitle: '', lectures: '' }]);
@@ -171,119 +165,171 @@ function PartBAssistantProfessor({ openTab }) {
   };
 
   const initialRows6 = [{ item: '', semester1: '', score1: '', semester2: '', score2: '' }];
-const [rows6, setRows6] = useState(initialRows6);
+  const [rows6, setRows6] = useState(initialRows6);
 
-const handleAddRow6 = () => {
-  setRows6([...rows6, { item: '', semester1: '', score1: '', semester2: '', score2: '' }]);
-};
+  const handleAddRow6 = () => {
+    setRows6([...rows6, { item: '', semester1: '', score1: '', semester2: '', score2: '' }]);
+  };
 
-const handleDeleteRow6 = (index) => {
-  const newRows6 = rows6.filter((row, i) => i !== index);
-  setRows6(newRows6);
-};
+  const handleDeleteRow6 = (index) => {
+    const newRows6 = rows6.filter((row, i) => i !== index);
+    setRows6(newRows6);
+  };
 
-const handleChange6 = (index, event) => {
-  const { name, value } = event.target;
-  const newRows6 = [...rows6];
-  newRows6[index][name] = value;
-  setRows6(newRows6);
-};
+  const handleChange6 = (index, event) => {
+    const { name, value } = event.target;
+    const newRows6 = [...rows6];
+    newRows6[index][name] = value;
+    setRows6(newRows6);
+  };
 
-const handleChange7 = (index, event) => {
-  const { name, value } = event.target;
-  const newRows7 = [...rows7];
-  newRows7[index][name] = value;
-  setRows7(newRows7);
-};
+  const handleChange7 = (index, event) => {
+    const { name, value } = event.target;
+    const newRows7 = [...rows7];
+    newRows7[index][name] = value;
+    setRows7(newRows7);
+  };
 
-const handleChange8 = (index, event) => {
-  const { name, value } = event.target;
-  const newRows8 = [...rows8];
-  newRows8[index][name] = value;
-  setRows8(newRows8);
-};
+  const handleChange8 = (index, event) => {
+    const { name, value } = event.target;
+    const newRows8 = [...rows8];
+    newRows8[index][name] = value;
+    setRows8(newRows8);
+  };
 
-const handleChange9 = (index, event) => {
-  const { name, value } = event.target;
-  const newRows9 = [...rows9];
-  newRows9[index][name] = value;
-  setRows9(newRows9);
-};
+  const handleChange9 = (index, event) => {
+    const { name, value } = event.target;
+    const newRows9 = [...rows9];
+    newRows9[index][name] = value;
+    setRows9(newRows9);
+  };
 
-const handleAddRow10 = () => {
-  setRows10([...rows10, { projectBatchNo: '', sem: '', averageScore: '' }]);
-};
+  const handleAddRow10 = () => {
+    setRows10([...rows10, { projectBatchNo: '', sem: '', averageScore: '' }]);
+  };
 
-const handleDeleteRow10 = (index) => {
-  const newRows10 = rows10.filter((row, i) => i !== index);
-  setRows10(newRows10);
-};
+  const handleDeleteRow10 = (index) => {
+    const newRows10 = rows10.filter((row, i) => i !== index);
+    setRows10(newRows10);
+  };
 
-const handleChange10 = (index, event) => {
-  const { name, value } = event.target;
-  const newRows10 = [...rows10];
-  newRows10[index][name] = value;
-  setRows10(newRows10);
-};
+  const handleChange10 = (index, event) => {
+    const { name, value } = event.target;
+    const newRows10 = [...rows10];
+    newRows10[index][name] = value;
+    setRows10(newRows10);
+  };
 
-const handleAddRow11 = () => {
-  setRows11([...rows11, { batchNo: '', sem: '', averageScore: '' }]);
-};
+  const handleAddRow11 = () => {
+    setRows11([...rows11, { batchNo: '', sem: '', averageScore: '' }]);
+  };
 
-const handleDeleteRow11 = (index) => {
-  const newRows11 = rows11.filter((row, i) => i !== index);
-  setRows11(newRows11);
-};
+  const handleDeleteRow11 = (index) => {
+    const newRows11 = rows11.filter((row, i) => i !== index);
+    setRows11(newRows11);
+  };
 
-const handleChange11 = (index, event) => {
-  const { name, value } = event.target;
-  const newRows11 = [...rows11];
-  newRows11[index][name] = value;
-  setRows11(newRows11);
-};
+  const handleChange11 = (index, event) => {
+    const { name, value } = event.target;
+    const newRows11 = [...rows11];
+    newRows11[index][name] = value;
+    setRows11(newRows11);
+  };
 
-const handleAddRow12 = () => {
-  setRows12([...rows12, { courseType: '', attendance: '', endCourseExamMarks: '', score: '' }]);
-};
+  const handleAddRow12 = () => {
+    setRows12([...rows12, { courseType: '', attendance: '', endCourseExamMarks: '', score: '' }]);
+  };
 
-const handleDeleteRow12 = (index) => {
-  const newRows12 = rows12.filter((row, i) => i !== index);
-  setRows12(newRows12);
-};
+  const handleDeleteRow12 = (index) => {
+    const newRows12 = rows12.filter((row, i) => i !== index);
+    setRows12(newRows12);
+  };
 
-const handleChange12 = (index, event) => {
-  const { name, value } = event.target;
-  const newRows12 = [...rows12];
-  newRows12[index][name] = value;
+  const handleChange12 = (index, event) => {
+    const { name, value } = event.target;
+    const newRows12 = [...rows12];
+    newRows12[index][name] = value;
 
-  // Calculate score based on conditions
-  if (newRows12[index].courseType === "Full Course with Online Exam" && newRows12[index].attendance >= 75) {
-    const score = newRows12[index].endCourseExamMarks >= 75 ? 60 : Math.round((newRows12[index].endCourseExamMarks / 100) * 60);
-    newRows12[index].score = score;
-  } else if (newRows12[index].courseType === "Teleconference Mode or Course without Exam" && newRows12[index].attendance >= 75) {
-    newRows12[index].score = 30;
-  } else {
-    newRows12[index].score = 0; // Default score if conditions are not met
-  }
+    // Calculate score based on conditions
+    if (newRows12[index].courseType === "Full Course with Online Exam" && newRows12[index].attendance >= 75) {
+      const score = newRows12[index].endCourseExamMarks >= 75 ? 60 : Math.round((newRows12[index].endCourseExamMarks / 100) * 60);
+      newRows12[index].score = score;
+    } else if (newRows12[index].courseType === "Teleconference Mode or Course without Exam" && newRows12[index].attendance >= 75) {
+      newRows12[index].score = 30;
+    } else {
+      newRows12[index].score = 0; // Default score if conditions are not met
+    }
 
-  setRows12(newRows12);
-};
+    setRows12(newRows12);
+  };
 
-const handleAddRow13 = () => {
-  setRows13([...rows13, { involvement: 'Involvement of Faculty in Syllabus Framing (30)', selfScore: '', dfac: '' }]);
-};
+  const handleAddRow13 = () => {
+    setRows13([...rows13, { involvement: 'Involvement of Faculty in Syllabus Framing (30)', selfScore: '', dfac: '' }]);
+  };
 
-const handleDeleteRow13 = (index) => {
-  const newRows13 = rows13.filter((row, i) => i !== index);
-  setRows13(newRows13);
-};
+  const handleDeleteRow13 = (index) => {
+    const newRows13 = rows13.filter((row, i) => i !== index);
+    setRows13(newRows13);
+  };
 
-const handleChange13 = (index, event) => {
-  const { name, value } = event.target;
-  const newRows13 = [...rows13];
-  newRows13[index][name] = value;
-  setRows13(newRows13);
-};
+  const handleChange13 = (index, event) => {
+    const { name, value } = event.target;
+    const newRows13 = [...rows13];
+    newRows13[index][name] = value;
+    setRows13(newRows13);
+  };
+
+  const savePartBData = async () => {
+    const partBData = {
+      rows1,
+      rows2,
+      rows3,
+      rows4,
+      rows5,
+      rows6,
+      rows7,
+      rows8,
+      rows9,
+      rows10,
+      rows11,
+      rows12,
+      rows13
+    };
+
+    // Validate the form
+    const isValid = validateForm();
+    if (!isValid) {
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/save-partb-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(partBData),
+      });
+      const result = await response.json();
+      alert(result.message);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    // Perform your validation logic here
+    // Example: Check if rows1 is empty
+    if (rows1.length === 0) {
+      isValid = false;
+      alert('Please fill all the required fields.');
+    }
+    // Additional validation logic for other rows
+
+    return isValid;
+  };
+
 
 
   return (
@@ -1082,60 +1128,62 @@ const handleChange13 = (index, event) => {
           </table>
           <button type="button" onClick={handleAddRow12} className="btn btn-success">Add Row</button>
         </div>
-        {/* Table 13 */}
-<div className="form-group">
-  <label>13:</label>
-  <table className="table">
-    <thead>
-      <tr>
-        <th>Involvement of Faculty in Syllabus Framing (30)</th>
-        <th>Self Score</th>
-        <th>DFAC</th>
-      </tr>
-    </thead>
-    <tbody>
-      {rows13.map((row, index) => (
-        <tr key={index}>
-          <td>
-            <input
-              type="text"
-              name="involvement"
-              value={row.involvement}
-              onChange={(e) => handleChange13(index, e)}
-              className="form-control"
-              readOnly
-            />
-          </td>
-          <td>
-            <input
-              type="number"
-              name="selfScore"
-              value={row.selfScore}
-              onChange={(e) => handleChange13(index, e)}
-              className="form-control"
-            />
-          </td>
-          <td>
-            <input
-              type="number"
-              name="dfac"
-              value={row.dfac}
-              onChange={(e) => handleChange13(index, e)}
-              className="form-control"
-            />
-          </td>
-          <td>
-            <button type="button" onClick={() => handleDeleteRow13(index)} className="btn btn-danger">
-              Delete Row
-            </button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-  <button type="button" onClick={handleAddRow13} className="btn btn-success">Add Row</button>
-</div>
-        <div className="tab-buttons">
+                  {/* Table 13 */}
+          <div className="form-group">
+            <label>13:</label>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Involvement of Faculty in Syllabus Framing (30)</th>
+                  <th>Self Score</th>
+                  <th>DFAC</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows13.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="text"
+                        name="involvement"
+                        value={row.involvement}
+                        onChange={(e) => handleChange13(index, e)}
+                        className="form-control"
+                        readOnly
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="selfScore"
+                        value={row.selfScore}
+                        onChange={(e) => handleChange13(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="dfac"
+                        value={row.dfac}
+                        onChange={(e) => handleChange13(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => handleDeleteRow13(index)} className="btn btn-danger">
+                        Delete Row
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button type="button" onClick={handleAddRow13} className="btn btn-success">Add Row</button>
+          </div>
+          <div className="tab-buttons">
+          <button type="button" onClick={savePartBData} className="btn btn-primary">Save</button>
+          <span style={{ margin: '0 10px' }}></span> {/* Gap */}
           <button type="button" onClick={() => openTab('PartA')} className="btn btn-secondary">Previous</button>
           <span style={{ margin: '0 10px' }}></span> {/* Gap */}
           <button type="button" onClick={() => openTab('PartC')} className="btn btn-primary">Next</button>
