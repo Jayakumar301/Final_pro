@@ -1,17 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
-  background: #f4f7f6;
+  background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #cce7ff);
   font-family: 'Roboto', sans-serif;
+  animation: gradientBackground 15s ease infinite;
+}
+
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .mytabs {
   display: flex;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: 900px;
   margin: 50px auto;
   padding: 25px;
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .mytabs input[type="radio"] {
@@ -20,29 +35,35 @@ body {
 
 .mytabs label {
   padding: 15px 20px;
-  background: #e0e0e0;
+  background: #949992cc;
+  color: #ffffff;
   font-weight: bold;
-  cursor: pointer;
   margin: 5px;
   border-radius: 5px;
   transition: background 0.3s ease, color 0.3s ease;
   position: relative;
   z-index: 2;
+  animation: slideIn 1s ease-in-out;
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .mytabs label.active {
-  background: #00bbead2;
+  background: #c4cdc1;
   color: #ffffff;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid #ccc;
+  border: 1px solid #c4cdc1;
   border-bottom: none;
 }
 
 .mytabs .tab {
   width: 100%;
   padding: 20px;
-  background: #e0e0e0;
+  background: #ffffff;
   order: 1;
   display: none;
   border-radius: 5px;
@@ -52,10 +73,11 @@ body {
   position: relative;
   z-index: 1;
   margin-top: -1px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .mytabs .tab.active-tab {
-  background: #00c3ea;
+  background: #c4cdc1;
   color: #ffffff;
   display: block;
 }
@@ -70,11 +92,11 @@ body {
 }
 
 .mytabs input[type="radio"]:checked + label {
-  background: #00c7ea;
+  background: #c4cdc1;
   color: #ffffff;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid #ccc;
+  border: 1px solid #c4cdc1;
   border-bottom: none;
 }
 
@@ -85,13 +107,19 @@ body {
 }
 
 .power-app-tab-buttons button {
-  background-color: #007bff;
+  background-color: radial-gradient(circle,#a73737,#7a2828);
   color: #fff;
   border: none;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  animation: buttonFadeIn 1.5s ease-in-out;
+}
+
+@keyframes buttonFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .power-app-tab-buttons button:hover {
@@ -102,10 +130,12 @@ form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 100%;
 }
 
 label {
   margin-bottom: 5px;
+  font-weight: 500;
 }
 
 select, input[type="text"], input[type="number"], input[type="date"], textarea {
@@ -114,7 +144,7 @@ select, input[type="text"], input[type="number"], input[type="date"], textarea {
   border-radius: 5px;
   border: 1px solid #ccc;
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
 }
 
 table {
@@ -124,7 +154,7 @@ table {
 }
 
 table, th, td {
-  border: 1px solid #0ed4f7;
+  border: 1px solid #007bff;
 }
 
 th, td {
@@ -133,19 +163,18 @@ th, td {
 }
 
 button[type="button"] {
-  background-color: #2896a7;
-  color: #fff;
+  background-color: peru;
+  color: #0f0e0e;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.7s ease;
 }
 
 button[type="button"]:hover {
-  background-color: #218838;
+  background-color: radial-gradient(circle,#a73737,#7a2828);;
 }
-
 
 .large-image {
   width: 100%;
