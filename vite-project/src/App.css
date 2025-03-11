@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 body {
-  background: gainsboro;
+  background: #f8f9fa;
   font-family: 'Roboto', sans-serif;
   animation: gradientBackground 15s ease infinite;
 }
@@ -14,7 +14,7 @@ body {
 
 .mytabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   max-width: 900px;
   margin: 50px auto;
   padding: 25px;
@@ -35,7 +35,7 @@ body {
 
 .mytabs label {
   padding: 15px 20px;
-  color: #161515c5;
+  color: #495057;
   font-weight: bold;
   cursor: pointer;
   margin: 5px;
@@ -46,25 +46,24 @@ body {
   animation: slideIn 1s ease-in-out;
 }
 
-
 @keyframes slideIn {
   from { transform: translateY(-20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 .mytabs label.active {
-  background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #cce7ff);;
-  color: #242121;
+  background: #e9ecef;
+  color: #212529;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid #131413;
+  border: 1px solid #ced4da;
   border-bottom: none;
 }
 
 .mytabs .tab {
   width: 100%;
   padding: 20px;
-  background: #c4c7b6d0;
+  background: #ffffff;
   order: 1;
   display: none;
   border-radius: 5px;
@@ -78,8 +77,8 @@ body {
 }
 
 .mytabs .tab.active-tab {
-  background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #cce7ff);;
-  color: #1b1818e5;
+  background: #e9ecef;
+  color: #212529;
   display: block;
 }
 
@@ -93,12 +92,18 @@ body {
 }
 
 .mytabs input[type="radio"]:checked + label {
-  background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #cce7ff);
-  color: #1f1c1c;
+  background: #e9ecef;
+  color: #212529;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid #c4cdc1;
+  border: 1px solid #ced4da;
   border-bottom: none;
+}
+
+.mytabs .labels-container {
+  display: flex;
+  justify-content: flex-start; /* Align tabs to the left */
+  margin-top: 20px;
 }
 
 .power-app-tab-buttons {
@@ -108,7 +113,7 @@ body {
 }
 
 .power-app-tab-buttons button {
-  background-color: radial-gradient(circle,#a73737,#7a2828);
+  background-color: #007bff;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -140,10 +145,10 @@ label {
 }
 
 select, input[type="text"], input[type="number"], input[type="date"], textarea {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid #ced4da;
   width: 100%;
   max-width: 600px;
 }
@@ -155,7 +160,7 @@ table {
 }
 
 table, th, td {
-  border: 1px solid #007bff;
+  border: 1px solid #0c0f11;
 }
 
 th, td {
@@ -164,17 +169,17 @@ th, td {
 }
 
 button[type="button"] {
-  background-color: peru;
-  color: #0f0e0e;
+  background-color: #28a745;
+  color: #fff;
   padding: 10px 20px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  transition: background-color 0.7s ease;
+  transition: background-color 0.3s ease;
 }
 
 button[type="button"]:hover {
-  background-color: radial-gradient(circle,#a73737,#7a2828);;
+  background-color: #218838;
 }
 
 .large-image {
@@ -184,4 +189,80 @@ button[type="button"]:hover {
   margin-bottom: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+  border: 2px solid #1c1c1d;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+legend {
+  font-weight: bold;
+  padding: 0 10px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+fieldset > * {
+  align-self: stretch;
+}
+
+.progress-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.progress-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #706d6dbb;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+.progress-step {
+  width: 40px;
+  height: 40px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  transition: background-color 0.3s ease;
+}
+
+.progress-step.completed {
+  background-color: #007bff;
+}
+
+.progress-step.completed ~ .progress-line {
+  background-color: #007bff;
+}
+
+.progress-step-icon {
+  fill: #fff;
+  width: 24px;
+  height: 24px;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.875em;
+  margin-top: 5px;
 }
