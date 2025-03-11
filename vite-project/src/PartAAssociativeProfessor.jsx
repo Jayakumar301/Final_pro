@@ -43,7 +43,7 @@ function PartAAssociativeProfessor({ category, openTab }) {
 
   return (
     <div>
-      <h2>Part A - Associative Professor</h2>
+      <h2>Part A - Associative Professor Personal Information</h2>
       <form>
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" required />

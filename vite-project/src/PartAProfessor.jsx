@@ -43,7 +43,7 @@ function PartAProfessor({ category, openTab }) {
 
   return (
     <div>
-      <h2>Part A - Professor</h2>
+      <h2>Part A - Professor Personal Information</h2>
       <form>
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" required />

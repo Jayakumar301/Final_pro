@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 body {
-  background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #cce7ff);
+  background: gainsboro;
   font-family: 'Roboto', sans-serif;
   animation: gradientBackground 15s ease infinite;
 }
@@ -35,9 +35,9 @@ body {
 
 .mytabs label {
   padding: 15px 20px;
-  background: #949992cc;
-  color: #ffffff;
+  color: #161515c5;
   font-weight: bold;
+  cursor: pointer;
   margin: 5px;
   border-radius: 5px;
   transition: background 0.3s ease, color 0.3s ease;
@@ -46,24 +46,25 @@ body {
   animation: slideIn 1s ease-in-out;
 }
 
+
 @keyframes slideIn {
   from { transform: translateY(-20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
 
 .mytabs label.active {
-  background: #c4cdc1;
-  color: #ffffff;
+  background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #cce7ff);;
+  color: #242121;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid #c4cdc1;
+  border: 1px solid #131413;
   border-bottom: none;
 }
 
 .mytabs .tab {
   width: 100%;
   padding: 20px;
-  background: #ffffff;
+  background: #c4c7b6d0;
   order: 1;
   display: none;
   border-radius: 5px;
@@ -77,8 +78,8 @@ body {
 }
 
 .mytabs .tab.active-tab {
-  background: #c4cdc1;
-  color: #ffffff;
+  background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #cce7ff);;
+  color: #1b1818e5;
   display: block;
 }
 
@@ -92,8 +93,8 @@ body {
 }
 
 .mytabs input[type="radio"]:checked + label {
-  background: #c4cdc1;
-  color: #ffffff;
+  background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #cce7ff);
+  color: #1f1c1c;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border: 1px solid #c4cdc1;

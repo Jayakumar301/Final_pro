@@ -334,7 +334,7 @@ function PartBAssistantProfessor({ openTab }) {
 
   return (
     <div className="container">
-      <h2 className="my-4">Part B - Assistant Professor</h2>
+      <h2 className="my-4">Part B - Qualification</h2>
       <form>
         <div className="form-group">
           <label>1:</label>
@@ -1067,12 +1067,14 @@ function PartBAssistantProfessor({ openTab }) {
             <thead>
               <tr>
                 <th colSpan="4">NPTEL/MIT/COURSERA/edx/UDACITY Lectures (60)</th>
+                <th rowSpan="2">Actions</th>
               </tr>
               <tr>
                 <th>Course Type</th>
                 <th>Attendance</th>
                 <th>End Course Exam Marks</th>
                 <th>Score</th>
+               
               </tr>
             </thead>
             <tbody>
@@ -1137,6 +1139,7 @@ function PartBAssistantProfessor({ openTab }) {
                   <th>Involvement of Faculty in Syllabus Framing (30)</th>
                   <th>Self Score</th>
                   <th>DFAC</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>

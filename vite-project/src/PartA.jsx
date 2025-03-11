@@ -105,7 +105,7 @@ function PartA({ category, openTab }) {
 
   return (
     <div>
-      <h2>Part A</h2>
+      <h2>Part A - Personal Information</h2>
       <form>
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} required />
