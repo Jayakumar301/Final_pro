@@ -20,7 +20,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 const partADataSchema = new mongoose.Schema({
   name: String,
   postHeld: String,
-  employeeId: Number,
+  employeeId: String, // Changed to String as required
   appointmentDate: Date,
   address: String,
   contact: String,

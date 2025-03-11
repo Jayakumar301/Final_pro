@@ -64,6 +64,31 @@ function PartA({ category, openTab }) {
         newErrors[key] = 'This field is required';
       }
     });
+
+    // Validate employeeId format
+    const employeeIdRegex = /^(BEC|bec|Bec)\d{5}$/;
+    if (!employeeIdRegex.test(formData.employeeId)) {
+      newErrors.employeeId = 'Please enter a valid Identification Number';
+    }
+
+    // Validate education details
+    educationRows.forEach((row, index) => {
+      Object.keys(row).forEach((key) => {
+        if (!row[key]) {
+          newErrors[`education-${index}-${key}`] = 'This field is required';
+        }
+      });
+    });
+
+    // Validate experience details
+    experienceRows.forEach((row, index) => {
+      Object.keys(row).forEach((key) => {
+        if (!row[key]) {
+          newErrors[`experience-${index}-${key}`] = 'This field is required';
+        }
+      });
+    });
+
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
@@ -163,7 +188,7 @@ function PartA({ category, openTab }) {
               Employee Identification Number:
             </label>
             <input
-              type="number"
+              type="text"
               id="employeeId"
               name="employeeId"
               value={formData.employeeId}
@@ -251,6 +276,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleEducationInputChange(index, e)}
                       required
                     />
+                    {errors[`education-${index}-programme`] && <span className="error-message">{errors[`education-${index}-programme`]}</span>}
                   </td>
                   <td>
                     <input
@@ -260,6 +286,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleEducationInputChange(index, e)}
                       required
                     />
+                    {errors[`education-${index}-periodOfStudy`] && <span className="error-message">{errors[`education-${index}-periodOfStudy`]}</span>}
                   </td>
                   <td>
                     <input
@@ -269,6 +296,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleEducationInputChange(index, e)}
                       required
                     />
+                    {errors[`education-${index}-university`] && <span className="error-message">{errors[`education-${index}-university`]}</span>}
                   </td>
                   <td>
                     <input
@@ -278,6 +306,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleEducationInputChange(index, e)}
                       required
                     />
+                    {errors[`education-${index}-marksCGPA`] && <span className="error-message">{errors[`education-${index}-marksCGPA`]}</span>}
                   </td>
                   <td>
                     <input
@@ -287,6 +316,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleEducationInputChange(index, e)}
                       required
                     />
+                    {errors[`education-${index}-classObtained`] && <span className="error-message">{errors[`education-${index}-classObtained`]}</span>}
                   </td>
                   <td>
                     <button type="button" onClick={() => deleteEducationRow(index)}>Delete Row</button>
@@ -323,6 +353,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleExperienceInputChange(index, e)}
                       required
                     />
+                    {errors[`experience-${index}-designation`] && <span className="error-message">{errors[`experience-${index}-designation`]}</span>}
                   </td>
                   <td>
                     <input
@@ -332,6 +363,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleExperienceInputChange(index, e)}
                       required
                     />
+                    {errors[`experience-${index}-institution`] && <span className="error-message">{errors[`experience-${index}-institution`]}</span>}
                   </td>
                   <td>
                     <input
@@ -341,6 +373,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleExperienceInputChange(index, e)}
                       required
                     />
+                    {errors[`experience-${index}-from`] && <span className="error-message">{errors[`experience-${index}-from`]}</span>}
                   </td>
                   <td>
                     <input
@@ -350,6 +383,7 @@ function PartA({ category, openTab }) {
                       onChange={(e) => handleExperienceInputChange(index, e)}
                       required
                     />
+                    {errors[`experience-${index}-to`] && <span className="error-message">{errors[`experience-${index}-to`]}</span>}
                   </td>
                   <td>
                     <button type="button" onClick={() => deleteExperienceRow(index)}>Delete Row</button>
@@ -364,7 +398,11 @@ function PartA({ category, openTab }) {
         <div className="tab-buttons">
           <button type="button" onClick={saveFormData} style={{ backgroundColor: isFormValid ? '#2896a7' : 'red' }}>Save</button>
           <span style={{ margin: '0 10px' }}></span> {/* Gap */}
-          <button type="button" onClick={() => openTab('PartB')}>Next</button>
+          <button type="button" onClick={() => {
+            if (validateForm()) {
+              openTab('PartB');
+            }
+          }}>Next</button>
         </div>
       </form>
     </div>
