@@ -3,25 +3,11 @@ import React from 'react';
 function PartBAssociativeProfessor({ openTab }) {
   return (
     <div>
-      <h2>Part B - Associative Professor</h2>
-      <form>
-        <label htmlFor="research">Research and Publications:</label>
-        <textarea id="research" name="research" required></textarea>
-        <br /><br />
-
-        <label htmlFor="projects">Projects:</label>
-        <textarea id="projects" name="projects" required></textarea>
-        <br /><br />
-
-        <label htmlFor="conferences">Conferences Attended:</label>
-        <textarea id="conferences" name="conferences" required></textarea>
-        <br /><br />
-
-        <div className="tab-buttons">
-          <button type="button" onClick={() => openTab('PartA')}>Previous</button>
-          <button type="button" onClick={() => openTab('PartC')}>Next</button>
-        </div>
-      </form>
+      <h2>Part B: Associative Professor</h2>
+      <p>This is Part B content for Associative Professor.</p>
+      <button type="button" onClick={() => openTab('PartA')}>Previous</button>
+          <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+      <button type="button" onClick={() => openTab('PartC')}>Next</button>
     </div>
   );
 }

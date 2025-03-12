@@ -1,31 +1,31 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import PartBProfessor from './PartBProfessor';
-import PartBAssistantProfessor from './PartBAssistantProfessor';
-import PartBAssociativeProfessor from './PartBAssociativeProfessor';
+import PartCProfessor from './PartCProfessor';
+import PartCAssistantProfessor from './PartCAssistantProfessor';
+import PartCAssociativeProfessor from './PartCAssociativeProfessor';
 
-function PartB({ openTab }) {
+function PartC({ openTab }) {
   const location = useLocation();
   const { category } = location.state || {};
 
   const renderComponent = () => {
     switch (category) {
       case 'Professor':
-        return <PartBProfessor openTab={openTab} />;
+        return <PartCProfessor openTab={openTab} />;
       case 'Assistant Professor':
-        return <PartBAssistantProfessor openTab={openTab} />;
+        return <PartCAssistantProfessor openTab={openTab} />;
       case 'Associative Professor':
-        return <PartBAssociativeProfessor openTab={openTab} />;
+        return <PartCAssociativeProfessor openTab={openTab} />;
       default:
         return <div>Please select a category</div>;
     }
   };
 
   return (
-    <div className="PartB">
+    <div className="PartC">
       {renderComponent()}
     </div>
   );
 }
 
-export default PartB;
+export default PartC;

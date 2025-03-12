@@ -1,15 +1,13 @@
 import React from 'react';
 
-function PartCProfessor({ submitForm, openTab }) {
+function PartCProfessor({ openTab }) {
   return (
     <div>
-      <h2>Part C - Professor</h2>
-      <p>This is Part C content. Review and submit your information.</p>
-      <div className="tab-buttons">
-        <button type="button" onClick={() => openTab('PartB')}>Previous</button>
-        <button type="button">Save</button>
-        <button type="button" onClick={submitForm}>Submit</button>
-      </div>
+      <h2>Part C: Professor</h2>
+      <p>This is Part C content for Professor.</p>
+      <button type="button" onClick={() => openTab('PartB')} className="btn btn-secondary">Previous</button>
+      <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+      <button type="button" onClick={() => openTab('PartD')}>Next</button>
     </div>
   );
 }
