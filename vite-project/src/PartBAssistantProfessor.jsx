@@ -337,7 +337,10 @@ function PartBAssistantProfessor({ openTab }) {
       <h2 className="my-4">Part B - Qualification</h2>
       <form>
         <div className="form-group">
-          <label>1:</label>
+          <h6>1. Teaching weekly  load allotted  by Department as per curricular time table.</h6>
+          <h6>Lectures actually taken as fraction of lectures allocated.
+            How many total lecture periods have been taken in the previous two semesters.
+          </h6>
           <table className="table">
             <thead>
               <tr>
@@ -431,7 +434,7 @@ function PartBAssistantProfessor({ openTab }) {
           <button type="button" onClick={handleAddRow1} className="btn btn-success">Add Row</button>
         </div>
         <div className="form-group">
-          <label>2:</label>
+          <label><h6>2. Course files with the following data have been prepared by me (tick for compliance and Nil for Non-Compliance). Neatly filed course files (One course file per section/course) authenticated by HOD is required to be presented.</h6></label>
           <table className="table">
             <thead>
               <tr>
@@ -482,7 +485,9 @@ function PartBAssistantProfessor({ openTab }) {
           </table>
         </div>
         <div className="form-group">
-          <label>3:</label>
+          <label><h6>3. External College exam/ Evaluation duties: 5 points/subject for evaluation ;   Invigilation duty = 1 point;  How many times this duty has been performed in the previous two  semesters – please enter number  -- Lab, seminar,, mini and major projects.		Max Score
+20		
+</h6></label>
           <table className="table">
             <thead>
               <tr>
@@ -553,7 +558,11 @@ function PartBAssistantProfessor({ openTab }) {
           <button type="button" onClick={handleAddRow3} className="btn btn-success">Add Row</button>
         </div>
         <div className="form-group">
-          <label>4:</label>
+          <label>
+            <h6>4. Internal exam / Evaluation duties for continuous assessment.
+              Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each of Assignment test, home assignment test, sessionals and exams.
+            </h6>
+          </label>
           <table className="table">
             <thead>
               <tr>
@@ -618,7 +627,11 @@ function PartBAssistantProfessor({ openTab }) {
           <button type="button" onClick={handleAddRow4} className="btn btn-success">Add Row</button>
         </div>
         <div className="form-group">
-          <label>5:</label>
+          <label>
+            <h6>
+              5. Use of innovating teaching methodologies.
+            </h6>
+          </label>
           <table className="table">
             <thead>
               <tr>
@@ -676,7 +689,12 @@ function PartBAssistantProfessor({ openTab }) {
         </div>
        {/* Table 6 */}
         <div className="form-group">
-          <label>6:</label>
+          <label>
+            <h6>
+              6. Remedial/Bridge Courses /Content beyond syllabus/Design of new Experiments in the lab related to course outcomes
+              Any Two  will do ;   For each  activity per sem= 12.5 points.		Max Score 50		
+            </h6>
+          </label>
           <table className="table">
             <thead>
               <tr>
@@ -757,7 +775,11 @@ function PartBAssistantProfessor({ openTab }) {
         </div>
                         {/* Table 7 */}
           <div className="form-group">
-            <label>7:</label>
+            <label>
+              <h6>
+                7. Counseling with proper records.
+              </h6>
+            </label>
             <table className="table">
               <thead>
                 <tr>
@@ -823,7 +845,13 @@ function PartBAssistantProfessor({ openTab }) {
           </div>
                   {/* Table 8 */}
           <div className="form-group">
-            <label>8:</label>
+            <label>
+              <h6>
+                8. Percentage of passes:
+                (&Lessthan 55%=10, 56-65%=30, 66-75%=40, 76-85%=60,&Greaterthan 85%=70 points)Max Score
+                70.	
+              </h6>
+            </label>
             <table className="table">
               <thead>
                 <tr>
@@ -893,7 +921,13 @@ function PartBAssistantProfessor({ openTab }) {
           </div>
                     {/* Table 9 */}
           <div className="form-group">
-            <label>9:</label>
+            <label>
+              <h6>
+                9. Student feedback on teaching(Subject wise and semester wise including Lab)
+                (Greaterthan 3.0=10, 3.0-3.5=30, 3.5-4.0=40, 4.0-4.5=50, 4.5-5.0=60 points) 
+
+              </h6>
+            </label>
             <table className="table">
               <thead>
                 <tr>
@@ -949,7 +983,14 @@ function PartBAssistantProfessor({ openTab }) {
           </div>
                     {/* Table 10 */}
           <div className="form-group">
-            <label>10:</label>
+            <label>
+              <h6>
+                10. (a)Project Guidance(Mini project/major project/seminar/term paper)
+                If Project work results in a paper publication, Score = 50 points(This publication should not be shown under Part - 3)
+                Project score  in  final exam gretaer than 90% or Excellent = 40;    81-90% or A+ =  35;  70 – 80% or A = 30; less than 70% = 25  points     
+                Add 5 points for every additional project batch handled subject to a maximum of 3 projects.
+              </h6>
+            </label>
             <table className="table">
               <thead>
                 <tr>
@@ -1005,7 +1046,11 @@ function PartBAssistantProfessor({ openTab }) {
           </div>
               {/* Table 11 */}
         <div className="form-group">
-          <label>11:</label>
+          <label>
+            <h6>
+              11. Feedback from students on project guidance after the Project Internal Evaluation. (Max 20)
+            </h6>
+          </label>
           <table className="table">
             <thead>
               <tr>
@@ -1062,11 +1107,15 @@ function PartBAssistantProfessor({ openTab }) {
         </div>
                 {/* Table 12 */}
         <div className="form-group">
-          <label>12:</label>
+          <label>
+            <h6>
+              12. (NPTEL/MIT/COURSERA/edx/UDACITY) lectures.    (60)
+            </h6>
+          </label>
           <table className="table">
             <thead>
               <tr>
-                <th colSpan="4">NPTEL/MIT/COURSERA/edx/UDACITY Lectures (60)</th>
+                <th colSpan="4">NPTEL/MIT/COURSERA/edx/UDACITY Lectures. (60)</th>
                 <th rowSpan="2">Actions</th>
               </tr>
               <tr>
@@ -1132,7 +1181,12 @@ function PartBAssistantProfessor({ openTab }) {
         </div>
                   {/* Table 13 */}
           <div className="form-group">
-            <label>13:</label>
+            <label>
+              <h6>
+                13. Involvement of Faculty in syllabus framing.   (30)
+	              (authorised by HoD)
+              </h6>
+            </label>
             <table className="table">
               <thead>
                 <tr>
