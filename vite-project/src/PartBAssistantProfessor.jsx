@@ -44,6 +44,11 @@ function PartBAssistantProfessor({ openTab }) {
   const [rows12, setRows12] = useState(initialRows12);
   const initialRows13 = [{ involvement: 'Involvement of Faculty in Syllabus Framing (30)', selfScore: '', dfac: '' }];
   const [rows13, setRows13] = useState(initialRows13);
+  const [isDataAvailable, setIsDataAvailable] = useState(false);
+  const [isDataAvailableTable6, setIsDataAvailableTable6] = useState(false);
+  const [isDataAvailableTable7, setIsDataAvailableTable7] = useState(false);
+  const [isDataAvailableTable11, setIsDataAvailableTable11] = useState(false);
+  const [isDataAvailableTable12, setIsDataAvailableTable12] = useState(false);
 
   useEffect(() => {
     const sem1Subjects = rows1.filter(row => row.sem === 'sem1').map(row => ({ subjectsSem1: row.subjectCode, passSem1: '' }));
@@ -278,6 +283,30 @@ function PartBAssistantProfessor({ openTab }) {
     newRows13[index][name] = value;
     setRows13(newRows13);
   };
+
+  const handleDataAvailabilityChange = (event) => {
+    setIsDataAvailable(event.target.value === "yes");
+  };
+
+  const handleDataAvailabilityChangeTable6 = (event) => {
+    setIsDataAvailableTable6(event.target.value === "yes");
+  };
+
+  const handleDataAvailabilityChangeTable7 = (event) => {
+    setIsDataAvailableTable7(event.target.value === "yes");
+  };
+
+  const handleDataAvailabilityChangeTable11 = (event) => {
+    setIsDataAvailableTable11(event.target.value === "yes");
+  };
+
+  const handleDataAvailabilityChangeTable12 = (event) => {
+    setIsDataAvailableTable12(event.target.value === "yes");
+  };
+
+
+
+
 
   const savePartBData = async () => {
     const partBData = {
@@ -627,159 +656,236 @@ function PartBAssistantProfessor({ openTab }) {
           <button type="button" onClick={handleAddRow4} className="btn btn-success">Add Row</button>
         </div>
         <div className="form-group">
-          <label>
-            <h6>
-              5. Use of innovating teaching methodologies.
-            </h6>
-          </label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Use of Innovating Teaching Methodology</th>
-                <th>Sem 1 Score</th>
-                <th>Sem 2 Score</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows5.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <select
-                      name="useOfInnovatingTeachingMethodology"
-                      value={row.useOfInnovatingTeachingMethodology}
-                      onChange={(e) => handleChange5(index, e)}
-                      className="form-control"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="ICT based Teaching Methodology over 2 semesters">ICT based Teaching Methodology over 2 semesters</option>
-                      <option value="PPT with Annotations and Assesment based on content">PPT with Annotations and Assesment based on content</option>
-                      <option value="Visuals">Visuals</option>
-                      <option value="MOODLE Usage">MOODLE Usage</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="sem1Score"
-                      value={row.sem1Score}
-                      onChange={(e) => handleChange5(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="sem2Score"
-                      value={row.sem2Score}
-                      onChange={(e) => handleChange5(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow5(index)} className="btn btn-danger">
-                      Delete Row
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" onClick={handleAddRow5} className="btn btn-success">Add Row</button>
+        <label>
+              <h6>
+                5. Use of innovating teaching methodologies.
+              </h6>
+            </label>
+          <label>Is Data Available for table 5?</label>
+          <div>
+            <input
+              type="radio"
+              id="dataAvailableYes"
+              name="dataAvailable"
+              value="yes"
+              checked={isDataAvailable === true}
+              onChange={handleDataAvailabilityChange}
+            />
+            <label htmlFor="dataAvailableYes">Yes</label>
+            <input
+              type="radio"
+              id="dataAvailableNo"
+              name="dataAvailable"
+              value="no"
+              checked={isDataAvailable === false}
+              onChange={handleDataAvailabilityChange}
+            />
+            <label htmlFor="dataAvailableNo">No</label>
+          </div>
         </div>
-       {/* Table 6 */}
-        <div className="form-group">
-          <label>
-            <h6>
-              6. Remedial/Bridge Courses /Content beyond syllabus/Design of new Experiments in the lab related to course outcomes
-              Any Two  will do ;   For each  activity per sem= 12.5 points.		Max Score 50		
-            </h6>
-          </label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Items</th>
-                <th>Semester1</th>
-                <th>Score</th>
-                <th>Semester2</th>
-                <th>Score</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows6.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <select
-                      name="item"
-                      value={row.item}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="Remedial">Remedial</option>
-                      <option value="Bridge">Bridge</option>
-                      <option value="Career Oriented">Career Oriented</option>
-                      <option value="Content Beyond Syllabus">Content Beyond Syllabus</option>
-                      <option value="Additional Experiments">Additional Experiments</option>
-                      <option value="Job Oriented Certificates">Job Oriented Certificates</option>
-                      <option value="AnyOther">Any Other</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="semester1"
-                      value={row.semester1}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="score1"
-                      value={row.score1}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="semester2"
-                      value={row.semester2}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="score2"
-                      value={row.score2}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow6(index)} className="btn btn-danger">
-                      Delete Row
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" onClick={handleAddRow6} className="btn btn-success">Add Row</button>
-        </div>
-                        {/* Table 7 */}
+
+        {isDataAvailable && (
           <div className="form-group">
-            <label>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Use of Innovating Teaching Methodology</th>
+                  <th>Sem 1 Score</th>
+                  <th>Sem 2 Score</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows5.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <select
+                        name="useOfInnovatingTeachingMethodology"
+                        value={row.useOfInnovatingTeachingMethodology}
+                        onChange={(e) => handleChange5(index, e)}
+                        className="form-control"
+                      >
+                        <option value="">Select an option</option>
+                        <option value="ICT based Teaching Methodology over 2 semesters">ICT based Teaching Methodology over 2 semesters</option>
+                        <option value="PPT with Annotations and Assesment based on content">PPT with Annotations and Assesment based on content</option>
+                        <option value="Visuals">Visuals</option>
+                        <option value="MOODLE Usage">MOODLE Usage</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="sem1Score"
+                        value={row.sem1Score}
+                        onChange={(e) => handleChange5(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="sem2Score"
+                        value={row.sem2Score}
+                        onChange={(e) => handleChange5(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => handleDeleteRow5(index)} className="btn btn-danger">
+                        Delete Row
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button type="button" onClick={handleAddRow5} className="btn btn-success">Add Row</button>
+          </div>
+        )}
+       {/* Table 6 */}
+       <div className="form-group">
+       <label>
+              <h6>
+                6. Remedial/Bridge Courses /Content beyond syllabus/Design of new Experiments in the lab related to course outcomes
+                Any Two will do; For each activity per sem= 12.5 points. Max Score 50
+              </h6>
+            </label>
+          <label>Is Data Available for Table 6?</label>
+          <div>
+            <input
+              type="radio"
+              id="dataAvailableTable6Yes"
+              name="dataAvailableTable6"
+              value="yes"
+              checked={isDataAvailableTable6 === true}
+              onChange={handleDataAvailabilityChangeTable6}
+            />
+            <label htmlFor="dataAvailableTable6Yes">Yes</label>
+            <input
+              type="radio"
+              id="dataAvailableTable6No"
+              name="dataAvailableTable6"
+              value="no"
+              checked={isDataAvailableTable6 === false}
+              onChange={handleDataAvailabilityChangeTable6}
+            />
+            <label htmlFor="dataAvailableTable6No">No</label>
+          </div>
+        </div>
+
+        {isDataAvailableTable6 && (
+          <div className="form-group">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Items</th>
+                  <th>Semester1</th>
+                  <th>Score</th>
+                  <th>Semester2</th>
+                  <th>Score</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows6.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <select
+                        name="item"
+                        value={row.item}
+                        onChange={(e) => handleChange6(index, e)}
+                        className="form-control"
+                      >
+                        <option value="">Select an option</option>
+                        <option value="Remedial">Remedial</option>
+                        <option value="Bridge">Bridge</option>
+                        <option value="Career Oriented">Career Oriented</option>
+                        <option value="Content Beyond Syllabus">Content Beyond Syllabus</option>
+                        <option value="Additional Experiments">Additional Experiments</option>
+                        <option value="Job Oriented Certificates">Job Oriented Certificates</option>
+                        <option value="AnyOther">Any Other</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="semester1"
+                        value={row.semester1}
+                        onChange={(e) => handleChange6(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="score1"
+                        value={row.score1}
+                        onChange={(e) => handleChange6(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="semester2"
+                        value={row.semester2}
+                        onChange={(e) => handleChange6(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="score2"
+                        value={row.score2}
+                        onChange={(e) => handleChange6(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => handleDeleteRow6(index)} className="btn btn-danger">
+                        Delete Row
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button type="button" onClick={handleAddRow6} className="btn btn-success">Add Row</button>
+          </div>
+        )}
+
+            {/* Table 7 */}
+          <div className="form-group">
+          <label>
               <h6>
                 7. Counseling with proper records.
               </h6>
             </label>
+          <label>Is Data Available for Table 7?</label>
+          <div>
+            <input
+              type="radio"
+              id="dataAvailableTable7Yes"
+              name="dataAvailableTable7"
+              value="yes"
+              checked={isDataAvailableTable7 === true}
+              onChange={handleDataAvailabilityChangeTable7}
+            />
+            <label htmlFor="dataAvailableTable7Yes">Yes</label>
+            <input
+              type="radio"
+              id="dataAvailableTable7No"
+              name="dataAvailableTable7"
+              value="no"
+              checked={isDataAvailableTable7 === false}
+              onChange={handleDataAvailabilityChangeTable7}
+            />
+            <label htmlFor="dataAvailableTable7No">No</label>
+          </div>
+        </div>
+        {isDataAvailableTable7 && (
+          <div className="form-group">
             <table className="table">
               <thead>
                 <tr>
@@ -843,83 +949,85 @@ function PartBAssistantProfessor({ openTab }) {
               </tbody>
             </table>
           </div>
-                  {/* Table 8 */}
-          <div className="form-group">
-            <label>
-              <h6>
-                8. Percentage of passes:
-                (&Lessthan 55%=10, 56-65%=30, 66-75%=40, 76-85%=60,&Greaterthan 85%=70 points)Max Score
-                70.	
-              </h6>
-            </label>
-            <table className="table">
-              <thead>
-                <tr>
-                  <th colSpan="2">Sem1</th>
-                  <th colSpan="2">Sem2</th>
-                  <th rowSpan="2">Avg%</th>
+        )}
+                {/* Table 8 */}
+        <div className="form-group">
+          <label>
+            <h6>
+              8. Percentage of passes:
+              (&Lessthan 55%=10, 56-65%=30, 66-75%=40, 76-85%=60,&Greaterthan 85%=70 points)Max Score
+              70.	
+            </h6>
+          </label>
+          <table className="table">
+            <thead>
+              <tr>
+                <th colSpan="2">Sem1</th>
+                <th colSpan="2">Sem2</th>
+                <th rowSpan="2">Avg%</th>
+              </tr>
+              <tr>
+                <th>Subjects</th>
+                <th>% Pass</th>
+                <th>Subjects</th>
+                <th>% Pass</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows8.map((row, index) => (
+                <tr key={index}>
+                  <td>
+                    <input
+                      type="text"
+                      name="subjectsSem1"
+                      value={row.subjectsSem1}
+                      onChange={(e) => handleChange8(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="passSem1"
+                      value={row.passSem1}
+                      onChange={(e) => handleChange8(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="subjectsSem2"
+                      value={row.subjectsSem2}
+                      onChange={(e) => handleChange8(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="passSem2"
+                      value={row.passSem2}
+                      onChange={(e) => handleChange8(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      name="avg"
+                      value={row.avg}
+                      onChange={(e) => handleChange8(index, e)}
+                      className="form-control"
+                    />
+                  </td>
                 </tr>
-                <tr>
-                  <th>Subjects</th>
-                  <th>% Pass</th>
-                  <th>Subjects</th>
-                  <th>% Pass</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows8.map((row, index) => (
-                  <tr key={index}>
-                    <td>
-                      <input
-                        type="text"
-                        name="subjectsSem1"
-                        value={row.subjectsSem1}
-                        onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        name="passSem1"
-                        value={row.passSem1}
-                        onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        name="subjectsSem2"
-                        value={row.subjectsSem2}
-                        onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        name="passSem2"
-                        value={row.passSem2}
-                        onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        name="avg"
-                        value={row.avg}
-                        onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-                    {/* Table 9 */}
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+            {/* Table 9 */}
           <div className="form-group">
             <label>
               <h6>
@@ -1046,139 +1154,188 @@ function PartBAssistantProfessor({ openTab }) {
           </div>
               {/* Table 11 */}
         <div className="form-group">
-          <label>
-            <h6>
-              11. Feedback from students on project guidance after the Project Internal Evaluation. (Max 20)
-            </h6>
-          </label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Batch No</th>
-                <th>Sem</th>
-                <th>Average Score</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows11.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="text"
-                      name="batchNo"
-                      value={row.batchNo}
-                      onChange={(e) => handleChange11(index, e)}
-                      className="form-control"
-                      readOnly
-                    />
-                  </td>
-                  <td>
-                    <select
-                      name="sem"
-                      value={row.sem}
-                      onChange={(e) => handleChange11(index, e)}
-                      className="form-control"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="sem1">Sem 1</option>
-                      <option value="sem2">Sem 2</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="averageScore"
-                      value={row.averageScore}
-                      onChange={(e) => handleChange11(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow11(index)} className="btn btn-danger">
-                      Delete Row
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" onClick={handleAddRow11} className="btn btn-success">Add Row</button>
+        <label>
+              <h6>
+                11. Feedback from students on project guidance after the Project Internal Evaluation. (Max 20)
+              </h6>
+            </label>
+          <label>Is Data Available for Table 11?</label>
+          <div>
+            <input
+              type="radio"
+              id="dataAvailableTable11Yes"
+              name="dataAvailableTable11"
+              value="yes"
+              checked={isDataAvailableTable11 === true}
+              onChange={handleDataAvailabilityChangeTable11}
+            />
+            <label htmlFor="dataAvailableTable11Yes">Yes</label>
+            <input
+              type="radio"
+              id="dataAvailableTable11No"
+              name="dataAvailableTable11"
+              value="no"
+              checked={isDataAvailableTable11 === false}
+              onChange={handleDataAvailabilityChangeTable11}
+            />
+            <label htmlFor="dataAvailableTable11No">No</label>
+          </div>
         </div>
+        {isDataAvailableTable11 && (
+          <div className="form-group">
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Batch No</th>
+                  <th>Sem</th>
+                  <th>Average Score</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows11.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="text"
+                        name="batchNo"
+                        value={row.batchNo}
+                        onChange={(e) => handleChange11(index, e)}
+                        className="form-control"
+                        readOnly
+                      />
+                    </td>
+                    <td>
+                      <select
+                        name="sem"
+                        value={row.sem}
+                        onChange={(e) => handleChange11(index, e)}
+                        className="form-control"
+                      >
+                        <option value="">Select an option</option>
+                        <option value="sem1">Sem 1</option>
+                        <option value="sem2">Sem 2</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="averageScore"
+                        value={row.averageScore}
+                        onChange={(e) => handleChange11(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => handleDeleteRow11(index)} className="btn btn-danger">
+                        Delete Row
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button type="button" onClick={handleAddRow11} className="btn btn-success">Add Row</button>
+          </div>
+        )}
                 {/* Table 12 */}
-        <div className="form-group">
-          <label>
-            <h6>
-              12. (NPTEL/MIT/COURSERA/edx/UDACITY) lectures.    (60)
-            </h6>
-          </label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th colSpan="4">NPTEL/MIT/COURSERA/edx/UDACITY Lectures. (60)</th>
-                <th rowSpan="2">Actions</th>
-              </tr>
-              <tr>
-                <th>Course Type</th>
-                <th>Attendance</th>
-                <th>End Course Exam Marks</th>
-                <th>Score</th>
-               
-              </tr>
-            </thead>
-            <tbody>
-              {rows12.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <select
-                      name="courseType"
-                      value={row.courseType}
-                      onChange={(e) => handleChange12(index, e)}
-                      className="form-control"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="Full Course with Online Exam">Full Course with Online Exam</option>
-                      <option value="Teleconference Mode or Course without Exam">Teleconference Mode or Course without Exam</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="attendance"
-                      value={row.attendance}
-                      onChange={(e) => handleChange12(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="endCourseExamMarks"
-                      value={row.endCourseExamMarks}
-                      onChange={(e) => handleChange12(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="score"
-                      value={row.score}
-                      readOnly
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow12(index)} className="btn btn-danger">
-                      Delete Row
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" onClick={handleAddRow12} className="btn btn-success">Add Row</button>
-        </div>
+                <div className="form-group">
+                <label>
+                <h6>
+                  12. (NPTEL/MIT/COURSERA/edx/UDACITY) lectures. (60)
+                </h6>
+              </label>
+            <label>Is Data Available for Table 12?</label>
+            <div>
+              <input
+                type="radio"
+                id="dataAvailableTable12Yes"
+                name="dataAvailableTable12"
+                value="yes"
+                checked={isDataAvailableTable12 === true}
+                onChange={handleDataAvailabilityChangeTable12}
+              />
+              <label htmlFor="dataAvailableTable12Yes">Yes</label>
+              <input
+                type="radio"
+                id="dataAvailableTable12No"
+                name="dataAvailableTable12"
+                value="no"
+                checked={isDataAvailableTable12 === false}
+                onChange={handleDataAvailabilityChangeTable12}
+              />
+              <label htmlFor="dataAvailableTable12No">No</label>
+            </div>
+          </div>
+          {isDataAvailableTable12 && (
+            <div className="form-group">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th colSpan="4">NPTEL/MIT/COURSERA/edx/UDACITY Lectures. (60)</th>
+                    <th rowSpan="2">Actions</th>
+                  </tr>
+                  <tr>
+                    <th>Course Type</th>
+                    <th>Attendance</th>
+                    <th>End Course Exam Marks</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows12.map((row, index) => (
+                    <tr key={index}>
+                      <td>
+                        <select
+                          name="courseType"
+                          value={row.courseType}
+                          onChange={(e) => handleChange12(index, e)}
+                          className="form-control"
+                        >
+                          <option value="">Select an option</option>
+                          <option value="Full Course with Online Exam">Full Course with Online Exam</option>
+                          <option value="Teleconference Mode or Course without Exam">Teleconference Mode or Course without Exam</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          name="attendance"
+                          value={row.attendance}
+                          onChange={(e) => handleChange12(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          name="endCourseExamMarks"
+                          value={row.endCourseExamMarks}
+                          onChange={(e) => handleChange12(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="number"
+                          name="score"
+                          value={row.score}
+                          readOnly
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <button type="button" onClick={() => handleDeleteRow12(index)} className="btn btn-danger">
+                          Delete Row
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <button type="button" onClick={handleAddRow12} className="btn btn-success">Add Row</button>
+            </div>
+          )}
                   {/* Table 13 */}
           <div className="form-group">
             <label>
