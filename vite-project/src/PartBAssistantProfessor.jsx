@@ -104,12 +104,36 @@ function PartBAssistantProfessor({ openTab }) {
     setRows1(newRows1);
   };
 
-  const handleChange1 = (index, event) => {
+   const handleChange1 = (index, event) => {
     const { name, value } = event.target;
     const newRows1 = [...rows1];
     newRows1[index][name] = value;
     setRows1(newRows1);
   };
+    const validate1Form = () => {
+      let isValid = true;
+      const regex = /^[0-9A-Z]{7}$/;
+  
+      // Validate rows1 subject codes
+      rows1.forEach(row => {
+        if (!regex.test(row.subjectCode)) {
+          isValid = false;
+        }
+      });
+  
+      if (!isValid) {
+        alert('Invalid subject code format. Please ensure it matches the required pattern.');
+      }
+  
+      // Additional validation logic for other rows
+      if (rows1.length === 0) {
+        isValid = false;
+        alert('Please fill all the required fields.');
+      }
+  
+      return isValid;
+    };
+  
 
   const handleChange2 = (index, event, subjectCode, field) => {
     const { checked } = event.target;
