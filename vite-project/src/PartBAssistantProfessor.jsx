@@ -429,7 +429,7 @@ function PartBAssistantProfessor({ openTab }) {
 
   return (
     <div className="container">
-      <h2 className="my-4">Part B - Qualification</h2>
+      <h5 className="my-4">Curriculum - Teaching & Learning Process of Assistant Professor</h5>
       <form>
       <div className="form-group">
         <fieldset>
@@ -1456,9 +1456,9 @@ function PartBAssistantProfessor({ openTab }) {
         <div className="tab-buttons">
           <button type="button" onClick={savePartBData} className="btn btn-primary">Save</button>
           <span style={{ margin: '0 10px' }}></span> {/* Gap */}
-          <button type="button" onClick={() => openTab('PartA')} className="btn btn-secondary">Previous</button>
+          <button type="button" onClick={() => openTab('Part-A')} className="btn btn-secondary">Previous</button>
           <span style={{ margin: '0 10px' }}></span> {/* Gap */}
-          <button type="button" onClick={() => openTab('PartC')} className="btn btn-primary">Next</button>
+          <button type="button" onClick={() => openTab('Part-C')} className="btn btn-primary">Next</button>
         </div>
       </form>
     </div>

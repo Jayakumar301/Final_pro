@@ -253,6 +253,7 @@ fieldset > * {
 
 .progress-step.completed ~ .progress-line {
   background-color: #007bff;
+  color: #0056b3
 }
 
 .progress-step-icon {

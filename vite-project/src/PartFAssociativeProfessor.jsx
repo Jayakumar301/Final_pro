@@ -11,9 +11,9 @@ function PartFAssociativeProfessor({ openTab }) {
 
   return (
     <div>
-      <h2>Part F: Associative Professor</h2>
+<h5>Annual Confidential Report to be filled in by the HOD for Associative Professor</h5>
       <p>This is Part F content for Associative Professor.</p>
-      <button type="button" onClick={() => openTab('PartE')}>Previous</button>
+      <button type="button" onClick={() => openTab('Part-E')}>Previous</button>
       <span style={{ margin: '0 10px' }}></span> {/* Gap */}
       <button type="button" onClick={finishForm}>Finish</button>
     </div>

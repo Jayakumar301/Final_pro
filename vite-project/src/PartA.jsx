@@ -130,7 +130,7 @@ function PartA({ category, openTab }) {
 
   return (
     <div>
-      <h2>Part A - Personal Information</h2>
+      <h2>Personal Information</h2>
       <form>
         <fieldset>
           <legend>Personal Details</legend>
@@ -400,7 +400,7 @@ function PartA({ category, openTab }) {
           <span style={{ margin: '0 10px' }}></span> {/* Gap */}
           <button type="button" onClick={() => {
             if (validateForm()) {
-              openTab('PartB');
+              openTab('Part-B');
             }
           }}>Next</button>
         </div>

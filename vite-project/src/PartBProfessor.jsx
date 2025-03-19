@@ -3,13 +3,13 @@ import React from 'react';
 function PartBProfessor({ openTab }) {
   return (
     <div>
-      <h2>Part B - Professor</h2>
+      <h5>Curriculum - Teaching & Learning Process of Professor</h5>
       <form>
         {/* Removed Research and Publications, Projects, and Conferences Attended sections */}
         <div className="tab-buttons">
-          <button type="button" onClick={() => openTab('PartA')}>Previous</button>
+          <button type="button" onClick={() => openTab('Part-A')}>Previous</button>
           <span style={{ margin: '0 10px' }}></span> {/* Gap */}
-          <button type="button" onClick={() => openTab('PartC')}>Next</button>
+          <button type="button" onClick={() => openTab('Part-C')}>Next</button>
         </div>
       </form>
     </div>

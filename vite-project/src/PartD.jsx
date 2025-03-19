@@ -22,7 +22,7 @@ function PartD({ openTab }) {
   };
 
   return (
-    <div className="PartD">
+    <div className="Part-D">
       {renderComponent()}
     </div>
   );
