@@ -12,7 +12,9 @@ function PartA({ category, openTab }) {
     employeeId: '',
     appointmentDate: '',
     address: '',
-    contact: ''
+    contact: '',
+    gmail: '',
+    dob: ''
   });
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(true);
@@ -66,10 +68,16 @@ function PartA({ category, openTab }) {
     });
 
     // Validate employeeId format
-    const employeeIdRegex = /^(BEC|bec|Bec)\d{5}$/;
+    const employeeIdRegex = /^(BEC|bec|Bec)\d{6}$/;
     if (!employeeIdRegex.test(formData.employeeId)) {
       newErrors.employeeId = 'Please enter a valid Identification Number';
     }
+
+     // Validate Gmail format
+  const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+  if (!gmailRegex.test(formData.gmail)) {
+    newErrors.gmail = 'Please enter a valid Gmail address';
+  }
 
     // Validate education details
     educationRows.forEach((row, index) => {
@@ -218,6 +226,25 @@ function PartA({ category, openTab }) {
 
           <div>
             <label
+              htmlFor="dob"
+              style={{ color: errors.dob ? 'red' : 'black' }}
+            >
+              Date of Birth:
+            </label>
+            <input
+              type="date"
+              id="dob"
+              name="dob"
+              value={formData.dob}
+              onChange={handleInputChange}
+              className={`form-control ${errors.dob ? 'is-invalid' : ''}`}
+              required
+            />
+            {errors.dob && <span className="error-message">{errors.dob}</span>}
+          </div>
+
+          <div>
+            <label
               htmlFor="address"
               style={{ color: errors.address ? 'red' : 'black' }}
             >
@@ -249,6 +276,23 @@ function PartA({ category, openTab }) {
               required
             />
             {errors.contact && <span className="error-message">{errors.contact}</span>}
+          </div>
+          <div>
+            <label
+              htmlFor="gmail"
+              style={{ color: errors.gmail ? 'red' : 'black' }}
+            >
+              Gmail:
+            </label>
+            <input
+              type="email"
+              id="gmail"
+              name="gmail"
+              value={formData.gmail}
+              onChange={handleInputChange}
+              required
+            />
+            {errors.gmail && <span className="error-message">{errors.gmail}</span>}
           </div>
         </fieldset>
 

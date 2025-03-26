@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
 function PartBAssistantProfessor({ openTab }) {
-  const initialRows1 = [{ subjectType: '', subjectCode: '', weeklyLoad: '', sem: '', subjectTitle: '', lectures: '' }];
+  const initialRows1 = [{ 
+    subjectType: '', 
+    subjectCode: '', 
+    weeklyLoad: '', 
+    sem: '', 
+    subjectTitle: '', 
+    lectures: '', 
+    subjectCodeError: false, 
+    weeklyLoadError: false, 
+    semError: false, 
+    subjectTitleError: false, 
+    lecturesError: false 
+  }];
+
   const initialRows2 = [
     { courseFilePoints: 'SyllabusPage', weightage: '1pointperCourse', checklist: {} },
     { courseFilePoints: 'LessonPlan', weightage: '1PointPerCourse', checklist: {} },
@@ -50,7 +63,6 @@ function PartBAssistantProfessor({ openTab }) {
   const [isDataAvailableTable11, setIsDataAvailableTable11] = useState(false);
   const [isDataAvailableTable12, setIsDataAvailableTable12] = useState(false);
 
-  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const sem1Subjects = rows1.filter(row => row.sem === 'sem1').map(row => ({ subjectsSem1: row.subjectCode, passSem1: '' }));
@@ -111,33 +123,20 @@ function PartBAssistantProfessor({ openTab }) {
     const { name, value } = event.target;
     const newRows1 = [...rows1];
     newRows1[index][name] = value;
-    newRows1[index][`${name}Error`] = !value; // Update error state based on input value
-    setRows1(newRows1);
-  };
-  const validate1Form = () => {
-    let isValid = true;
-    const newRows1 = [...rows1];
-
-    rows1.forEach((row, index) => {
-      Object.keys(row).forEach(key => {
-        if (!row[key]) {
-          isValid = false;
-          newRows1[index][`${key}Error`] = true;
-        } else {
-          newRows1[index][`${key}Error`] = false;
-        }
-      });
-    });
-
-    setRows1(newRows1);
-
-    if (!isValid) {
-      alert('Please fill all the required fields.');
+  
+    // Clear errors when values are entered
+    if (name === 'subjectType' && (value === 'Theory' || value === 'Lab')) {
+      newRows1[index].subjectCodeError = !newRows1[index].subjectCode;
+      newRows1[index].weeklyLoadError = !newRows1[index].weeklyLoad;
+      newRows1[index].semError = !newRows1[index].sem;
+      newRows1[index].subjectTitleError = !newRows1[index].subjectTitle;
+      newRows1[index].lecturesError = !newRows1[index].lectures;
+    } else {
+      newRows1[index][`${name}Error`] = !value;
     }
-
-    return isValid;
+  
+    setRows1(newRows1);
   };
-
 
   const handleChange2 = (index, event, subjectCode, field) => {
     const { checked } = event.target;
@@ -253,21 +252,8 @@ function PartBAssistantProfessor({ openTab }) {
     setRows10(newRows10);
   };
 
-  const handleAddRow11 = () => {
-    setRows11([...rows11, { batchNo: '', sem: '', averageScore: '' }]);
-  };
+  
 
-  const handleDeleteRow11 = (index) => {
-    const newRows11 = rows11.filter((row, i) => i !== index);
-    setRows11(newRows11);
-  };
-
-  const handleChange11 = (index, event) => {
-    const { name, value } = event.target;
-    const newRows11 = [...rows11];
-    newRows11[index][name] = value;
-    setRows11(newRows11);
-  };
 
   const handleAddRow12 = () => {
     setRows12([...rows12, { courseType: '', attendance: '', endCourseExamMarks: '', score: '' }]);
@@ -351,23 +337,73 @@ function PartBAssistantProfessor({ openTab }) {
   const validateForm = (rows, setRows) => {
     let isValid = true;
     const newRows = [...rows];
-
+  
     rows.forEach((row, index) => {
-      Object.keys(row).forEach(key => {
-        if (!row[key]) {
+      const { subjectType, subjectCode, weeklyLoad, sem, subjectTitle, lectures } = row;
+      const isTheoryOrLab = subjectType === 'Theory' || subjectType === 'Lab';
+  
+      // Conditional validation
+      if (isTheoryOrLab) {
+        if (!subjectCode) {
           isValid = false;
-          newRows[index][`${key}Error`] = true;
+          newRows[index].subjectCodeError = true;
         } else {
-          newRows[index][`${key}Error`] = false;
+          newRows[index].subjectCodeError = false;
         }
-      });
+  
+        if (!weeklyLoad) {
+          isValid = false;
+          newRows[index].weeklyLoadError = true;
+        } else {
+          newRows[index].weeklyLoadError = false;
+        }
+  
+        if (!sem) {
+          isValid = false;
+          newRows[index].semError = true;
+        } else {
+          newRows[index].semError = false;
+        }
+  
+        if (!subjectTitle) {
+          isValid = false;
+          newRows[index].subjectTitleError = true;
+        } else {
+          newRows[index].subjectTitleError = false;
+        }
+  
+        if (!lectures) {
+          isValid = false;
+          newRows[index].lecturesError = true;
+        } else {
+          newRows[index].lecturesError = false;
+        }
+      } else {
+        // Turn off validation for other subject types
+        newRows[index].subjectCodeError = false;
+        newRows[index].weeklyLoadError = false;
+        newRows[index].semError = false;
+        newRows[index].subjectTitleError = false;
+        newRows[index].lecturesError = false;
+      }
     });
-
+  
     setRows(newRows);
-
+  
     return isValid;
   };
 
+  const handleCheckboxChange = (rowIndex, subjectCode) => (event) => {
+    const { checked } = event.target;
+    const newRows2 = [...rows2];
+    if (!newRows2[rowIndex].checklist) {
+      newRows2[rowIndex].checklist = {};
+    }
+    newRows2[rowIndex].checklist[subjectCode] = checked;
+    setRows2(newRows2);
+  };
+
+  
 
 
 
@@ -450,82 +486,77 @@ function PartBAssistantProfessor({ openTab }) {
               </tr>
             </thead>
             <tbody>
-              {rows1.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <select
-                      name="subjectType"
-                      value={row.subjectType}
-                      onChange={(e) => handleChange1(index, e)}
-                      className={`form-control ${row.subjectTypeError ? 'is-invalid' : ''}`}
-                    >
-                      <option value="">Select an option</option>
-                      <option value="Theory">Theory</option>
-                      <option value="Lab">Lab</option>
-                      <option value="Tutorial">Tutorial</option>
-                      <option value="TermPaper">Term Paper</option>
-                      <option value="MiniProject">Mini Project</option>
-                      <option value="MajorProject">Major Project</option>
-                      <option value="Seminar">Seminar</option>
-                      <option value="AnyOther">Any Other</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="subjectCode"
-                      value={row.subjectCode}
-                      onChange={(e) => handleChange1(index, e)}
-                      className={`form-control ${row.subjectCodeError ? 'is-invalid' : ''}`}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="weeklyLoad"
-                      value={row.weeklyLoad}
-                      onChange={(e) => handleChange1(index, e)}
-                      className={`form-control ${row.weeklyLoadError ? 'is-invalid' : ''}`}
-                    />
-                  </td>
-                  <td>
-                    <select
-                      name="sem"
-                      value={row.sem}
-                      onChange={(e) => handleChange1(index, e)}
-                      className={`form-control ${row.semError ? 'is-invalid' : ''}`}
-                    >
-                      <option value="">Select an option</option>
-                      <option value="sem1">Sem 1</option>
-                      <option value="sem2">Sem 2</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="subjectTitle"
-                      value={row.subjectTitle}
-                      onChange={(e) => handleChange1(index, e)}
-                      className={`form-control ${row.subjectTitleError ? 'is-invalid' : ''}`}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="lectures"
-                      value={row.lectures}
-                      onChange={(e) => handleChange1(index, e)}
-                      className={`form-control ${row.lecturesError ? 'is-invalid' : ''}`}
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow1(index)} className="btn btn-danger">
-                      Delete Row
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            {rows1.map((row, index) => (
+              <tr key={index}>
+                <td>
+                  <select
+                    name="subjectType"
+                    value={row.subjectType}
+                    onChange={(e) => handleChange1(index, e)}
+                    className="form-control"
+                  >
+                    <option value="">Select</option>
+                    <option value="Theory">Theory</option>
+                    <option value="Lab">Lab</option>
+                    <option value="Tutorial">Tutorial</option>
+                    <option value="Mini Project">Mini Project</option>
+                    <option value="Major Project">Major Project</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="subjectCode"
+                    value={row.subjectCode}
+                    onChange={(e) => handleChange1(index, e)}
+                    className={`form-control ${row.subjectCodeError ? 'is-invalid' : ''}`}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="weeklyLoad"
+                    value={row.weeklyLoad}
+                    onChange={(e) => handleChange1(index, e)}
+                    className={`form-control ${row.weeklyLoadError ? 'is-invalid' : ''}`}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="sem"
+                    value={row.sem}
+                    onChange={(e) => handleChange1(index, e)}
+                    className={`form-control ${row.semError ? 'is-invalid' : ''}`}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="subjectTitle"
+                    value={row.subjectTitle}
+                    onChange={(e) => handleChange1(index, e)}
+                    className={`form-control ${row.subjectTitleError ? 'is-invalid' : ''}`}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="lectures"
+                    value={row.lectures}
+                    onChange={(e) => handleChange1(index, e)}
+                    className={`form-control ${row.lecturesError ? 'is-invalid' : ''}`}
+                  />
+                </td>
+                <td>
+                  <button type="button" onClick={() => handleDeleteRow1(index)} className="btn btn-danger">
+                    Delete Row
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
           </table>
           <button type="button" onClick={handleAddRow1} className="btn btn-success">Add Row</button>
         </fieldset>
@@ -533,47 +564,50 @@ function PartBAssistantProfessor({ openTab }) {
        
         {/* Table 2*/ }
         <div className="form-group">
-          <fieldset>
-          <label><h6>2. Course files with the following data have been prepared by me (tick for compliance and Nil for Non-Compliance). Neatly filed course files (One course file per section/course)</h6></label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Course File Points (Weightage)</th>
-                {subjectCodes.map(subjectCode => (
-                  <th key={subjectCode}>{subjectCode}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows2.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="text"
-                      name="courseFilePoints"
-                      value={`${row.courseFilePoints} (${row.weightage})`}
-                      onChange={(e) => handleChange(index, e, setRows2, rows2)}
-                      className="form-control"
-                      readOnly
-                    />
-                  </td>
-                  {subjectCodes.map(subjectCode => (
-                    <td key={subjectCode} className="text-center">
-                      <input
-                        type="checkbox"
-                        name="checklist"
-                        checked={row.checklist[subjectCode] || false}
-                        onChange={(e) => handleChange(index, e, setRows2, rows2)}
-                        className="form-check-input"
-                      />
-                    </td>
+            <fieldset>
+              <label>
+                <h6>
+                  2. Course files with the following data have been prepared by me (tick for compliance and Nil for Non-Compliance). Neatly filed course files (One course file per section/course) are available in the Department.
+                </h6>
+              </label>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Course File Points (Weightage)</th>
+                    {subjectCodes.map((subjectCode) => (
+                      <th key={subjectCode}>{subjectCode}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows2.map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                      <td>
+                        <input
+                          type="text"
+                          name="courseFilePoints"
+                          value={`${row.courseFilePoints} (${row.weightage})`}
+                          className="form-control"
+                          readOnly
+                        />
+                      </td>
+                      {subjectCodes.map((subjectCode) => (
+                        <td key={subjectCode} className="text-center">
+                          <input
+                            type="checkbox"
+                            name="checklist"
+                            checked={row.checklist[subjectCode] || false}
+                            onChange={handleCheckboxChange(rowIndex, subjectCode)}
+                            className="form-check-input"
+                          />
+                        </td>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          </fieldset>
-        </div>
+                </tbody>
+              </table>
+            </fieldset>
+          </div>
 
        {/* Table 3 */}
        <div className="form-group">
