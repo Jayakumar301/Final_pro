@@ -279,13 +279,13 @@ function PartCAssistantProfessor({ openTab }) {
       <h5>Co-Curricular Teaching& Learning Process of Assistant Professor</h5>
       <p>This is Part C content for Assistant Professor.</p>
       <fieldset>
-        <legend>6. Student Techno fest (AFOSEC)/Engineers day or other major events</legend>
-        <p>
+        <legend><h5>6. Student Techno fest (AFOSEC)/Engineers day or other major events</h5></legend>
+        <h6>
           mention number of events here like 1,2,3…. Over previous two semesters max (20), Department coordinators(20), others (5), Event coordinators(10). Enclose details clearly certified and authenticated by HOD. (Put in your Co-Curricular file – see note above)
           Max Score 20
           *As defined by Chairman, CAS committee and approved by the Principal
           Self Score
-        </p>
+        </h6>
         <label>Is data available?</label>
         <select onChange={handleDataAvailableChange6}>
           <option value="No">No</option>
@@ -344,8 +344,8 @@ function PartCAssistantProfessor({ openTab }) {
         )}
       </fieldset>
       <fieldset>
-        <legend>7. Student innovations; Guidance</legend>
-        <p>
+        <legend><h5>7. Student innovations; Guidance</h5></legend>
+        <h6>
           Max Score 20
           (a) Participation in state/national events with models (Participation -10 points, First 3 Prizes winning – 20 points; other Prizes – 15 points)
           (b) Motivating Students 10 Points
@@ -353,7 +353,7 @@ function PartCAssistantProfessor({ openTab }) {
           OR
           (ii) Brain teasing / Brain storming Sessions - 3 points each session with participation of at least 10 students with the participation of HoD and with record authenticated by HOD leading to application of at least 2 Minor/Major projects or one Patent application within the Academic year.
           Give details with dates below:
-        </p>
+        </h6>
         <label>Is data available?</label>
         <select onChange={handleDataAvailableChange7}>
           <option value="No">No</option>
@@ -416,12 +416,12 @@ function PartCAssistantProfessor({ openTab }) {
 
         {/*table 8 */}
       <fieldset>
-      <legend>8. Consultancy</legend>
-      <p>
+      <legend><h5>8. Consultancy</h5></legend>
+      <h6>
         (participation) Give details with dates below authenticated by HOD: Include this in Co-Curricular File.
         Less than Rs. 25000/- 05 points ; 25000 to 50000 – 10 points ; 50000 to 100000 – 30 points ; greater than 100000 – 40 points
         Max Score 40
-      </p>
+      </h6>
       <label>Is data available?</label>
       <select onChange={handleDataAvailableChange8}>
         <option value="No">No</option>
@@ -481,12 +481,12 @@ function PartCAssistantProfessor({ openTab }) {
 
           {/*table 9 */}
       <fieldset>
-        <legend>9. Arranging Internships for students with proof</legend>
-        <p>
+        <legend><h5>9. Arranging Internships for students with proof</h5></legend>
+        <h6>
           At Industry/ R & D Organisations per each student = 5 points
           Identification of New Industry / Company / R&D Lab =10 points per industry
           Max Score 30
-        </p>
+        </h6>
         <label>Is data available?</label>
         <select onChange={handleDataAvailableChange9}>
           <option value="No">No</option>
@@ -545,15 +545,15 @@ function PartCAssistantProfessor({ openTab }) {
 
        {/*table 10 */}
        <fieldset>
-        <legend>10. Knowledge sharing with other departments</legend>
-        <p>
+        <legend><h5>10. Knowledge sharing with other departments</h5></legend>
+        <h6>
           Short term training courses both theoretical and experimental for faculty and students of other departments in our college:
           1-3 Days – 7.5 points; 4-6 days – 15 points; 7-10 days – 20 points; gretaer than 10 days – 30 points.
           Student/faculty feedback to be taken:
           (&lt;3.0=0, 3.0-3.5=50%, 3.6-4.0=70%, 4.0-4.5=90%, 4.5-5.0=100% of the above points points)
           HOD to certify
           Max=30 points
-        </p>
+        </h6>
         <label>Is data available?</label>
         <select onChange={handleDataAvailableChange10}>
           <option value="No">No</option>
