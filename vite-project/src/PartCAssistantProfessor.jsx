@@ -339,7 +339,7 @@ function PartCAssistantProfessor({ openTab }) {
                 ))}
               </tbody>
             </table>
-            <button type="button" onClick={handleAddRow6}>Add Row</button>
+            <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
           </div>
         )}
       </fieldset>
@@ -409,7 +409,7 @@ function PartCAssistantProfessor({ openTab }) {
                 ))}
               </tbody>
             </table>
-            <button type="button" onClick={handleAddRow7}>Add Row</button>
+            <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
           </div>
         )}
       </fieldset>
@@ -429,7 +429,7 @@ function PartCAssistantProfessor({ openTab }) {
       </select>
       {dataAvailable8 && (
         <div>
-          <table>
+          <table className='table'>
             <thead>
               <tr>
                 <th>S.No.</th>
@@ -473,7 +473,7 @@ function PartCAssistantProfessor({ openTab }) {
               ))}
             </tbody>
           </table>
-          <button type="button" onClick={handleAddRow8}>Add Row</button>
+          <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
         </div>
       )}
     </fieldset>
@@ -538,11 +538,11 @@ function PartCAssistantProfessor({ openTab }) {
                 ))}
               </tbody>
             </table>
-            <button type="button" onClick={handleAddRow9}>Add Row</button>
+            <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
           </div>
         )}
       </fieldset>
-      
+
        {/*table 10 */}
        <fieldset>
         <legend>10. Knowledge sharing with other departments</legend>
@@ -610,7 +610,7 @@ function PartCAssistantProfessor({ openTab }) {
                 ))}
               </tbody>
             </table>
-            <button type="button" onClick={handleAddRow10}>Add Row</button>
+            <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
           </div>
         )}
       </fieldset>
