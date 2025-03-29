@@ -2,7 +2,7 @@
 
 body {
   background: #f8f9fa;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .mytabs {
@@ -11,7 +11,7 @@ body {
   max-width: 900px;
   margin: 50px auto;
   padding: 25px;
-  background: hsl(177, 94%, 51%);
+  background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -31,11 +31,11 @@ body {
 }
 
 .mytabs label.active {
-  background: #f0f5fa;
+  background: #d4edda; /* Light dim green color */
   color: #212529;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid hsla(210, 58%, 65%, 0.92);
+  border: 1px solid #c3e6cb; /* Light dim green border */
   border-bottom: none;
 }
 
@@ -53,7 +53,7 @@ body {
 }
 
 .mytabs .tab.active-tab {
-  background: #e9ecef;
+  background: #d4edda; /* Light dim green color */
   color: #212529;
   display: block;
 }
@@ -68,11 +68,11 @@ body {
 }
 
 .mytabs input[type="radio"]:checked + label {
-  background: #e9ecef;
+  background: #d4edda; /* Light dim green color */
   color: #212529;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid #ced4da;
+  border: 1px solid #c3e6cb; /* Light dim green border */
   border-bottom: none;
 }
 
@@ -196,7 +196,6 @@ fieldset {
   flex-direction: column;
   gap: 5px;
 }
-
 
 p {
   font-size: 1em;
