@@ -273,6 +273,25 @@ function PartCAssistantProfessor({ openTab }) {
   };
 
 
+  const handleSave = async () => {
+    const partCData = {
+      rows6,
+      rows7,
+      rows8,
+      rows9,
+      rows10
+    };
+    try {
+      const response = await axios.post('/save-partc-data', partCData);
+      alert(response.data.message);
+    } catch (error) {
+      alert('Error saving data');
+    }
+  };
+
+  
+
+
 
   return (
     <div>
@@ -615,6 +634,8 @@ function PartCAssistantProfessor({ openTab }) {
         )}
       </fieldset>
       <button type="button" onClick={() => openTab('Part-B')} className="btn btn-secondary">Previous</button>
+      <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+      <button type="button" onClick={handleSave} style={{ backgroundColor: '#2896a7' }}>Save</button>
       <span style={{ margin: '0 10px' }}></span> {/* Gap */}
       <button type="button" onClick={() => openTab('Part-D')}>Next</button>
     </div>

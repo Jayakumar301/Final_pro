@@ -51,6 +51,17 @@ function PartFAssistantProfessor({ openTab }) {
     navigate('/');
   };
 
+  const handleSave = async () => {
+    const partFData = { rows };
+    try {
+      const response = await axios.post('/save-partf-data', partFData);
+      alert(response.data.message);
+    } catch (error) {
+      alert('Error saving data');
+    }
+  };
+
+
   return (
     <div>
       <h5>Annual Confidential Report to be filled in by the HOD for Assistant Professor</h5>
@@ -135,6 +146,8 @@ function PartFAssistantProfessor({ openTab }) {
       <p>Principal’s Remarks:</p>
 
       <button type="button" onClick={() => openTab('Part-E')}>Previous</button>
+      <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+      <button type="button" onClick={handleSave} style={{ backgroundColor: '#2896a7' }}>Save</button>
       <span style={{ margin: '0 10px' }}></span> {/* Gap */}
       <button type="button" onClick={finishForm}>Finish</button>
     </div>

@@ -421,6 +421,26 @@ const handleDataAvailableChange8 = (event) => {
   const totalScore8 = rows8.reduce((acc, row) => acc + (parseInt(row.score, 10) || 0), 0);
 
 
+  const handleSave = async () => {
+    const partDData = {
+      rows1,
+      rows2,
+      rows3,
+      rows4,
+      rows5,
+      rows6,
+      rows7,
+      rows8
+    };
+    try {
+      const response = await axios.post('/save-partd-data', partDData);
+      alert(response.data.message);
+    } catch (error) {
+      alert('Error saving data');
+    }
+  };
+
+
   return (
     <div>
       <h4>R &D RELATED CONTRIBUTIONS</h4>
@@ -1005,6 +1025,8 @@ const handleDataAvailableChange8 = (event) => {
       </fieldset>
 
       <button type="button" onClick={() => openTab('Part-C')} className="btn btn-secondary">Previous</button>
+      <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+      <button type="button" onClick={handleSave} style={{ backgroundColor: '#2896a7' }}>Save</button>
       <span style={{ margin: '0 10px' }}></span> {/* Gap */}
       <button type="button" onClick={() => openTab('Part-E')}>Next</button>
     </div>

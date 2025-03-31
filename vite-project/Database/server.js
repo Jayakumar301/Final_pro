@@ -47,9 +47,52 @@ const partBDataSchema = new mongoose.Schema({
   rows13: Array
 });
 
+// Create schema for PartC data (adjust fields as needed)
+const partCDataSchema = new mongoose.Schema({
+  rows6: Array,
+  rows7: Array,
+  rows8: Array,
+  rows9: Array,
+  rows10: Array       // define your fields
+});
+
+// Create schema for PartD data (adjust fields as needed)
+const partDDataSchema = new mongoose.Schema({
+  // define your fields
+  rows1: Array,
+  rows2: Array,
+  rows3: Array,
+  rows4: Array,
+  rows5: Array,
+  rows6: Array,
+  rows7: Array,
+  rows8: Array
+});
+
+// Create schema for PartE data (adjust fields as needed)
+const partEDataSchema = new mongoose.Schema({
+  // define your fields
+  rowsTable1: Array,
+  rowsTable2: Array,
+  rowsTable3: Array,
+  rowsTable4: Array,
+  rowsTable5: Array
+});
+
+// Create schema for PartF data (adjust fields as needed)
+const partFDataSchema = new mongoose.Schema({
+  // define your fields
+  rows: Array
+
+});
+
 // Create models from schemas
 const PartAData = mongoose.model("PartAData", partADataSchema);
 const PartBData = mongoose.model("PartBData", partBDataSchema);
+const PartCData = mongoose.model("PartCData", partCDataSchema);
+const PartDData = mongoose.model("PartDData", partDDataSchema);
+const PartEData = mongoose.model("PartEData", partEDataSchema);
+const PartFData = mongoose.model("PartFData", partFDataSchema);
 
 // Endpoint to save PartA data
 app.post('/save-parta-data', async (req, res) => {
@@ -70,6 +113,50 @@ app.post('/save-partb-data', async (req, res) => {
     res.send({ message: 'PartB data saved successfully' });
   } catch (err) {
     res.status(500).send({ message: 'Error saving PartB data', error: err });
+  }
+});
+
+// Endpoint to save PartC data
+app.post('/save-partc-data', async (req, res) => {
+  const partCData = new PartCData(req.body);
+  try {
+    await partCData.save();
+    res.send({ message: 'PartC data saved successfully' });
+  } catch (err) {
+    res.status(500).send({ message: 'Error saving PartC data', error: err });
+  }
+});
+
+// Endpoint to save PartD data
+app.post('/save-partd-data', async (req, res) => {
+  const partDData = new PartDData(req.body);
+  try {
+    await partDData.save();
+    res.send({ message: 'PartD data saved successfully' });
+  } catch (err) {
+    res.status(500).send({ message: 'Error saving PartD data', error: err });
+  }
+});
+
+// Endpoint to save PartE data
+app.post('/save-parte-data', async (req, res) => {
+  const partEData = new PartEData(req.body);
+  try {
+    await partEData.save();
+    res.send({ message: 'PartE data saved successfully' });
+  } catch (err) {
+    res.status(500).send({ message: 'Error saving PartE data', error: err });
+  }
+});
+
+// Endpoint to save PartF data
+app.post('/save-partf-data', async (req, res) => {
+  const partFData = new PartFData(req.body);
+  try {
+    await partFData.save();
+    res.send({ message: 'PartF data saved successfully' });
+  } catch (err) {
+    res.status(500).send({ message: 'Error saving PartF data', error: err });
   }
 });
 

@@ -219,8 +219,7 @@ function PartEAssistantProfessor({ openTab }) {
     newRow[index].certificate = event.target.files[0];
     setRowsTable5(newRow);
   };
-  
-  
+   
 
   const handleCertificateChangeTable2 = (index, event) => {
     const newRow = [...rowsTable2];
@@ -240,6 +239,23 @@ function PartEAssistantProfessor({ openTab }) {
     newRow[index].certificate = event.target.files[0];
     setRowsTable4(newRow);
   };
+
+  const handleSave = async () => {
+    const partEData = {
+      rowsTable1,
+      rowsTable2,
+      rowsTable3,
+      rowsTable4,
+      rowsTable5
+    };
+    try {
+      const response = await axios.post('/save-parte-data', partEData);
+      alert(response.data.message);
+    } catch (error) {
+      alert('Error saving data');
+    }
+  };
+
   
   return (
     <div>
@@ -637,6 +653,8 @@ function PartEAssistantProfessor({ openTab }) {
       </fieldset>
 
       <button type="button" onClick={() => openTab('Part-D')} className="btn btn-secondary">Previous</button>
+      <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+      <button type="button" onClick={handleSave} style={{ backgroundColor: '#2896a7' }}>Save</button>
       <span style={{ margin: '0 10px' }}></span> {/* Gap */}
       <button type="button" onClick={() => openTab('Part-F')}>Next</button>
     </div>
