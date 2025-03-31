@@ -3,18 +3,18 @@ import React, { useState, useEffect } from 'react';
 function PartBAssistantProfessor({ openTab }) {
   const initialRows1 = [{ subjectType: '', subjectCode: '', weeklyLoad: '', sem: '', subjectTitle: '', lectures: '' }];
   const initialRows2 = [
-    { courseFilePoints: 'SyllabusPage', weightage: '1pointperCourse', checklist: {} },
-    { courseFilePoints: 'LessonPlan', weightage: '1PointPerCourse', checklist: {} },
-    { courseFilePoints: 'LectureNotes', weightage: '3.5PointsPerCourse', checklist: {} },
-    { courseFilePoints: 'QuestionBank', weightage: '2Points', checklist: {} },
-    { courseFilePoints: 'InternalAssessmentQuestionPapers', weightage: '1PointPerCourse', checklist: {} },
-    { courseFilePoints: 'CourseAssessment', weightage: '4PointsPerCourse', checklist: {} },
-    { courseFilePoints: 'HomeAssessment', weightage: '1PointPerCourse', checklist: {} },
-    { courseFilePoints: 'MarksSheetCopy', weightage: '0.5PointPerCourse', checklist: {} },
-    { courseFilePoints: 'CourseEndSurvey', weightage: '1PointPerCourse', checklist: {} },
-    { courseFilePoints: 'EndSemesterCOAssessmentResults', weightage: '2PointsPerCourse', checklist: {} },
-    { courseFilePoints: 'SchemeOfEvaluation(SemExam)', weightage: '3PointsPerCourse', checklist: {} },
-    { courseFilePoints: 'AnyOther', weightage: '1PointPerCourse', checklist: {} }
+    { courseFilePoints: 'SyllabusPage (1pointperCourse)', checklist: {} },
+    { courseFilePoints: 'LessonPlan (1PointPerCourse)', checklist: {} },
+    { courseFilePoints: 'LectureNotes (3.5PointsPerCourse)', checklist: {} },
+    { courseFilePoints: 'QuestionBank (2Points)', checklist: {} },
+    { courseFilePoints: 'InternalAssessmentQuestionPapers (1PointPerCourse)', checklist: {} },
+    { courseFilePoints: 'CourseAssessment (4PointsPerCourse)', checklist: {} },
+    { courseFilePoints: 'HomeAssessment (1PointPerCourse)', checklist: {} },
+    { courseFilePoints: 'MarksSheetCopy (0.5PointPerCourse)', checklist: {} },
+    { courseFilePoints: 'CourseEndSurvey (1PointPerCourse)', checklist: {} },
+    { courseFilePoints: 'EndSemesterCOAssessmentResults (2PointsPerCourse)', checklist: {} },
+    { courseFilePoints: 'SchemeOfEvaluation(SemExam) (3PointsPerCourse)', checklist: {} },
+    { courseFilePoints: 'AnyOther (1PointPerCourse)', checklist: {} }
   ];
   const initialRows3 = [{ natureOfDuty: '', sem1: '', sem2: '', totalDuties: '' }];
   const initialRows4 = [{ sNo: '', dutiesSem1Sem2: '', evaluationSchedule: '', remarksDFAC: '' }];
@@ -32,6 +32,12 @@ function PartBAssistantProfessor({ openTab }) {
   }));
   const initialRows12 = [{ courseType: '', attendance: '', endCourseExamMarks: '', score: '' }];
   const initialRows13 = [{ involvement: 'Involvement of Faculty in Syllabus Framing (30)', selfScore: '', dfac: '' }];
+
+  const [isDataAvailable5, setIsDataAvailable5] = useState(false);
+  const [isDataAvailable6, setIsDataAvailable6] = useState(false);
+  const [isDataAvailable7, setIsDataAvailable7] = useState(false);
+  const [isDataAvailable12, setIsDataAvailable12] = useState(false);
+  const [isDataAvailable13, setIsDataAvailable13] = useState(false);
 
   const [rows1, setRows1] = useState(initialRows1);
   const [rows2, setRows2] = useState(initialRows2);
@@ -281,6 +287,31 @@ const handleChange11 = (index, event) => {
     newRows13[index][name] = value;
     setRows13(newRows13);
   };
+
+  const handleSave = async () => {
+    const partBData  = {
+      rows1,
+      rows2,
+      rows3,
+      rows4,
+      rows5,
+      rows6,
+      rows7,
+      rows8,
+      rows9,
+      rows10,
+      rows11,
+      rows12,
+      rows13
+    };
+    try {
+      const response = await axios.post('/save-partc-data', partBData);
+      alert(response.data.message);
+    } catch (error) {
+      alert('Error saving data');
+    }
+  };
+
  
 
   return (
@@ -288,8 +319,11 @@ const handleChange11 = (index, event) => {
       <h2 className="my-4">Part B - Assistant Professor</h2>
       <form>
         {/* Table 1 */}
+        <fieldset>
         <div className="form-group">
-          <label>1:</label>
+          <label>1. Teaching weekly  load allotted  by Department as per curricular time table and Lectures actually taken as fraction of lectures allocated.
+How many total lecture periods have been taken in the previous two semesters (Enter Number)?
+</label>
           <table className="table">
             <thead>
               <tr>
@@ -382,61 +416,58 @@ const handleChange11 = (index, event) => {
           </table>
           <button type="button" onClick={handleAddRow1} className="btn btn-success">Add Row</button>
         </div>
+        </fieldset>
+
         {/* Table 2 */}
+        <fieldset>
         <div className="form-group">
-          <label>2:</label>
+          <label>2. Course files with the following data have been prepared by me (tick for compliance and Nil for Non-Compliance). Neatly filed course files (One course file per section/course) authenticated by HOD is required to be presented</label>
           <table className="table">
-            <thead>
-              <tr>
-                <th>Course File Points</th>
-                {subjectCodes.map(subjectCode => (
-                  <th key={subjectCode}>{subjectCode}</th>
-                ))}
-                <th>Weightage</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows2.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="text"
-                      name="courseFilePoints"
-                      value={row.courseFilePoints}
-                      onChange={(e) => handleChange2(index, e, row.courseFilePoints, 'courseFilePoints')}
-                      className="form-control"
-                      readOnly
-                    />
-                  </td>
-                  {subjectCodes.map(subjectCode => (
-                    <td key={subjectCode} className="text-center">
-                      <input
-                        type="checkbox"
-                        name="checklist"
-                        checked={row.checklist[subjectCode] || false}
-                        onChange={(e) => handleChange2(index, e, subjectCode, 'checklist')}
-                        className="form-check-input"
-                      />
-                    </td>
-                  ))}
-                  <td>
-                    <input
-                      type="text"
-                      name="weightage"
-                      value={row.weightage}
-                      onChange={(e) => handleChange2(index, e, 'weightage', 'weightage')}
-                      className="form-control"
-                      readOnly
-                    />
-                  </td>
-                </tr>
+          <thead>
+            <tr>
+              <th>Course File Points (Weightage)</th>
+              {subjectCodes.map(subjectCode => (
+                <th key={subjectCode}>{subjectCode}</th>
               ))}
-            </tbody>
-          </table>
+            </tr>
+          </thead>
+          <tbody>
+          {rows2.map((row, index) => (
+            <tr key={index}>
+              <td>
+                <input
+                  type="text"
+                  name="courseFilePoints"
+                  value={row.courseFilePoints}
+                  onChange={(e) => handleChange2(index, e, row.courseFilePoints, 'courseFilePoints')}
+                  className="form-control"
+                  readOnly
+                />
+              </td>
+              {subjectCodes.map(subjectCode => (
+                <td key={subjectCode} className="text-center">
+                  <input
+                    type="checkbox"
+                    name="checklist"
+                    checked={row.checklist[subjectCode] || false}
+                    onChange={(e) => handleChange2(index, e, subjectCode, 'checklist')}
+                    className="form-check-input"
+                  />
+                </td>
+              ))}
+            </tr>
+          ))}
+          </tbody>
+         </table>
         </div>
+        </fieldset>
+
         {/* Table 3 */}
+        <fieldset>
         <div className="form-group">
-          <label>3:</label>
+          <label>3. External College exam/ Evaluation duties: 5 points/subject for evaluation ;   Invigilation duty = 1 point;  How many times this duty has been performed in the previous two  semesters – please enter number  -- Lab, seminar,, mini and major projects.		Max Score
+20		
+</label>
           <table className="table">
             <thead>
               <tr>
@@ -506,9 +537,15 @@ const handleChange11 = (index, event) => {
           </table>
           <button type="button" onClick={handleAddRow3} className="btn btn-success">Add Row</button>
         </div>
+        </fieldset>
+
         {/* Table 4 */}
+        <fieldset>
         <div className="form-group">
-          <label>4:</label>
+          <label>4. 1.5	Internal exam / Evaluation duties for continuous assessment
+Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each of Assignment test, home assignment test, sessionals and exams.		Max Score
+40		
+ </label>
           <table className="table">
             <thead>
               <tr>
@@ -572,288 +609,339 @@ const handleChange11 = (index, event) => {
           </table>
           <button type="button" onClick={handleAddRow4} className="btn btn-success">Add Row</button>
         </div>
+        </fieldset>
+
+
         {/* Table 5 */}
+        <fieldset>
         <div className="form-group">
-          <label>5:</label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Use of Innovating Teaching Methodology</th>
-                <th>Sem 1 Score</th>
-                <th>Sem 2 Score</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows5.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <select
-                      name="useOfInnovatingTeachingMethodology"
-                      value={row.useOfInnovatingTeachingMethodology}
-                      onChange={(e) => handleChange5(index, e)}
-                      className="form-control"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="ICT based Teaching Methodology over 2 semesters">ICT based Teaching Methodology over 2 semesters</option>
-                      <option value="PPT with Annotations and Assesment based on content">PPT with Annotations and Assesment based on content</option>
-                      <option value="Visuals">Visuals</option>
-                      <option value="MOODLE Usage">MOODLE Usage</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="sem1Score"
-                      value={row.sem1Score}
-                      onChange={(e) => handleChange5(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      name="sem2Score"
-                      value={row.sem2Score}
-                      onChange={(e) => handleChange5(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow5(index)} className="btn btn-danger">
-                      Delete Row
-                    </button>
-                  </td>
+          <label>5. Use of innovating teaching methodologies. </label>
+        <label>Is data available?</label>
+        <select
+          value={isDataAvailable5 ? "Yes" : "No"}
+          onChange={(e) => setIsDataAvailable5(e.target.value === "Yes")}
+          className="form-control"
+        >
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+        {isDataAvailable5 && (
+          <>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Use of Innovating Teaching Methodology</th>
+                  <th>Sem 1 Score</th>
+                  <th>Sem 2 Score</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" onClick={handleAddRow5} className="btn btn-success">Add Row</button>
+              </thead>
+              <tbody>
+                {rows5.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <select
+                        name="useOfInnovatingTeachingMethodology"
+                        value={row.useOfInnovatingTeachingMethodology}
+                        onChange={(e) => handleChange5(index, e)}
+                        className="form-control"
+                      >
+                        <option value="">Select an option</option>
+                        <option value="ICT based Teaching Methodology over 2 semesters">ICT based Teaching Methodology over 2 semesters</option>
+                        <option value="PPT with Annotations and Assesment based on content">PPT with Annotations and Assesment based on content</option>
+                        <option value="Visuals">Visuals</option>
+                        <option value="MOODLE Usage">MOODLE Usage</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="sem1Score"
+                        value={row.sem1Score}
+                        onChange={(e) => handleChange5(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="sem2Score"
+                        value={row.sem2Score}
+                        onChange={(e) => handleChange5(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => handleDeleteRow5(index)} className="btn btn-danger">
+                        Delete Row
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button type="button" onClick={handleAddRow5} className="btn btn-success">Add Row</button>
+          </>
+        )}
         </div>
+        </fieldset>
 
        {/* Table 6 */}
-        <div className="form-group">
-          <label>6:</label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Items</th>
-                <th>Semester1</th>
-                <th>Score</th>
-                <th>Semester2</th>
-                <th>Score</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows6.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <select
-                      name="item"
-                      value={row.item}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="Remedial">Remedial</option>
-                      <option value="Bridge">Bridge</option>
-                      <option value="Career Oriented">Career Oriented</option>
-                      <option value="Content Beyond Syllabus">Content Beyond Syllabus</option>
-                      <option value="Additional Experiments">Additional Experiments</option>
-                      <option value="Job Oriented Certificates">Job Oriented Certificates</option>
-                      <option value="AnyOther">Any Other</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="semester1"
-                      value={row.semester1}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="score1"
-                      value={row.score1}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="semester2"
-                      value={row.semester2}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="score2"
-                      value={row.score2}
-                      onChange={(e) => handleChange6(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow6(index)} className="btn btn-danger">
-                      Delete Row
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" onClick={handleAddRow6} className="btn btn-success">Add Row</button>
-        </div>
+       <fieldset>
+          <div className="form-group">
+          <label>6.Remedial/Bridge Courses /Content beyond syllabus/Design of new Experiments in the lab related to course outcomes.</label>
+          <label>Is data available?</label>
+          <select
+            value={isDataAvailable6 ? "Yes" : "No"}
+            onChange={(e) => setIsDataAvailable6(e.target.value === "Yes")}
+            className="form-control"
+          >
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+          {isDataAvailable6 && (
+            <>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Items</th>
+                    <th>Semester1</th>
+                    <th>Score</th>
+                    <th>Semester2</th>
+                    <th>Score</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows6.map((row, index) => (
+                    <tr key={index}>
+                      <td>
+                        <select
+                          name="item"
+                          value={row.item}
+                          onChange={(e) => handleChange6(index, e)}
+                          className="form-control"
+                        >
+                          <option value="">Select an option</option>
+                          <option value="Remedial">Remedial</option>
+                          <option value="Bridge">Bridge</option>
+                          <option value="Career Oriented">Career Oriented</option>
+                          <option value="Content Beyond Syllabus">Content Beyond Syllabus</option>
+                          <option value="Additional Experiments">Additional Experiments</option>
+                          <option value="Job Oriented Certificates">Job Oriented Certificates</option>
+                          <option value="AnyOther">Any Other</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="semester1"
+                          value={row.semester1}
+                          onChange={(e) => handleChange6(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="score1"
+                          value={row.score1}
+                          onChange={(e) => handleChange6(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="semester2"
+                          value={row.semester2}
+                          onChange={(e) => handleChange6(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="score2"
+                          value={row.score2}
+                          onChange={(e) => handleChange6(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <button type="button" onClick={() => handleDeleteRow6(index)} className="btn btn-danger">
+                          Delete Row
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <button type="button" onClick={handleAddRow6} className="btn btn-success">Add Row</button>
+            </>
+          )}
+          </div>
+       </fieldset>
 
         {/* Table 7 */}
-        <div className="form-group">
-          <label>7:</label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Item</th>
-                <th>Sem1</th>
-                <th>Sem2</th>
-                <th>Total no of Sessions taken</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows7.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="text"
-                      name="item"
-                      value={"How many counselling sessions done? for each 5 points"}
-                      className="form-control"
-                      readOnly
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="sem1"
-                      value={row.sem1}
-                      onChange={(e) => handleChange7(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="sem2"
-                      value={row.sem2}
-                      onChange={(e) => handleChange7(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="totalSessions"
-                      value={row.totalSessions}
-                      onChange={(e) => handleChange7(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="score"
-                      value={row.score}
-                      onChange={(e) => handleChange7(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <fieldset>
+          <div className="form-group">
+            <label>7. Counseling with proper records.</label>
+            <label>Is data available?</label>
+            <select
+              value={isDataAvailable7 ? "Yes" : "No"}
+              onChange={(e) => setIsDataAvailable7(e.target.value === "Yes")}
+              className="form-control"
+            >
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+            {isDataAvailable7 && (
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Sem1</th>
+                    <th>Sem2</th>
+                    <th>Total no of Sessions taken</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows7.map((row, index) => (
+                    <tr key={index}>
+                      <td>
+                        <input
+                          type="text"
+                          name="item"
+                          value={"How many counselling sessions done? for each 5 points"}
+                          className="form-control"
+                          readOnly
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="sem1"
+                          value={row.sem1}
+                          onChange={(e) => handleChange7(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="sem2"
+                          value={row.sem2}
+                          onChange={(e) => handleChange7(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="totalSessions"
+                          value={row.totalSessions}
+                          onChange={(e) => handleChange7(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          name="score"
+                          value={row.score}
+                          onChange={(e) => handleChange7(index, e)}
+                          className="form-control"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </fieldset>
 
         {/* Table 8 */}
-      <div className="form-group">
-        <label>8:</label>
-        <table className="table">
-          <thead>
-            <tr>
-              <th colSpan="2">Sem1</th>
-              <th colSpan="2">Sem2</th>
-              <th rowSpan="2">Avg%</th>
-            </tr>
-            <tr>
-              <th>Subjects</th>
-              <th>% Pass</th>
-              <th>Subjects</th>
-              <th>% Pass</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows8.map((row, index) => (
-              <tr key={index}>
-                <td>
-                  <input
-                    type="text"
-                    name="subjectsSem1"
-                    value={row.subjectsSem1}
-                    onChange={(e) => handleChange8(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    name="passSem1"
-                    value={row.passSem1}
-                    onChange={(e) => handleChange8(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    name="subjectsSem2"
-                    value={row.subjectsSem2}
-                    onChange={(e) => handleChange8(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    name="passSem2"
-                    value={row.passSem2}
-                    onChange={(e) => handleChange8(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    name="avg"
-                    value={row.avg}
-                    onChange={(e) => handleChange8(index, e)}
-                    className="form-control"
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        <fieldset>
+          <div className="form-group">
+            <label>8. Percentage of passes:
+(Less than 55%=10, 56-65%=30, 66-75%=40, 76-85%=60, Greater than 85%=70 points) 
+</label>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th colSpan="2">Sem1</th>
+                  <th colSpan="2">Sem2</th>
+                  <th rowSpan="2">Avg%</th>
+                </tr>
+                <tr>
+                  <th>Subjects</th>
+                  <th>% Pass</th>
+                  <th>Subjects</th>
+                  <th>% Pass</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows8.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="text"
+                        name="subjectsSem1"
+                        value={row.subjectsSem1}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="passSem1"
+                        value={row.passSem1}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="subjectsSem2"
+                        value={row.subjectsSem2}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="passSem2"
+                        value={row.passSem2}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="avg"
+                        value={row.avg}
+                        onChange={(e) => handleChange8(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </fieldset>
 
       {/* Table 9 */}
+      <fieldset>
         <div className="form-group">
-          <label>9:</label>
+          <label>9. Student feedback on teaching(Subject wise and semester wise including Lab).</label>
           <table className="table">
             <thead>
               <tr>
@@ -907,67 +995,72 @@ const handleChange11 = (index, event) => {
             </tbody>
           </table>
         </div>
+      </fieldset>
 
         {/* Table 10 */}
-      <div className="form-group">
-        <label>10:</label>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Project Batch No</th>
-              <th>Sem</th>
-              <th>Average Score in a Batch</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows10.map((row, index) => (
-              <tr key={index}>
-                <td>
-                  <input
-                    type="text"
-                    name="projectBatchNo"
-                    value={row.projectBatchNo}
-                    onChange={(e) => handleChange10(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <select
-                    name="sem"
-                    value={row.sem}
-                    onChange={(e) => handleChange10(index, e)}
-                    className="form-control"
-                  >
-                    <option value="">Select an option</option>
-                    <option value="sem1">Sem 1</option>
-                    <option value="sem2">Sem 2</option>
-                  </select>
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    name="averageScore"
-                    value={row.averageScore}
-                    onChange={(e) => handleChange10(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <button type="button" onClick={() => handleDeleteRow10(index)} className="btn btn-danger">
-                    Delete Row
-                  </button>
-                </td>
+      <fieldset>
+        <div className="form-group">
+          <label>10. Project Guidance(Mini project/major project/seminar/term paper)
+          If Project work results in a paper publication, Score = 50 points.</label>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Project Batch No</th>
+                <th>Sem</th>
+                <th>Average Score in a Batch</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <button type="button" onClick={handleAddRow10} className="btn btn-success">Add Row</button>
-      </div>
+            </thead>
+            <tbody>
+              {rows10.map((row, index) => (
+                <tr key={index}>
+                  <td>
+                    <input
+                      type="text"
+                      name="projectBatchNo"
+                      value={row.projectBatchNo}
+                      onChange={(e) => handleChange10(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <select
+                      name="sem"
+                      value={row.sem}
+                      onChange={(e) => handleChange10(index, e)}
+                      className="form-control"
+                    >
+                      <option value="">Select an option</option>
+                      <option value="sem1">Sem 1</option>
+                      <option value="sem2">Sem 2</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      name="averageScore"
+                      value={row.averageScore}
+                      onChange={(e) => handleChange10(index, e)}
+                      className="form-control"
+                    />
+                  </td>
+                  <td>
+                    <button type="button" onClick={() => handleDeleteRow10(index)} className="btn btn-danger">
+                      Delete Row
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <button type="button" onClick={handleAddRow10} className="btn btn-success">Add Row</button>
+        </div>
+      </fieldset>
 
       {/* Table 11 */}
+      <fieldset>
       <div className="form-group">
-        <label>11:</label>
+        <label>11. Feedback from students on project guidance after the Project Internal Evaluation. </label>
         <table className="table">
           <thead>
             <tr>
@@ -1022,135 +1115,163 @@ const handleChange11 = (index, event) => {
         </table>
         <button type="button" onClick={handleAddRow11} className="btn btn-success">Add Row</button>
       </div>
+      </fieldset>
 
       {/* Table 12 */}
-      <div className="form-group">
-        <label>12:</label>
-        <table className="table">
-          <thead>
-            <tr>
-              <th colSpan="5">NPTEL/MIT/COURSERA/edx/UDACITY Lectures (60)</th>
-            </tr>
-            <tr>
-              <th>Course Type</th>
-              <th>Attendance</th>
-              <th>End Course Exam Marks</th>
-              <th>Score</th>
-              <th rowspan="2">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows12.map((row, index) => (
-              <tr key={index}>
-                <td>
-                  <select
-                    name="courseType"
-                    value={row.courseType}
-                    onChange={(e) => handleChange12(index, e)}
-                    className="form-control"
-                  >
-                    <option value="">Select an option</option>
-                    <option value="Full Course with Online Exam">Full Course with Online Exam</option>
-                    <option value="Teleconference Mode or Course without Exam">Teleconference Mode or Course without Exam</option>
-                  </select>
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    name="attendance"
-                    value={row.attendance}
-                    onChange={(e) => handleChange12(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    name="endCourseExamMarks"
-                    value={row.endCourseExamMarks}
-                    onChange={(e) => handleChange12(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    name="score"
-                    value={row.score}
-                    readOnly
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <button type="button" onClick={() => handleDeleteRow12(index)} className="btn btn-danger">
-                    Delete Row
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button type="button" onClick={handleAddRow12} className="btn btn-success">Add Row</button>
-      </div>
-      
+      <fieldset>
+        <div className="form-group">
+          <label>12. NPTEL/MIT/COURSERA/edx/UDACITY) lectures. </label>
+          <label>Is data available?</label>
+          <select
+            value={isDataAvailable12 ? "Yes" : "No"}
+            onChange={(e) => setIsDataAvailable12(e.target.value === "Yes")}
+            className="form-control"
+          >
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+          {isDataAvailable12 && (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th colSpan="5">NPTEL/MIT/COURSERA/edx/UDACITY Lectures (60)</th>
+                </tr>
+                <tr>
+                  <th>Course Type</th>
+                  <th>Attendance</th>
+                  <th>End Course Exam Marks</th>
+                  <th>Score</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows12.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <select
+                        name="courseType"
+                        value={row.courseType}
+                        onChange={(e) => handleChange12(index, e)}
+                        className="form-control"
+                      >
+                        <option value="">Select an option</option>
+                        <option value="Full Course with Online Exam">Full Course with Online Exam</option>
+                        <option value="Teleconference Mode or Course without Exam">Teleconference Mode or Course without Exam</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="attendance"
+                        value={row.attendance}
+                        onChange={(e) => handleChange12(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="endCourseExamMarks"
+                        value={row.endCourseExamMarks}
+                        onChange={(e) => handleChange12(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="score"
+                        value={row.score}
+                        readOnly
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => handleDeleteRow12(index)} className="btn btn-danger">
+                        Delete Row
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </fieldset>
+
       {/* Table 13 */}
-      <div className="form-group">
-        <label>13:</label>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Involvement of Faculty in Syllabus Framing (30)</th>
-              <th>Self Score</th>
-              <th>DFAC</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows13.map((row, index) => (
-              <tr key={index}>
-                <td>
-                  <input
-                    type="text"
-                    name="involvement"
-                    value={row.involvement}
-                    onChange={(e) => handleChange13(index, e)}
-                    className="form-control"
-                    readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    name="selfScore"
-                    value={row.selfScore}
-                    onChange={(e) => handleChange13(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    name="dfac"
-                    value={row.dfac}
-                    onChange={(e) => handleChange13(index, e)}
-                    className="form-control"
-                  />
-                </td>
-                <td>
-                  <button type="button" onClick={() => handleDeleteRow13(index)} className="btn btn-danger">
-                    Delete Row
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button type="button" onClick={handleAddRow13} className="btn btn-success">Add Row</button>
-      </div>
+      <fieldset>
+        <div className="form-group">
+          <label>13.Involvement of Faculty in syllabus framing.   </label>
+          <label> Is data available?</label>
+          <select
+            value={isDataAvailable13 ? "Yes" : "No"}
+            onChange={(e) => setIsDataAvailable13(e.target.value === "Yes")}
+            className="form-control"
+          >
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+          {isDataAvailable13 && (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Involvement of Faculty in Syllabus Framing (30)</th>
+                  <th>Self Score</th>
+                  <th>DFAC</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows13.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <input
+                        type="text"
+                        name="involvement"
+                        value={row.involvement}
+                        onChange={(e) => handleChange13(index, e)}
+                        className="form-control"
+                        readOnly
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="selfScore"
+                        value={row.selfScore}
+                        onChange={(e) => handleChange13(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        name="dfac"
+                        value={row.dfac}
+                        onChange={(e) => handleChange13(index, e)}
+                        className="form-control"
+                      />
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => handleDeleteRow13(index)} className="btn btn-danger">
+                        Delete Row
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      </fieldset>
 
         <div className="tab-buttons">
-          <button type="button" onClick={() => openTab('PartA')} className="btn btn-secondary">Previous</button>
-          <button type="button" onClick={() => openTab('PartC')} className="btn btn-primary">Next</button>
+          <button type="button" onClick={() => openTab('Part-A')} className="btn btn-secondary">Previous</button>
+          <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+          <button type="button" onClick={handleSave} style={{ backgroundColor: '#2896a7' }}>Save</button>
+          <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+          <button type="button" onClick={() => openTab('Part-C')} className="btn btn-primary">Next</button>
         </div>
       </form>
     </div>
