@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import axios for making API requests
 
 function PartDAssistantProfessor({ openTab }) {
   const [dataAvailable1, setDataAvailable1] = useState(false);
@@ -433,7 +434,7 @@ const handleDataAvailableChange8 = (event) => {
       rows8
     };
     try {
-      const response = await axios.post('/save-partd-data', partDData);
+      const response = await axios.post('http://localhost:5000/save-partd-data', partDData);
       alert(response.data.message);
     } catch (error) {
       alert('Error saving data');

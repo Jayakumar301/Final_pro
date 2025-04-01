@@ -2,6 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import nodemailer from 'nodemailer';
+import twilio from 'twilio';
 
 // Initialize app and middleware
 const app = express();
@@ -20,14 +22,22 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 const partADataSchema = new mongoose.Schema({
   name: String,
   postHeld: String,
-  employeeId: String, // Changed to String as required
+  employeeId: String,
   appointmentDate: Date,
   address: String,
   contact: String,
+  email: String, // Add email field
   department: String,
   category: String,
   educationRows: Array,
   experienceRows: Array
+});
+
+// Create schema for OTP data
+const otpSchema = new mongoose.Schema({
+  employeeId: String,
+  otp: String,
+  createdAt: { type: Date, default: Date.now, expires: '10m' } // OTP expires in 10 minutes
 });
 
 // Create schema for PartB data
@@ -53,12 +63,11 @@ const partCDataSchema = new mongoose.Schema({
   rows7: Array,
   rows8: Array,
   rows9: Array,
-  rows10: Array       // define your fields
+  rows10: Array
 });
 
 // Create schema for PartD data (adjust fields as needed)
 const partDDataSchema = new mongoose.Schema({
-  // define your fields
   rows1: Array,
   rows2: Array,
   rows3: Array,
@@ -71,7 +80,6 @@ const partDDataSchema = new mongoose.Schema({
 
 // Create schema for PartE data (adjust fields as needed)
 const partEDataSchema = new mongoose.Schema({
-  // define your fields
   rowsTable1: Array,
   rowsTable2: Array,
   rowsTable3: Array,
@@ -81,13 +89,12 @@ const partEDataSchema = new mongoose.Schema({
 
 // Create schema for PartF data (adjust fields as needed)
 const partFDataSchema = new mongoose.Schema({
-  // define your fields
   rows: Array
-
 });
 
 // Create models from schemas
 const PartAData = mongoose.model("PartAData", partADataSchema);
+const Otp = mongoose.model("Otp", otpSchema);
 const PartBData = mongoose.model("PartBData", partBDataSchema);
 const PartCData = mongoose.model("PartCData", partCDataSchema);
 const PartDData = mongoose.model("PartDData", partDDataSchema);

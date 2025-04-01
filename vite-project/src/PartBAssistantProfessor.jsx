@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios'; 
 
 function PartBAssistantProfessor({ openTab }) {
   const initialRows1 = [{ subjectType: '', subjectCode: '', weeklyLoad: '', sem: '', subjectTitle: '', lectures: '' }];
@@ -48,10 +49,7 @@ function PartBAssistantProfessor({ openTab }) {
   const [rows7, setRows7] = useState(initialRows7);
   const [rows8, setRows8] = useState(initialRows8);
   const [rows9, setRows9] = useState(initialRows9);
-
-
   const [rows11, setRows11] = useState(initialRows11);
-
   const [rows12, setRows12] = useState(initialRows12);
   const [rows13, setRows13] = useState(initialRows13);
 
@@ -305,14 +303,13 @@ const handleChange11 = (index, event) => {
       rows13
     };
     try {
-      const response = await axios.post('/save-partc-data', partBData);
+      const response = await axios.post('http://localhost:5000/save-partb-data', partBData);
       alert(response.data.message);
     } catch (error) {
       alert('Error saving data');
+      console.log(error + "Check once..!");
     }
   };
-
- 
 
   return (
     <div className="container">

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'; 
 
 function PartCAssistantProfessor({ openTab }) {
   const [dataAvailable6, setDataAvailable6] = useState(false);
@@ -282,10 +283,11 @@ function PartCAssistantProfessor({ openTab }) {
       rows10
     };
     try {
-      const response = await axios.post('/save-partc-data', partCData);
+      const response = await axios.post('http://localhost:5000/save-partc-data', partCData);
       alert(response.data.message);
     } catch (error) {
       alert('Error saving data');
+      console.log(error + "Check once..!");
     }
   };
 

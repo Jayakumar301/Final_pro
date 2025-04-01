@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import axios from 'axios'; 
 
 function PartEAssistantProfessor({ openTab }) {
   const [dataAvailableTable1, setDataAvailableTable1] = useState(false);
@@ -249,7 +249,7 @@ function PartEAssistantProfessor({ openTab }) {
       rowsTable5
     };
     try {
-      const response = await axios.post('/save-parte-data', partEData);
+      const response = await axios.post('http://localhost:5000/save-parte-data', partEData);
       alert(response.data.message);
     } catch (error) {
       alert('Error saving data');

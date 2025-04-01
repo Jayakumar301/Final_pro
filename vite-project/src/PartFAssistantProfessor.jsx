@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import axios for making API requests
 
 function PartFAssistantProfessor({ openTab }) {
   const navigate = useNavigate();
@@ -48,19 +49,18 @@ function PartFAssistantProfessor({ openTab }) {
 
   const finishForm = () => {
     alert('Form Submitted!');
-    navigate('/');
+    navigate('/Login'); // Redirect to login page after form submission
   };
 
   const handleSave = async () => {
     const partFData = { rows };
     try {
-      const response = await axios.post('/save-partf-data', partFData);
+      const response = await axios.post('http://localhost:5000/save-partf-data', partFData);
       alert(response.data.message);
     } catch (error) {
       alert('Error saving data');
     }
   };
-
 
   return (
     <div>
@@ -140,7 +140,7 @@ function PartFAssistantProfessor({ openTab }) {
       </fieldset>
 
       <p>1. Quantitative conversion of qualitative parameters is done to help categorize faculty. These points do not add to the CAS parts 1 -4.</p>
-      <p>2. Pen Picture of officer with recommendation of suitability of faculty to draw increment or/ and getting promotion may be given. Adverse remarks if any have to be justified with proof as far as possible.</p>
+      <p>2. Pen Picture of officer with recommendation of suitability of faculty to draw increment or/ and getting promotion may be given. Adverse remarks if any have to be justified with proof</p>
       <p>3. Grand Total of above: ____________________________ Signature of HOD with stamp:</p>
       <p>Forwarded to Establishment.: Any remarks in service record (mention date) to be inserted by Establishment Section & signed.</p>
       <p>Principal’s Remarks:</p>
