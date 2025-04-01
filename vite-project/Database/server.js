@@ -2,8 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import nodemailer from 'nodemailer';
-import twilio from 'twilio';
+import e from 'express';
 
 // Initialize app and middleware
 const app = express();
@@ -31,13 +30,6 @@ const partADataSchema = new mongoose.Schema({
   category: String,
   educationRows: Array,
   experienceRows: Array
-});
-
-// Create schema for OTP data
-const otpSchema = new mongoose.Schema({
-  employeeId: String,
-  otp: String,
-  createdAt: { type: Date, default: Date.now, expires: '10m' } // OTP expires in 10 minutes
 });
 
 // Create schema for PartB data
@@ -92,9 +84,23 @@ const partFDataSchema = new mongoose.Schema({
   rows: Array
 });
 
+// Create schema for User data (for login)
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+const User = mongoose.model('User', userSchema);
+
 // Create models from schemas
 const PartAData = mongoose.model("PartAData", partADataSchema);
-const Otp = mongoose.model("Otp", otpSchema);
 const PartBData = mongoose.model("PartBData", partBDataSchema);
 const PartCData = mongoose.model("PartCData", partCDataSchema);
 const PartDData = mongoose.model("PartDData", partDDataSchema);
@@ -164,6 +170,25 @@ app.post('/save-partf-data', async (req, res) => {
     res.send({ message: 'PartF data saved successfully' });
   } catch (err) {
     res.status(500).send({ message: 'Error saving PartF data', error: err });
+  }
+});
+
+// Login endpoint
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  console.log('Received login request:', username, password); // Log received credentials
+  try {
+    const user = await User.findOne({ username, password });
+    if (user) {
+      res.status(200).send({ message: 'Login successful' });
+    } else {
+      res.status(401).send({ message: 'Invalid username or password' });
+      console.log(error); // Log invalid login attempt
+      console.log(User); // Log the User model for debugging
+    }
+  } catch (error) {
+    console.log('Error during login:', error); // Log any errors
+    res.status(500).send({ message: 'Server error. Please try again later.' });
   }
 });
 

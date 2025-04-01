@@ -443,7 +443,7 @@ const handleDataAvailableChange8 = (event) => {
 
 
   return (
-    <div>
+    <div className='parts'>
       <h4>R &D RELATED CONTRIBUTIONS</h4>
 
       {/* table 1 */}

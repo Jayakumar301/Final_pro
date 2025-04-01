@@ -138,9 +138,9 @@ function PartA({ category, openTab }) {
   };
 
   return (
-    <div>
+    <div className='parts'>
       <h2>Personal Information</h2>
-      <form>
+      
         <fieldset>
           <legend>Personal Details</legend>
           <div>
@@ -449,7 +449,6 @@ function PartA({ category, openTab }) {
             }
           }}>Next</button>
         </div>
-      </form>
     </div>
   );
 }

@@ -312,114 +312,115 @@ const handleChange11 = (index, event) => {
   };
 
   return (
-    <div className="container">
-      <h2 className="my-4">Part B - Assistant Professor</h2>
-      <form>
+    <div className="parts">
+      <h2 >Part B - Assistant Professor</h2>
+      
         {/* Table 1 */}
         <fieldset>
-        <div className="form-group">
-          <label>1. Teaching weekly  load allotted  by Department as per curricular time table and Lectures actually taken as fraction of lectures allocated.
-How many total lecture periods have been taken in the previous two semesters (Enter Number)?
-</label>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Subject Type</th>
-                <th>Subject Code</th>
-                <th>Weekly Load</th>
-                <th>Sem</th>
-                <th>Subject Title</th>
-                <th>Lectures Taken/Lectures Proposed</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows1.map((row, index) => (
-                <tr key={index}>
-                  <td>
-                    <select
-                      name="subjectType"
-                      value={row.subjectType}
-                      onChange={(e) => handleChange1(index, e)}
-                      className="form-control"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="Theory">Theory</option>
-                      <option value="Lab">Lab</option>
-                      <option value="Tutorial">Tutorial</option>
-                      <option value="TermPaper">Term Paper</option>
-                      <option value="MiniProject">Mini Project</option>
-                      <option value="MajorProject">Major Project</option>
-                      <option value="Seminar">Seminar</option>
-                      <option value="AnyOther">Any Other</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="subjectCode"
-                      value={row.subjectCode}
-                      onChange={(e) => handleChange1(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="weeklyLoad"
-                      value={row.weeklyLoad}
-                      onChange={(e) => handleChange1(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <select
-                      name="sem"
-                      value={row.sem}
-                      onChange={(e) => handleChange1(index, e)}
-                      className="form-control"
-                    >
-                      <option value="">Select an option</option>
-                      <option value="sem1">Sem 1</option>
-                      <option value="sem2">Sem 2</option>
-                    </select>
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="subjectTitle"
-                      value={row.subjectTitle}
-                      onChange={(e) => handleChange1(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      name="lectures"
-                      value={row.lectures}
-                      onChange={(e) => handleChange1(index, e)}
-                      className="form-control"
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow1(index)} className="btn btn-danger">
-                      Delete Row
-                    </button>
-                  </td>
+          <legend><h6>1. Teaching weekly  load allotted  by Department as per curricular time table and Lectures actually taken as fraction of lectures allocated.
+  How many total lecture periods have been taken in the previous two semesters (Enter Number)?
+          </h6></legend>
+ 
+        <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Subject Type</th>
+                  <th>Subject Code</th>
+                  <th>Weekly Load</th>
+                  <th>Sem</th>
+                  <th>Subject Title</th>
+                  <th>Lectures Taken/Lectures Proposed</th>
+                  <th>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          <button type="button" onClick={handleAddRow1} className="btn btn-success">Add Row</button>
+              </thead>
+              <tbody>
+                {rows1.map((row, index) => (
+                  <tr key={index}>
+                    <td>
+                      <select
+                        name="subjectType"
+                        value={row.subjectType}
+                        onChange={(e) => handleChange1(index, e)}
+                        
+                      >
+                        <option value="">Select an option</option>
+                        <option value="Theory">Theory</option>
+                        <option value="Lab">Lab</option>
+                        <option value="Tutorial">Tutorial</option>
+                        <option value="TermPaper">Term Paper</option>
+                        <option value="MiniProject">Mini Project</option>
+                        <option value="MajorProject">Major Project</option>
+                        <option value="Seminar">Seminar</option>
+                        <option value="AnyOther">Any Other</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="subjectCode"
+                        value={row.subjectCode}
+                        onChange={(e) => handleChange1(index, e)}
+                      
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="weeklyLoad"
+                        value={row.weeklyLoad}
+                        onChange={(e) => handleChange1(index, e)}
+                    
+                      />
+                    </td>
+                    <td>
+                      <select
+                        name="sem"
+                        value={row.sem}
+                        onChange={(e) => handleChange1(index, e)}
+                        
+                      >
+                        <option value="">Select an option</option>
+                        <option value="sem1">Sem 1</option>
+                        <option value="sem2">Sem 2</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="subjectTitle"
+                        value={row.subjectTitle}
+                        onChange={(e) => handleChange1(index, e)}
+                        
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        name="lectures"
+                        value={row.lectures}
+                        onChange={(e) => handleChange1(index, e)}
+                        
+                      />
+                    </td>
+                    <td>
+                      <button type="button" onClick={() => handleDeleteRow1(index)}>
+                        Delete Row
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button type="button" onClick={handleAddRow1} >Add Row</button>
         </div>
         </fieldset>
 
         {/* Table 2 */}
         <fieldset>
-        <div className="form-group">
-          <label>2. Course files with the following data have been prepared by me (tick for compliance and Nil for Non-Compliance). Neatly filed course files (One course file per section/course) authenticated by HOD is required to be presented</label>
-          <table className="table">
+        <div>
+          <h5>2. Course files with the following data have been prepared by me (tick for compliance and Nil for Non-Compliance). Neatly filed course files (One course file per section/course) authenticated by HOD is required to be presented</h5>
+          <table >
           <thead>
             <tr>
               <th>Course File Points (Weightage)</th>
@@ -437,8 +438,8 @@ How many total lecture periods have been taken in the previous two semesters (En
                   name="courseFilePoints"
                   value={row.courseFilePoints}
                   onChange={(e) => handleChange2(index, e, row.courseFilePoints, 'courseFilePoints')}
-                  className="form-control"
-                  readOnly
+                  
+                  
                 />
               </td>
               {subjectCodes.map(subjectCode => (
@@ -448,7 +449,7 @@ How many total lecture periods have been taken in the previous two semesters (En
                     name="checklist"
                     checked={row.checklist[subjectCode] || false}
                     onChange={(e) => handleChange2(index, e, subjectCode, 'checklist')}
-                    className="form-check-input"
+                    
                   />
                 </td>
               ))}
@@ -461,11 +462,11 @@ How many total lecture periods have been taken in the previous two semesters (En
 
         {/* Table 3 */}
         <fieldset>
-        <div className="form-group">
-          <label>3. External College exam/ Evaluation duties: 5 points/subject for evaluation ;   Invigilation duty = 1 point;  How many times this duty has been performed in the previous two  semesters – please enter number  -- Lab, seminar,, mini and major projects.		Max Score
+        <div>
+          <h5>3. External College exam/ Evaluation duties: 5 points/subject for evaluation ;   Invigilation duty = 1 point;  How many times this duty has been performed in the previous two  semesters – please enter number  -- Lab, seminar,, mini and major projects.		Max Score
 20		
-</label>
-          <table className="table">
+</h5>
+          <table>
             <thead>
               <tr>
                 <th>Nature of Duty</th>
@@ -483,7 +484,7 @@ How many total lecture periods have been taken in the previous two semesters (En
                       name="natureOfDuty"
                       value={row.natureOfDuty}
                       onChange={(e) => handleChange3(index, e)}
-                      className="form-control"
+                      
                     >
                       <option value="">Select an option</option>
                       <option value="ExternalEvaluation">External Evaluation</option>
@@ -502,7 +503,7 @@ How many total lecture periods have been taken in the previous two semesters (En
                       name="sem1"
                       value={row.sem1}
                       onChange={(e) => handleChange3(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
@@ -511,7 +512,7 @@ How many total lecture periods have been taken in the previous two semesters (En
                       name="sem2"
                       value={row.sem2}
                       onChange={(e) => handleChange3(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
@@ -520,11 +521,11 @@ How many total lecture periods have been taken in the previous two semesters (En
                       name="totalDuties"
                       value={row.totalDuties}
                       onChange={(e) => handleChange3(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
-                    <button type="button" onClick={() => handleDeleteRow3(index)} className="btn btn-danger">
+                    <button type="button" onClick={() => handleDeleteRow3(index)} >
                       Delete Row
                     </button>
                   </td>
@@ -532,18 +533,18 @@ How many total lecture periods have been taken in the previous two semesters (En
               ))}
             </tbody>
           </table>
-          <button type="button" onClick={handleAddRow3} className="btn btn-success">Add Row</button>
+          <button type="button" onClick={handleAddRow3} >Add Row</button>
         </div>
         </fieldset>
 
         {/* Table 4 */}
         <fieldset>
-        <div className="form-group">
-          <label>4. 1.5	Internal exam / Evaluation duties for continuous assessment
+        <div >
+          <h5>4. Internal exam / Evaluation duties for continuous assessment
 Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each of Assignment test, home assignment test, sessionals and exams.		Max Score
 40		
- </label>
-          <table className="table">
+ </h5>
+          <table >
             <thead>
               <tr>
                 <th>S.NO</th>
@@ -562,7 +563,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="sNo"
                       value={row.sNo}
                       onChange={(e) => handleChange4(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
@@ -571,7 +572,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="dutiesSem1Sem2"
                       value={row.dutiesSem1Sem2}
                       onChange={(e) => handleChange4(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
@@ -579,7 +580,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="evaluationSchedule"
                       value={row.evaluationSchedule}
                       onChange={(e) => handleChange4(index, e)}
-                      className="form-control"
+                     
                     >
                       <option value="">Select an option</option>
                       <option value="Yes">Yes</option>
@@ -592,11 +593,11 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="remarksDFAC"
                       value={row.remarksDFAC}
                       onChange={(e) => handleChange4(index, e)}
-                      className="form-control"
+                     
                     />
                   </td>
                   <td>
-                    <button type="button" onClick={() => handleDeleteRow4(index)} className="btn btn-danger">
+                    <button type="button" onClick={() => handleDeleteRow4(index)} >
                       Delete Row
                     </button>
                   </td>
@@ -604,27 +605,27 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
               ))}
             </tbody>
           </table>
-          <button type="button" onClick={handleAddRow4} className="btn btn-success">Add Row</button>
+          <button type="button" onClick={handleAddRow4} >Add Row</button>
         </div>
         </fieldset>
 
 
         {/* Table 5 */}
-        <fieldset>
-        <div className="form-group">
-          <label>5. Use of innovating teaching methodologies. </label>
+      <fieldset>
+        <legend>
+          <h6>5. Use of innovating teaching methodologies. </h6></legend>
         <label>Is data available?</label>
         <select
           value={isDataAvailable5 ? "Yes" : "No"}
           onChange={(e) => setIsDataAvailable5(e.target.value === "Yes")}
-          className="form-control"
+          
         >
           <option value="No">No</option>
           <option value="Yes">Yes</option>
         </select>
         {isDataAvailable5 && (
-          <>
-            <table className="table">
+          <div>
+            <table >
               <thead>
                 <tr>
                   <th>Use of Innovating Teaching Methodology</th>
@@ -641,7 +642,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="useOfInnovatingTeachingMethodology"
                         value={row.useOfInnovatingTeachingMethodology}
                         onChange={(e) => handleChange5(index, e)}
-                        className="form-control"
+                       
                       >
                         <option value="">Select an option</option>
                         <option value="ICT based Teaching Methodology over 2 semesters">ICT based Teaching Methodology over 2 semesters</option>
@@ -656,7 +657,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="sem1Score"
                         value={row.sem1Score}
                         onChange={(e) => handleChange5(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                     <td>
@@ -665,11 +666,11 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="sem2Score"
                         value={row.sem2Score}
                         onChange={(e) => handleChange5(index, e)}
-                        className="form-control"
+                       
                       />
                     </td>
                     <td>
-                      <button type="button" onClick={() => handleDeleteRow5(index)} className="btn btn-danger">
+                      <button type="button" onClick={() => handleDeleteRow5(index)} >
                         Delete Row
                       </button>
                     </td>
@@ -677,28 +678,28 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                 ))}
               </tbody>
             </table>
-            <button type="button" onClick={handleAddRow5} className="btn btn-success">Add Row</button>
-          </>
+            <button type="button" onClick={handleAddRow5} >Add Row</button>
+          </div>
         )}
-        </div>
-        </fieldset>
+      </fieldset>
 
        {/* Table 6 */}
-       <fieldset>
-          <div className="form-group">
-          <label>6.Remedial/Bridge Courses /Content beyond syllabus/Design of new Experiments in the lab related to course outcomes.</label>
+        <fieldset>
+          <div >
+          <h5>6.Remedial/Bridge Courses /Content beyond syllabus/Design of new Experiments in the lab related to course outcomes.</h5>
           <label>Is data available?</label>
           <select
             value={isDataAvailable6 ? "Yes" : "No"}
             onChange={(e) => setIsDataAvailable6(e.target.value === "Yes")}
-            className="form-control"
+            
           >
             <option value="No">No</option>
             <option value="Yes">Yes</option>
           </select>
           {isDataAvailable6 && (
             <>
-              <table className="table">
+            <div>
+              <table >
                 <thead>
                   <tr>
                     <th>Items</th>
@@ -717,7 +718,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="item"
                           value={row.item}
                           onChange={(e) => handleChange6(index, e)}
-                          className="form-control"
+                          
                         >
                           <option value="">Select an option</option>
                           <option value="Remedial">Remedial</option>
@@ -735,7 +736,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="semester1"
                           value={row.semester1}
                           onChange={(e) => handleChange6(index, e)}
-                          className="form-control"
+                          
                         />
                       </td>
                       <td>
@@ -744,7 +745,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="score1"
                           value={row.score1}
                           onChange={(e) => handleChange6(index, e)}
-                          className="form-control"
+                          
                         />
                       </td>
                       <td>
@@ -753,7 +754,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="semester2"
                           value={row.semester2}
                           onChange={(e) => handleChange6(index, e)}
-                          className="form-control"
+                          
                         />
                       </td>
                       <td>
@@ -762,11 +763,11 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="score2"
                           value={row.score2}
                           onChange={(e) => handleChange6(index, e)}
-                          className="form-control"
+                          
                         />
                       </td>
                       <td>
-                        <button type="button" onClick={() => handleDeleteRow6(index)} className="btn btn-danger">
+                        <button type="button" onClick={() => handleDeleteRow6(index)} >
                           Delete Row
                         </button>
                       </td>
@@ -774,7 +775,8 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                   ))}
                 </tbody>
               </table>
-              <button type="button" onClick={handleAddRow6} className="btn btn-success">Add Row</button>
+              <button type="button" onClick={handleAddRow6} >Add Row</button>
+            </div>
             </>
           )}
           </div>
@@ -782,19 +784,20 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
 
         {/* Table 7 */}
         <fieldset>
-          <div className="form-group">
-            <label>7. Counseling with proper records.</label>
+          <div >
+            <h5>7. Counseling with proper records.</h5>
             <label>Is data available?</label>
             <select
               value={isDataAvailable7 ? "Yes" : "No"}
               onChange={(e) => setIsDataAvailable7(e.target.value === "Yes")}
-              className="form-control"
+              
             >
               <option value="No">No</option>
               <option value="Yes">Yes</option>
             </select>
             {isDataAvailable7 && (
-              <table className="table">
+              <>
+              <table >
                 <thead>
                   <tr>
                     <th>Item</th>
@@ -812,8 +815,8 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           type="text"
                           name="item"
                           value={"How many counselling sessions done? for each 5 points"}
-                          className="form-control"
-                          readOnly
+                          
+                          
                         />
                       </td>
                       <td>
@@ -822,7 +825,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="sem1"
                           value={row.sem1}
                           onChange={(e) => handleChange7(index, e)}
-                          className="form-control"
+                          
                         />
                       </td>
                       <td>
@@ -831,7 +834,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="sem2"
                           value={row.sem2}
                           onChange={(e) => handleChange7(index, e)}
-                          className="form-control"
+                          
                         />
                       </td>
                       <td>
@@ -840,7 +843,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="totalSessions"
                           value={row.totalSessions}
                           onChange={(e) => handleChange7(index, e)}
-                          className="form-control"
+                          
                         />
                       </td>
                       <td>
@@ -849,24 +852,27 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                           name="score"
                           value={row.score}
                           onChange={(e) => handleChange7(index, e)}
-                          className="form-control"
+                          
                         />
                       </td>
                     </tr>
+                    
                   ))}
                 </tbody>
               </table>
+              
+            </>
             )}
           </div>
         </fieldset>
 
         {/* Table 8 */}
         <fieldset>
-          <div className="form-group">
-            <label>8. Percentage of passes:
+          <div >
+            <h5>8. Percentage of passes:
 (Less than 55%=10, 56-65%=30, 66-75%=40, 76-85%=60, Greater than 85%=70 points) 
-</label>
-            <table className="table">
+</h5>
+            <table >
               <thead>
                 <tr>
                   <th colSpan="2">Sem1</th>
@@ -889,7 +895,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="subjectsSem1"
                         value={row.subjectsSem1}
                         onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                     <td>
@@ -898,7 +904,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="passSem1"
                         value={row.passSem1}
                         onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                     <td>
@@ -907,7 +913,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="subjectsSem2"
                         value={row.subjectsSem2}
                         onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                     <td>
@@ -916,7 +922,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="passSem2"
                         value={row.passSem2}
                         onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                     <td>
@@ -925,7 +931,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="avg"
                         value={row.avg}
                         onChange={(e) => handleChange8(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                   </tr>
@@ -937,9 +943,9 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
 
       {/* Table 9 */}
       <fieldset>
-        <div className="form-group">
-          <label>9. Student feedback on teaching(Subject wise and semester wise including Lab).</label>
-          <table className="table">
+        <div >
+          <h5>9. Student feedback on teaching(Subject wise and semester wise including Lab).</h5>
+          <table >
             <thead>
               <tr>
                 <th>Subjects</th>
@@ -957,7 +963,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="subjectsSem1"
                       value={row.subjectsSem1}
                       onChange={(e) => handleChange9(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
@@ -966,7 +972,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="feedbackSem1"
                       value={row.feedbackSem1}
                       onChange={(e) => handleChange9(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
@@ -975,7 +981,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="subjectsSem2"
                       value={row.subjectsSem2}
                       onChange={(e) => handleChange9(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
@@ -984,7 +990,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="feedbackSem2"
                       value={row.feedbackSem2}
                       onChange={(e) => handleChange9(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                 </tr>
@@ -996,10 +1002,10 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
 
         {/* Table 10 */}
       <fieldset>
-        <div className="form-group">
-          <label>10. Project Guidance(Mini project/major project/seminar/term paper)
-          If Project work results in a paper publication, Score = 50 points.</label>
-          <table className="table">
+        <div >
+          <h5>10. Project Guidance(Mini project/major project/seminar/term paper)
+          If Project work results in a paper publication, Score = 50 points.</h5>
+          <table >
             <thead>
               <tr>
                 <th>Project Batch No</th>
@@ -1017,7 +1023,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="projectBatchNo"
                       value={row.projectBatchNo}
                       onChange={(e) => handleChange10(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
@@ -1025,7 +1031,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="sem"
                       value={row.sem}
                       onChange={(e) => handleChange10(index, e)}
-                      className="form-control"
+                      
                     >
                       <option value="">Select an option</option>
                       <option value="sem1">Sem 1</option>
@@ -1038,11 +1044,11 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                       name="averageScore"
                       value={row.averageScore}
                       onChange={(e) => handleChange10(index, e)}
-                      className="form-control"
+                      
                     />
                   </td>
                   <td>
-                    <button type="button" onClick={() => handleDeleteRow10(index)} className="btn btn-danger">
+                    <button type="button" onClick={() => handleDeleteRow10(index)} >
                       Delete Row
                     </button>
                   </td>
@@ -1050,15 +1056,15 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
               ))}
             </tbody>
           </table>
-          <button type="button" onClick={handleAddRow10} className="btn btn-success">Add Row</button>
+          <button type="button" onClick={handleAddRow10} >Add Row</button>
         </div>
       </fieldset>
 
       {/* Table 11 */}
       <fieldset>
-      <div className="form-group">
-        <label>11. Feedback from students on project guidance after the Project Internal Evaluation. </label>
-        <table className="table">
+      <div>
+        <h5>11. Feedback from students on project guidance after the Project Internal Evaluation. </h5>
+        <table >
           <thead>
             <tr>
               <th>Batch No</th>
@@ -1076,8 +1082,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                     name="batchNo"
                     value={row.batchNo}
                     onChange={(e) => handleChange11(index, e)}
-                    className="form-control"
-                    readOnly
+                   
                   />
                 </td>
                 <td>
@@ -1085,7 +1090,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                     name="sem"
                     value={row.sem}
                     onChange={(e) => handleChange11(index, e)}
-                    className="form-control"
+                    
                   >
                     <option value="">Select an option</option>
                     <option value="sem1">Sem 1</option>
@@ -1098,11 +1103,11 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                     name="averageScore"
                     value={row.averageScore}
                     onChange={(e) => handleChange11(index, e)}
-                    className="form-control"
+                    
                   />
                 </td>
                 <td>
-                  <button type="button" onClick={() => handleDeleteRow11(index)} className="btn btn-danger">
+                  <button type="button" onClick={() => handleDeleteRow11(index)} >
                     Delete Row
                   </button>
                 </td>
@@ -1110,25 +1115,26 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
             ))}
           </tbody>
         </table>
-        <button type="button" onClick={handleAddRow11} className="btn btn-success">Add Row</button>
+        <button type="button" onClick={handleAddRow11} >Add Row</button>
       </div>
       </fieldset>
 
       {/* Table 12 */}
       <fieldset>
-        <div className="form-group">
-          <label>12. NPTEL/MIT/COURSERA/edx/UDACITY) lectures. </label>
+        <div >
+          <h5>12. NPTEL/MIT/COURSERA/edx/UDACITY) lectures. </h5>
           <label>Is data available?</label>
           <select
             value={isDataAvailable12 ? "Yes" : "No"}
             onChange={(e) => setIsDataAvailable12(e.target.value === "Yes")}
-            className="form-control"
+            
           >
             <option value="No">No</option>
             <option value="Yes">Yes</option>
           </select>
           {isDataAvailable12 && (
-            <table className="table">
+          <>
+            <table>
               <thead>
                 <tr>
                   <th colSpan="5">NPTEL/MIT/COURSERA/edx/UDACITY Lectures (60)</th>
@@ -1149,7 +1155,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="courseType"
                         value={row.courseType}
                         onChange={(e) => handleChange12(index, e)}
-                        className="form-control"
+                        
                       >
                         <option value="">Select an option</option>
                         <option value="Full Course with Online Exam">Full Course with Online Exam</option>
@@ -1162,7 +1168,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="attendance"
                         value={row.attendance}
                         onChange={(e) => handleChange12(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                     <td>
@@ -1171,7 +1177,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="endCourseExamMarks"
                         value={row.endCourseExamMarks}
                         onChange={(e) => handleChange12(index, e)}
-                        className="form-control"
+                       
                       />
                     </td>
                     <td>
@@ -1179,12 +1185,12 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         type="number"
                         name="score"
                         value={row.score}
-                        readOnly
-                        className="form-control"
+                        
+                        
                       />
                     </td>
                     <td>
-                      <button type="button" onClick={() => handleDeleteRow12(index)} className="btn btn-danger">
+                      <button type="button" onClick={() => handleDeleteRow12(index)} >
                         Delete Row
                       </button>
                     </td>
@@ -1192,25 +1198,27 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                 ))}
               </tbody>
             </table>
+            <button type="button" onClick={handleAddRow12} >Add Row</button>
+          </>
           )}
         </div>
       </fieldset>
 
       {/* Table 13 */}
       <fieldset>
-        <div className="form-group">
-          <label>13.Involvement of Faculty in syllabus framing.   </label>
+        <div >
+          <h5>13.Involvement of Faculty in syllabus framing.   </h5>
           <label> Is data available?</label>
           <select
             value={isDataAvailable13 ? "Yes" : "No"}
             onChange={(e) => setIsDataAvailable13(e.target.value === "Yes")}
-            className="form-control"
+            
           >
             <option value="No">No</option>
             <option value="Yes">Yes</option>
           </select>
           {isDataAvailable13 && (
-            <table className="table">
+            <table >
               <thead>
                 <tr>
                   <th>Involvement of Faculty in Syllabus Framing (30)</th>
@@ -1228,8 +1236,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="involvement"
                         value={row.involvement}
                         onChange={(e) => handleChange13(index, e)}
-                        className="form-control"
-                        readOnly
+                        
                       />
                     </td>
                     <td>
@@ -1238,7 +1245,7 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="selfScore"
                         value={row.selfScore}
                         onChange={(e) => handleChange13(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                     <td>
@@ -1247,11 +1254,11 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
                         name="dfac"
                         value={row.dfac}
                         onChange={(e) => handleChange13(index, e)}
-                        className="form-control"
+                        
                       />
                     </td>
                     <td>
-                      <button type="button" onClick={() => handleDeleteRow13(index)} className="btn btn-danger">
+                      <button type="button" onClick={() => handleDeleteRow13(index)} >
                         Delete Row
                       </button>
                     </td>
@@ -1264,13 +1271,12 @@ Each duty = 1 point /invigilation duty. Each internal evaluation = 1 point each 
       </fieldset>
 
         <div className="tab-buttons">
-          <button type="button" onClick={() => openTab('Part-A')} className="btn btn-secondary">Previous</button>
-          <span style={{ margin: '0 10px' }}></span> {/* Gap */}
+          <button type="button" onClick={() => openTab('Part-A')} >Previous</button>
+          <span style={{ margin: '0 5px' }}></span> {/* Gap */}
           <button type="button" onClick={handleSave} style={{ backgroundColor: '#2896a7' }}>Save</button>
           <span style={{ margin: '0 10px' }}></span> {/* Gap */}
-          <button type="button" onClick={() => openTab('Part-C')} className="btn btn-primary">Next</button>
+          <button type="button" onClick={() => openTab('Part-C')} >Next</button>
         </div>
-      </form>
     </div>
 
 

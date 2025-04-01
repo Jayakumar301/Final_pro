@@ -63,7 +63,7 @@ function PartFAssistantProfessor({ openTab }) {
   };
 
   return (
-    <div>
+    <div className='parts'>
       <h5>Annual Confidential Report to be filled in by the HOD for Assistant Professor</h5>
       <p>This is Part F content for Assistant Professor.</p>
 

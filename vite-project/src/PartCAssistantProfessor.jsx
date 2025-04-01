@@ -296,7 +296,7 @@ function PartCAssistantProfessor({ openTab }) {
 
 
   return (
-    <div>
+    <div >
       <h5>Co-Curricular Teaching& Learning Process of Assistant Professor</h5>
       <p>This is Part C content for Assistant Professor.</p>
       <fieldset>
