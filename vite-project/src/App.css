@@ -382,7 +382,7 @@ aside nav ul li:hover {
 
 main {
   margin-left: 250px; /* Ensure content starts after the sidebar */
-  margin-right: 50px; /* Add some margin to the right */
+  margin-right: 70px; /* Add some margin to the right */
   padding: 20px;
   padding-top: 100px; /* Add padding to account for the fixed header */
   transition: filter 0.3s ease;
@@ -396,17 +396,20 @@ main.blur {
 .login-page {
   background-color: white;
   padding: 20px;
+  margin: 50px;
+  box-sizing: border-box;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .login-page form {
-  max-width: 500px;
+  max-width: 300px;
   margin: 0 auto;
 }
 
 .login-page form div {
-  margin-bottom: 15px;
+  margin-bottom: 35px;
+  margin-left: 20px;
 }
 
 .login-page form label {
@@ -448,16 +451,18 @@ main.blur {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
   margin-top: 20px;
 }
 
 .content h2 {
   color: #4CAF50;
-  margin-top: 20px;
+  font-size: 25px;
+  margin-top: 10px;
 }
 
 .content p {
-  font-size: 1.1rem;
+  font-size: 1 rem;
   line-height: 1.6;
   margin-bottom: 20px;
 }
@@ -513,13 +518,17 @@ main.blur {
 .instructions {
   background-color: #fff;
   padding: 20px;
+  margin-top: 20px;
   border-radius: 10px;
+  box-sizing: border-box;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .instructions h2 {
   color: #4CAF50;
-  margin-top: 20px;
+  margin-top: 10px;
+  font-size: 25px;
 }
 
 .instructions ul {
@@ -528,7 +537,7 @@ main.blur {
 }
 
 .instructions ul li {
-  font-size: 1.1rem;
+  font-size: 15px;
   line-height: 1.6;
   margin-bottom: 10px;
 }
