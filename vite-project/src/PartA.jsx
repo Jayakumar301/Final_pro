@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -19,6 +19,19 @@ function PartA({ category, openTab }) {
   });
   const [errors, setErrors] = useState({});
   const [isFormValid, setIsFormValid] = useState(true);
+
+  useEffect(() => {
+    const savedProfile = JSON.parse(localStorage.getItem('profile'));
+    if (savedProfile) {
+      setFormData({
+        ...formData,
+        name: savedProfile.name,
+        gmail: savedProfile.gmail,
+        contact: savedProfile.phone,
+        address: savedProfile.address
+      });
+    }
+  }, []);
 
   const addEducationRow = () => {
     setEducationRows([...educationRows, { programme: '', periodOfStudy: '', university: '', marksCGPA: '', classObtained: '' }]);

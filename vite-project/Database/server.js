@@ -1,197 +1,269 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import e from 'express';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './App.css';
+import Modal from 'react-modal';
 
-// Initialize app and middleware
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+Modal.setAppElement('#root');
 
-// MongoDB URI (replace with your actual URI)
-const mongoURI = 'mongodb://localhost:27017/FacultyDatabase';
+function HomePage() {
+  const navigate = useNavigate();
+  const [academicYear, setAcademicYear] = useState('');
+  const [category, setCategory] = useState('');
+  const [department, setDepartment] = useState('');
+  const [profile, setProfile] = useState({
+    name: '',
+    gmail: '',
+    phone: '',
+    address: '',
+    photo: ''
+  });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [passwordModalIsOpen, setPasswordModalIsOpen] = useState(false);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [message, setMessage] = useState('');
 
-// Connect to MongoDB
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected successfully'))
-  .catch((err) => console.log('Error connecting to MongoDB:', err));
-
-// Create schema for PartA data
-const partADataSchema = new mongoose.Schema({
-  name: String,
-  postHeld: String,
-  employeeId: String,
-  appointmentDate: Date,
-  address: String,
-  contact: String,
-  email: String, // Add email field
-  department: String,
-  category: String,
-  educationRows: Array,
-  experienceRows: Array
-});
-
-// Create schema for PartB data
-const partBDataSchema = new mongoose.Schema({
-  rows1: Array,
-  rows2: Array,
-  rows3: Array,
-  rows4: Array,
-  rows5: Array,
-  rows6: Array,
-  rows7: Array,
-  rows8: Array,
-  rows9: Array,
-  rows10: Array,
-  rows11: Array,
-  rows12: Array,
-  rows13: Array
-});
-
-// Create schema for PartC data (adjust fields as needed)
-const partCDataSchema = new mongoose.Schema({
-  rows6: Array,
-  rows7: Array,
-  rows8: Array,
-  rows9: Array,
-  rows10: Array
-});
-
-// Create schema for PartD data (adjust fields as needed)
-const partDDataSchema = new mongoose.Schema({
-  rows1: Array,
-  rows2: Array,
-  rows3: Array,
-  rows4: Array,
-  rows5: Array,
-  rows6: Array,
-  rows7: Array,
-  rows8: Array
-});
-
-// Create schema for PartE data (adjust fields as needed)
-const partEDataSchema = new mongoose.Schema({
-  rowsTable1: Array,
-  rowsTable2: Array,
-  rowsTable3: Array,
-  rowsTable4: Array,
-  rowsTable5: Array
-});
-
-// Create schema for PartF data (adjust fields as needed)
-const partFDataSchema = new mongoose.Schema({
-  rows: Array
-});
-
-// Create schema for User data (for login)
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
-
-const User = mongoose.model('User', userSchema);
-
-// Create models from schemas
-const PartAData = mongoose.model("PartAData", partADataSchema);
-const PartBData = mongoose.model("PartBData", partBDataSchema);
-const PartCData = mongoose.model("PartCData", partCDataSchema);
-const PartDData = mongoose.model("PartDData", partDDataSchema);
-const PartEData = mongoose.model("PartEData", partEDataSchema);
-const PartFData = mongoose.model("PartFData", partFDataSchema);
-
-// Endpoint to save PartA data
-app.post('/save-parta-data', async (req, res) => {
-  const partAData = new PartAData(req.body);
-  try {
-    await partAData.save();
-    res.send({ message: 'PartA data saved successfully' });
-  } catch (err) {
-    res.status(500).send({ message: 'Error saving PartA data', error: err });
-  }
-});
-
-// Endpoint to save PartB data
-app.post('/save-partb-data', async (req, res) => {
-  const partBData = new PartBData(req.body);
-  try {
-    await partBData.save();
-    res.send({ message: 'PartB data saved successfully' });
-  } catch (err) {
-    res.status(500).send({ message: 'Error saving PartB data', error: err });
-  }
-});
-
-// Endpoint to save PartC data
-app.post('/save-partc-data', async (req, res) => {
-  const partCData = new PartCData(req.body);
-  try {
-    await partCData.save();
-    res.send({ message: 'PartC data saved successfully' });
-  } catch (err) {
-    res.status(500).send({ message: 'Error saving PartC data', error: err });
-  }
-});
-
-// Endpoint to save PartD data
-app.post('/save-partd-data', async (req, res) => {
-  const partDData = new PartDData(req.body);
-  try {
-    await partDData.save();
-    res.send({ message: 'PartD data saved successfully' });
-  } catch (err) {
-    res.status(500).send({ message: 'Error saving PartD data', error: err });
-  }
-});
-
-// Endpoint to save PartE data
-app.post('/save-parte-data', async (req, res) => {
-  const partEData = new PartEData(req.body);
-  try {
-    await partEData.save();
-    res.send({ message: 'PartE data saved successfully' });
-  } catch (err) {
-    res.status(500).send({ message: 'Error saving PartE data', error: err });
-  }
-});
-
-// Endpoint to save PartF data
-app.post('/save-partf-data', async (req, res) => {
-  const partFData = new PartFData(req.body);
-  try {
-    await partFData.save();
-    res.send({ message: 'PartF data saved successfully' });
-  } catch (err) {
-    res.status(500).send({ message: 'Error saving PartF data', error: err });
-  }
-});
-
-// Login endpoint
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-  console.log('Received login request:', username, password); // Log received credentials
-  try {
-    const user = await User.findOne({ username, password });
-    if (user) {
-      res.status(200).send({ message: 'Login successful' });
-    } else {
-      res.status(401).send({ message: 'Invalid username or password' });
-      console.log(error); // Log invalid login attempt
-      console.log(User); // Log the User model for debugging
+  useEffect(() => {
+    const storedProfile = JSON.parse(localStorage.getItem('profile'));
+    const username = localStorage.getItem('username');
+    if (storedProfile) {
+      setProfile(storedProfile);
+    } else if (username) {
+      fetchProfile(username);
     }
-  } catch (error) {
-    console.log('Error during login:', error); // Log any errors
-    res.status(500).send({ message: 'Server error. Please try again later.' });
-  }
-});
+  }, []);
 
-// Start the server on a port
-const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  const fetchProfile = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:5000/get-profile?username=${username}`);
+      const data = await response.json();
+      if (data) {
+        setProfile(data);
+        localStorage.setItem('profile', JSON.stringify(data));
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
+
+  const handleGenerate = () => {
+    if (academicYear && category && department) {
+      navigate('/parts', { state: { category, department } });
+    } else {
+      alert('Please select the academic year, category, and department.');
+    }
+  };
+
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target;
+    setProfile({ ...profile, [name]: value });
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfile({ ...profile, photo: reader.result });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+    setMessage('');
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setMessage('');
+  };
+
+  const openPasswordModal = () => {
+    setPasswordModalIsOpen(true);
+    setMessage('');
+  };
+
+  const closePasswordModal = () => {
+    setPasswordModalIsOpen(false);
+    setOldPassword('');
+    setNewPassword('');
+    setMessage('');
+  };
+
+  const saveProfile = () => {
+    const username = localStorage.getItem('username');
+    if (username) {
+      localStorage.setItem('profile', JSON.stringify(profile));
+      saveProfileToServer(username, profile);
+    } else {
+      alert('User not logged in.');
+    }
+  };
+
+  const saveProfileToServer = async (username, profile) => {
+    try {
+      const response = await fetch('http://localhost:5000/save-profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, profile }),
+      });
+      const result = await response.json();
+      setMessage('Profile saved successfully');
+      console.log('Profile saved successfully:', result);
+      closeModal();
+    } catch (error) {
+      setMessage('Error saving profile');
+      console.error('Error saving profile:', error);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    const username = localStorage.getItem('username');
+    if (username) {
+      try {
+        const response = await fetch('http://localhost:5000/change-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, oldPassword, newPassword }),
+        });
+        const result = await response.json();
+        if (result.success) {
+          setMessage('Password changed successfully');
+          closePasswordModal();
+        } else {
+          setMessage('Old password is incorrect');
+        }
+      } catch (error) {
+        setMessage('Error changing password');
+        console.error('Error changing password:', error);
+      }
+    } else {
+      alert('User not logged in.');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('profile');
+    localStorage.removeItem('username');
+    navigate('/LandingPage');
+  };
+
+  return (
+    <div className={`container d-flex flex-column align-items-center justify-content-center min-vh-100 ${modalIsOpen || passwordModalIsOpen ? 'blurred-content' : ''}`}>
+      <div className="background-container"></div>
+      <div className="content-container">
+        <h1 className="text-primary my-4 text-center">Performance based Appraisal System for Faculty Members (PBAS)</h1>
+        <h2 className="text-secondary mb-4 text-center">PBAS Home</h2>
+        <div className="profile-circle" onClick={openModal}>
+          {profile.photo ? (
+            <img src={profile.photo} alt="Profile" className="profile-image" />
+          ) : (
+            <div className="profile-placeholder">P</div>
+          )}
+        </div>
+        <form className="w-100" style={{ maxWidth: '500px' }}>
+          <div className="form-group">
+            <label htmlFor="academicYear">Academic Year:</label>
+            <select id="academicYear" name="academicYear" value={academicYear} onChange={(e) => setAcademicYear(e.target.value)} className="form-control">
+              <option value="">Select an option</option>
+              <option value="2021-22">2021-22</option>
+              <option value="2022-23">2022-23</option>
+              <option value="2023-24">2023-24</option>
+              <option value="2024-25">2024-25</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="category">Category:</label>
+            <select id="category" name="category" value={category} onChange={(e) => setCategory(e.target.value)} className="form-control">
+              <option value="">Select an option</option>
+              <option value="Professor">Professor</option>
+              <option value="Associative Professor">Associative Professor</option>
+              <option value="Assistant Professor">Assistant Professor</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="department">Department:</label>
+            <select id="department" name="department" value={department} onChange={(e) => setDepartment(e.target.value)} className="form-control">
+              <option value="">Select an option</option>
+              <option value="CSE">CSE</option>
+              <option value="MECH">MECH</option>
+              <option value="CIVIL">CIVIL</option>
+              <option value="ECE">ECE</option>
+              <option value="EEE">EEE</option>
+            </select>
+          </div>
+          <button type="button" onClick={handleGenerate} className="btn btn-primary btn-block">Generate</button>
+        </form>
+        {message && <div className="alert alert-success mt-3">{message}</div>}
+      </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Profile Modal"
+        className="profile-modal"
+        overlayClassName="overlay"
+      >
+        <button className="close-button" onClick={closeModal}>&times;</button>
+        <h2>Profile</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" value={profile.name} onChange={handleProfileChange} className="form-control" autoComplete="name" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="gmail">Gmail:</label>
+            <input type="email" id="gmail" name="gmail" value={profile.gmail} onChange={handleProfileChange} className="form-control" autoComplete="email" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value={profile.phone} onChange={handleProfileChange} className="form-control" autoComplete="tel" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">Address:</label>
+            <input type="text" id="address" name="address" value={profile.address} onChange={handleProfileChange} className="form-control" autoComplete="street-address" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="photo">Photo:</label>
+            <input type="file" id="photo" name="photo" onChange={handlePhotoChange} className="form-control" />
+          </div>
+          <button type="button" onClick={saveProfile} className="btn btn-primary btn-block">Save</button>
+          <button type="button" onClick={closeModal} className="btn btn-secondary btn-block">Close</button>
+          <div className="d-flex flex-column mt-3">
+            <button type="button" onClick={openPasswordModal} className="btn btn-warning mb-2">Change Password</button>
+            <button type="button" onClick={handleLogout} className="btn btn-danger">Logout</button>
+          </div>
+        </form>
+      </Modal>
+
+      <Modal
+        isOpen={passwordModalIsOpen}
+        onRequestClose={closePasswordModal}
+        contentLabel="Change Password Modal"
+        className="profile-modal"
+        overlayClassName="overlay"
+      >
+        <button className="close-button" onClick={closePasswordModal}>&times;</button>
+        <h2>Change Password</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="oldPassword">Old Password:</label>
+            <input type="password" id="oldPassword" name="oldPassword" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} className="form-control" autoComplete="current-password" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="form-control" autoComplete="new-password" />
+          </div>
+          <button type="button" onClick={handleChangePassword} className="btn btn-primary btn-block">Change Password</button>
+          <button type="button" onClick={closePasswordModal} className="btn btn-secondary btn-block">Close</button>
+        </form>
+      </Modal>
+    </div>
+  );
+}
+
+export default HomePage;

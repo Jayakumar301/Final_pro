@@ -1,12 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 function HomePage() {
   const navigate = useNavigate();
   const [academicYear, setAcademicYear] = useState('');
   const [category, setCategory] = useState('');
   const [department, setDepartment] = useState('');
+  const [profile, setProfile] = useState({
+    name: '',
+    gmail: '',
+    phone: '',
+    address: '',
+    photo: ''
+  });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [passwordModalIsOpen, setPasswordModalIsOpen] = useState(false);
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const storedProfile = JSON.parse(localStorage.getItem('profile'));
+    const username = localStorage.getItem('username');
+    if (storedProfile) {
+      setProfile(storedProfile);
+    } else if (username) {
+      fetchProfile(username);
+    }
+  }, []);
+
+  const fetchProfile = async (username) => {
+    try {
+      const response = await fetch(`http://localhost:5000/get-profile?username=${username}`);
+      const data = await response.json();
+      if (data) {
+        setProfile(data);
+        localStorage.setItem('profile', JSON.stringify(data));
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
 
   const handleGenerate = () => {
     if (academicYear && category && department) {
@@ -16,12 +54,117 @@ function HomePage() {
     }
   };
 
+  const handleProfileChange = (e) => {
+    const { name, value } = e.target;
+    setProfile({ ...profile, [name]: value });
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setProfile({ ...profile, photo: reader.result });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+    setMessage('');
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setMessage('');
+  };
+
+  const openPasswordModal = () => {
+    setPasswordModalIsOpen(true);
+    setMessage('');
+  };
+
+  const closePasswordModal = () => {
+    setPasswordModalIsOpen(false);
+    setOldPassword('');
+    setNewPassword('');
+    setMessage('');
+  };
+
+  const saveProfile = () => {
+    const username = localStorage.getItem('username');
+    if (username) {
+      localStorage.setItem('profile', JSON.stringify(profile));
+      saveProfileToServer(username, profile);
+    } else {
+      alert('User not logged in.');
+    }
+  };
+
+  const saveProfileToServer = async (username, profile) => {
+    try {
+      const response = await fetch('http://localhost:5000/save-profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, profile }),
+      });
+      const result = await response.json();
+      setMessage('Profile saved successfully');
+      console.log('Profile saved successfully:', result);
+      closeModal();
+    } catch (error) {
+      setMessage('Error saving profile');
+      console.error('Error saving profile:', error);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    const username = localStorage.getItem('username');
+    if (username) {
+      try {
+        const response = await fetch('http://localhost:5000/change-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, oldPassword, newPassword }),
+        });
+        const result = await response.json();
+        if (result.success) {
+          setMessage('Password changed successfully');
+          closePasswordModal();
+        } else {
+          setMessage('Old password is incorrect');
+        }
+      } catch (error) {
+        setMessage('Error changing password');
+        console.error('Error changing password:', error);
+      }
+    } else {
+      alert('User not logged in.');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('profile');
+    localStorage.removeItem('username');
+    navigate('/');
+  };
+
   return (
-    <div className="container d-flex flex-column align-items-center justify-content-center min-vh-100">
+    <div className={`container d-flex flex-column align-items-center justify-content-center min-vh-100 ${modalIsOpen || passwordModalIsOpen ? 'blurred-content' : ''}`}>
       <div className="background-container"></div>
       <div className="content-container">
         <h1 className="text-primary my-4 text-center">Performance based Appraisal System for Faculty Members (PBAS)</h1>
         <h2 className="text-secondary mb-4 text-center">PBAS Home</h2>
+        <div className="profile-circle" onClick={openModal}>
+          {profile.photo ? (
+            <img src={profile.photo} alt="Profile" className="profile-image" />
+          ) : (
+            <div className="profile-placeholder">P</div>
+          )}
+        </div>
         <form className="w-100" style={{ maxWidth: '500px' }}>
           <div className="form-group">
             <label htmlFor="academicYear">Academic Year:</label>
@@ -55,7 +198,70 @@ function HomePage() {
           </div>
           <button type="button" onClick={handleGenerate} className="btn btn-primary btn-block">Generate</button>
         </form>
+        {message && <div className="alert alert-success mt-3">{message}</div>}
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Profile Modal"
+        className="profile-modal"
+        overlayClassName="overlay"
+      >
+        <button className="close-button" onClick={closeModal}>&times;</button>
+        <h2>Profile</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input type="text" id="name" name="name" value={profile.name} onChange={handleProfileChange} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="gmail">Gmail:</label>
+            <input type="email" id="gmail" name="gmail" value={profile.gmail} onChange={handleProfileChange} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value={profile.phone} onChange={handleProfileChange} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">Address:</label>
+            <input type="text" id="address" name="address" value={profile.address} onChange={handleProfileChange} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="photo">Photo:</label>
+            <input type="file" id="photo" name="photo" onChange={handlePhotoChange} className="form-control" />
+          </div>
+          <button type="button" onClick={saveProfile} className="btn btn-primary btn-block">Save</button>
+          <button type="button" onClick={closeModal} className="btn btn-secondary btn-block">Close</button>
+          <div className="d-flex flex-column mt-3">
+            <button type="button" onClick={openPasswordModal} className="btn btn-warning mb-2">Change Password</button>
+            <button type="button" onClick={handleLogout} className="btn btn-danger">Logout</button>
+          </div>
+        </form>
+      </Modal>
+
+      <Modal
+        isOpen={passwordModalIsOpen}
+        onRequestClose={closePasswordModal}
+        contentLabel="Change Password Modal"
+        className="profile-modal"
+        overlayClassName="overlay"
+      >
+        <button className="close-button" onClick={closePasswordModal}>&times;</button>
+        <h2>Change Password</h2>
+        <form>
+          <div className="form-group">
+            <label htmlFor="oldPassword">Old Password:</label>
+            <input type="password" id="oldPassword" name="oldPassword" value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="newPassword">New Password:</label>
+            <input type="password" id="newPassword" name="newPassword" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="form-control" />
+          </div>
+          <button type="button" onClick={handleChangePassword} className="btn btn-primary btn-block">Change Password</button>
+          <button type="button" onClick={closePasswordModal} className="btn btn-secondary btn-block">Close</button>
+        </form>
+      </Modal>
     </div>
   );
 }
