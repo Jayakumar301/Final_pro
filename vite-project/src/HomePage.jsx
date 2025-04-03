@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import Modal from 'react-modal';
@@ -22,29 +22,6 @@ function HomePage() {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    const storedProfile = JSON.parse(localStorage.getItem('profile'));
-    const username = localStorage.getItem('username');
-    if (storedProfile) {
-      setProfile(storedProfile);
-    } else if (username) {
-      fetchProfile(username);
-    }
-  }, []);
-
-  const fetchProfile = async (username) => {
-    try {
-      const response = await fetch(`http://localhost:5000/get-profile?username=${username}`);
-      const data = await response.json();
-      if (data) {
-        setProfile(data);
-        localStorage.setItem('profile', JSON.stringify(data));
-      }
-    } catch (error) {
-      console.error('Error fetching profile:', error);
-    }
-  };
 
   const handleGenerate = () => {
     if (academicYear && category && department) {
@@ -91,26 +68,22 @@ function HomePage() {
   };
 
   const saveProfile = () => {
-    const username = localStorage.getItem('username');
-    if (username) {
-      localStorage.setItem('profile', JSON.stringify(profile));
-      saveProfileToServer(username, profile);
-    } else {
-      alert('User not logged in.');
-    }
+    localStorage.setItem('profile', JSON.stringify(profile));
+    saveProfileToServer(profile);
   };
 
-  const saveProfileToServer = async (username, profile) => {
+  const saveProfileToServer = async (profile) => {
     try {
       const response = await fetch('http://localhost:5000/save-profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, profile }),
+        body: JSON.stringify(profile),
       });
       const result = await response.json();
       setMessage('Profile saved successfully');
+      alert('Profile saved successfully:', result);
       console.log('Profile saved successfully:', result);
       closeModal();
     } catch (error) {
@@ -120,36 +93,29 @@ function HomePage() {
   };
 
   const handleChangePassword = async () => {
-    const username = localStorage.getItem('username');
-    if (username) {
-      try {
-        const response = await fetch('http://localhost:5000/change-password', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, oldPassword, newPassword }),
-        });
-        const result = await response.json();
-        if (result.success) {
-          setMessage('Password changed successfully');
-          closePasswordModal();
-        } else {
-          setMessage('Old password is incorrect');
-        }
-      } catch (error) {
-        setMessage('Error changing password');
-        console.error('Error changing password:', error);
+    try {
+      const response = await fetch('http://localhost:5000/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ oldPassword, newPassword }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        setMessage('Password changed successfully');
+        closePasswordModal();
+      } else {
+        setMessage('Old password is incorrect');
       }
-    } else {
-      alert('User not logged in.');
+    } catch (error) {
+      setMessage('Error changing password');
+      console.error('Error changing password:', error);
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('profile');
-    localStorage.removeItem('username');
-    navigate('/');
+    navigate('/LandingPage');
   };
 
   return (
