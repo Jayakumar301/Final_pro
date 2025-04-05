@@ -21,16 +21,28 @@ function PartA({ category, openTab }) {
   const [isFormValid, setIsFormValid] = useState(true);
 
   useEffect(() => {
-    const savedProfile = JSON.parse(localStorage.getItem('profile'));
-    if (savedProfile) {
-      setFormData({
-        ...formData,
-        name: savedProfile.name,
-        gmail: savedProfile.gmail,
-        contact: savedProfile.phone,
-        address: savedProfile.address
-      });
-    }
+    const fetchProfileData = async () => {
+      const savedProfile = JSON.parse(localStorage.getItem('profile'));
+      if (savedProfile && savedProfile.id) {
+        try {
+          const response = await axios.get(`http://localhost:5000/get-profile?username=${savedProfile.id}`);
+          if (response.status === 200) {
+            const profileData = response.data;
+            setFormData({
+              ...formData,
+              name: profileData.name || '',
+              gmail: profileData.gmail || '',
+              contact: profileData.phone || '',
+              address: profileData.address || ''
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching profile data:', error);
+        }
+      }
+    };
+
+    fetchProfileData();
   }, []);
 
   const addEducationRow = () => {
@@ -87,11 +99,11 @@ function PartA({ category, openTab }) {
       newErrors.employeeId = 'Please enter a valid Identification Number';
     }
 
-     // Validate Gmail format
-  const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-  if (!gmailRegex.test(formData.gmail)) {
-    newErrors.gmail = 'Please enter a valid Gmail address';
-  }
+    // Validate Gmail format
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!gmailRegex.test(formData.gmail)) {
+      newErrors.gmail = 'Please enter a valid Gmail address';
+    }
 
     // Validate education details
     educationRows.forEach((row, index) => {
@@ -145,6 +157,16 @@ function PartA({ category, openTab }) {
       const result = await response.json();
       alert('PartA Data saved Successfully');
       setIsFormValid(true);
+
+      // Update profile in localStorage
+      const updatedProfile = {
+        ...JSON.parse(localStorage.getItem('profile')),
+        name: formData.name,
+        gmail: formData.gmail,
+        phone: formData.contact,
+        address: formData.address
+      };
+      localStorage.setItem('profile', JSON.stringify(updatedProfile));
     } catch (error) {
       console.error('Error:', error);
     }

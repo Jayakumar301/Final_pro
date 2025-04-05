@@ -4,18 +4,18 @@ import axios from 'axios';
 function PartBAssistantProfessor({ openTab }) {
   const initialRows1 = [{ subjectType: '', subjectCode: '', weeklyLoad: '', sem: '', subjectTitle: '', lectures: '' }];
   const initialRows2 = [
-    { courseFilePoints: 'SyllabusPage (1pointperCourse)', checklist: {} },
-    { courseFilePoints: 'LessonPlan (1PointPerCourse)', checklist: {} },
-    { courseFilePoints: 'LectureNotes (3.5PointsPerCourse)', checklist: {} },
-    { courseFilePoints: 'QuestionBank (2Points)', checklist: {} },
-    { courseFilePoints: 'InternalAssessmentQuestionPapers (1PointPerCourse)', checklist: {} },
-    { courseFilePoints: 'CourseAssessment (4PointsPerCourse)', checklist: {} },
-    { courseFilePoints: 'HomeAssessment (1PointPerCourse)', checklist: {} },
-    { courseFilePoints: 'MarksSheetCopy (0.5PointPerCourse)', checklist: {} },
-    { courseFilePoints: 'CourseEndSurvey (1PointPerCourse)', checklist: {} },
-    { courseFilePoints: 'EndSemesterCOAssessmentResults (2PointsPerCourse)', checklist: {} },
-    { courseFilePoints: 'SchemeOfEvaluation(SemExam) (3PointsPerCourse)', checklist: {} },
-    { courseFilePoints: 'AnyOther (1PointPerCourse)', checklist: {} }
+    { courseFilePoints: 'SyllabusPage (1point/Course)', checklist: {} },
+    { courseFilePoints: 'LessonPlan (1Point/Course)', checklist: {} },
+    { courseFilePoints: 'LectureNotes (3.5Points/Course)', checklist: {} },
+    { courseFilePoints: 'QuestionBank (2Points/Course)', checklist: {} },
+    { courseFilePoints: 'InternalAssessmentQuestionPapers (1Point/Course)', checklist: {} },
+    { courseFilePoints: 'CourseAssessment (4Points/Course)', checklist: {} },
+    { courseFilePoints: 'HomeAssessment (1Point/Course)', checklist: {} },
+    { courseFilePoints: 'MarksSheetCopy (0.5Point/Course)', checklist: {} },
+    { courseFilePoints: 'CourseEndSurvey (1Point/Course)', checklist: {} },
+    { courseFilePoints: 'EndSemesterCOAssessmentResults (2Points/Course)', checklist: {} },
+    { courseFilePoints: 'SchemeOfEvaluation(SemExam) (3Points/Course)', checklist: {} },
+    { courseFilePoints: 'AnyOther (1Point/Course)', checklist: {} }
   ];
   const initialRows3 = [{ natureOfDuty: '', sem1: '', sem2: '', totalDuties: '' }];
   const initialRows4 = [{ sNo: '', dutiesSem1Sem2: '', evaluationSchedule: '', remarksDFAC: '' }];

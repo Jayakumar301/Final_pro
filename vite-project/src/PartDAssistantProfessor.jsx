@@ -62,15 +62,12 @@ function PartDAssistantProfessor({ openTab }) {
 
   const handleDataAvailableChange7 = (event) => {
   setDataAvailable7(event.target.value === 'Yes');
-};
+  };
 
-const handleDataAvailableChange8 = (event) => {
-  setDataAvailable8(event.target.value === 'Yes');
-};
+  const handleDataAvailableChange8 = (event) => {
+    setDataAvailable8(event.target.value === 'Yes');
+  };
 
-  
-  
-  
 
   const handleAddRow1 = () => {
     setRows1([...rows1, { category: '', type: '', count: '', score: '', dfac: '', certificate: null }]);

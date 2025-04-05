@@ -119,7 +119,7 @@ function HomePage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ oldPassword, newPassword }),
+        body: JSON.stringify({ username: profile.id, oldPassword, newPassword }),
       });
       const result = await response.json();
       if (result.success) {

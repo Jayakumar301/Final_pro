@@ -242,11 +242,9 @@ app.post('/login', async (req, res) => {
 app.post('/change-password', async (req, res) => {
   const { username, oldPassword, newPassword } = req.body;
   try {
-    const result = await User.updateOne(
-      { username, password: oldPassword },
-      { $set: { password: newPassword } }
-    );
-    if (result.nModified > 0) {
+    const user = await User.findOne({ username, password: oldPassword });
+    if (user) {
+      await User.updateOne({ username }, { $set: { password: newPassword } });
       res.send({ success: true, message: 'Password changed successfully' });
     } else {
       res.send({ success: false, message: 'Old password is incorrect' });
@@ -255,6 +253,7 @@ app.post('/change-password', async (req, res) => {
     res.status(500).send({ message: 'Error changing password', error: err });
   }
 });
+
 
 // Start the server on a port
 const PORT = 5000;

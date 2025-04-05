@@ -82,6 +82,8 @@ function PartCAssistantProfessor({ openTab }) {
     setRows10(newRow);
   };
 
+
+
   
 
   const handleEventChange = (index, event) => {
@@ -95,18 +97,6 @@ function PartCAssistantProfessor({ openTab }) {
     const newRow = [...rows7];
     newRow[index].participation = event.target.value;
     newRow[index].score = calculateScore7(event.target.value);
-    setRows7(newRow);
-  };
-
-  const handleCertificateUrlChange = (index, event) => {
-    const newRow = [...rows6];
-    newRow[index].certificateUrl = event.target.value;
-    setRows6(newRow);
-  };
-
-  const handleDetailsChange = (index, event) => {
-    const newRow = [...rows7];
-    newRow[index].details = event.target.value;
     setRows7(newRow);
   };
 
@@ -128,12 +118,14 @@ function PartCAssistantProfessor({ openTab }) {
     newRow[index].score = calculateScore8(event.target.value);
     setRows8(newRow);
   };
-  
-  const handleDetailsChange8 = (index, event) => {
-    const newRow = [...rows8];
-    newRow[index].details = event.target.value;
-    setRows8(newRow);
+
+  const handleFeedbackChange = (index, event) => {
+    const newRow = [...rows10];
+    newRow[index].feedback = event.target.value;
+    newRow[index].score = calculateScore10(newRow[index].courseDuration, event.target.value);
+    setRows10(newRow);
   };
+
   
   const handleDfacChange8 = (index, event) => {
     const newRow = [...rows8];
@@ -148,11 +140,6 @@ function PartCAssistantProfessor({ openTab }) {
     setRows9(newRow);
   };
   
-  const handleDetailsChange9 = (index, event) => {
-    const newRow = [...rows9];
-    newRow[index].details = event.target.value;
-    setRows9(newRow);
-  };
   
   const handleDfacChange9 = (index, event) => {
     const newRow = [...rows9];
@@ -167,12 +154,6 @@ function PartCAssistantProfessor({ openTab }) {
     setRows10(newRow);
   };
   
-  const handleFeedbackChange = (index, event) => {
-    const newRow = [...rows10];
-    newRow[index].feedback = event.target.value;
-    newRow[index].score = calculateScore10(newRow[index].courseDuration, event.target.value);
-    setRows10(newRow);
-  };
   
   const handleDfacChange10 = (index, event) => {
     const newRow = [...rows10];
@@ -180,8 +161,6 @@ function PartCAssistantProfessor({ openTab }) {
     setRows10(newRow);
   };
   
-
-
 
   const calculateScore6 = (event) => {
     switch (event) {
@@ -236,6 +215,8 @@ function PartCAssistantProfessor({ openTab }) {
     }
   };
 
+
+  
   const calculateScore10 = (courseDuration, feedback) => {
     let baseScore = 0;
   
@@ -270,8 +251,73 @@ function PartCAssistantProfessor({ openTab }) {
       feedbackMultiplier = 0;
     }
   
-    return baseScore * feedbackMultiplier;
+    return baseScore + feedbackMultiplier;
   };
+
+  const handleCertificateChange6 = (index, event) => {
+    const file = event.target.files[0];
+    if (file && file.size <= 100000) {
+      const newRow = [...rows6];
+      newRow[index].certificate = file;
+      setRows6(newRow);
+    } else {
+      alert("File size should be less than 100kB");
+    }
+  };
+
+  const handleCertificateChange7 = (index, event) => {
+    const file = event.target.files[0];
+    if (file && file.size <= 100000) {
+      const newRow = [...rows7];
+      newRow[index].certificate = file;
+      setRows7(newRow);
+    } else {
+      alert("File size should be less than 100kB");
+    }
+  };
+
+  const handleCertificateChange8 = (index, event) => {
+    const file = event.target.files[0];
+    if (file && file.size <= 100000) {
+      const newRow = [...rows8];
+      newRow[index].certificate = file;
+      setRows8(newRow);
+    } else {
+      alert("File size should be less than 100kB");
+    }
+  };
+
+  const handleCertificateChange9 = (index, event) => {
+    const file = event.target.files[0];
+    if (file && file.size <= 100000) {
+      const newRow = [...rows9];
+      newRow[index].certificate = file;
+      setRows9(newRow);
+    } else {
+      alert("File size should be less than 100kB");
+    }
+  };
+
+  const handleCertificateChange10 = (index, event) => {
+    const file = event.target.files[0];
+    if (file && file.size <= 100000) {
+      const newRow = [...rows10];
+      newRow[index].certificate = file;
+      setRows10(newRow);
+    } else {
+      alert("File size should be less than 100kB");
+    }
+  };
+  
+  
+
+  const totalScore6 = rows6.reduce((acc, row) => acc + (parseInt(row.score, 10) || 0), 0);
+  const totalScore7 = rows7.reduce((acc, row) => acc + (parseInt(row.score, 10) || 0), 0);
+  const totalScore8 = rows8.reduce((acc, row) => acc + (parseInt(row.score, 10) || 0), 0);
+  const totalScore9 = rows9.reduce((acc, row) => acc + (parseInt(row.score, 10) || 0), 0);
+  const totalScore10 = rows10.reduce((acc, row) => acc + (parseInt(row.score, 10) || 0), 0);
+
+
 
 
   const handleSave = async () => {
@@ -299,10 +345,12 @@ function PartCAssistantProfessor({ openTab }) {
     <div >
       <h5>Co-Curricular Teaching& Learning Process of Assistant Professor</h5>
       <p>This is Part C content for Assistant Professor.</p>
-      <fieldset>
+
+      {/*table 6 */}
+      <fieldset className="fieldset-table">
         <legend><h5>6. Student Techno fest (AFOSEC)/Engineers day or other major events</h5></legend>
         <h6>
-          mention number of events here like 1,2,3…. Over previous two semesters max (20), Department coordinators(20), others (5), Event coordinators(10). Enclose details clearly certified and authenticated by HOD. (Put in your Co-Curricular file – see note above)
+          mention number of events here like 1,2,3…. Over previous two semesters max (20), Department coordinators(20), others (5), Event coordinators(10). Enclose details clearly certified and[...]
           Max Score 20
           *As defined by Chairman, CAS committee and approved by the Principal
           Self Score
@@ -313,13 +361,13 @@ function PartCAssistantProfessor({ openTab }) {
           <option value="Yes">Yes</option>
         </select>
         {dataAvailable6 && (
-          <div>
+          <div className="table-container">
             <table>
               <thead>
                 <tr>
                   <th>S.No.</th>
                   <th>Events</th>
-                  <th>Certificate URL</th>
+                  <th>Upload File (less than 100kB)</th>
                   <th>Score</th>
                   <th>DFAC</th>
                   <th>Action</th>
@@ -340,9 +388,10 @@ function PartCAssistantProfessor({ openTab }) {
                     </td>
                     <td>
                       <input
-                        type="text"
-                        value={row.certificateUrl}
-                        onChange={(event) => handleCertificateUrlChange(index, event)}
+                        className='file-upload-container'
+                        type="file"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                        onChange={(event) => handleCertificateChange6(index, event)}
                       />
                     </td>
                     <td>{row.score}</td>
@@ -360,11 +409,15 @@ function PartCAssistantProfessor({ openTab }) {
                 ))}
               </tbody>
             </table>
-            <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+            <button type="button" onClick={handleAddRow6} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+            <h5>Total Score: {totalScore6}</h5>
           </div>
         )}
       </fieldset>
-      <fieldset>
+
+
+      {/*table 7 */}
+      <fieldset className="fieldset-table">
         <legend><h5>7. Student innovations; Guidance</h5></legend>
         <h6>
           Max Score 20
@@ -381,7 +434,7 @@ function PartCAssistantProfessor({ openTab }) {
           <option value="Yes">Yes</option>
         </select>
         {dataAvailable7 && (
-          <div>
+          <div className="table-container">
             <table>
               <thead>
                 <tr>
@@ -393,50 +446,62 @@ function PartCAssistantProfessor({ openTab }) {
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                {rows7.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.sNo}</td>
-                    <td>
-                      <select value={row.participation} onChange={(event) => handleParticipationChange(index, event)}>
-                        <option value="">Select Participation</option>
-                        <option value="Participation in state/national events with models">Participation in state/national events with models</option>
-                        <option value="First 3 Prizes winning">First 3 Prizes winning</option>
-                        <option value="Other Prizes">Other Prizes</option>
-                        <option value="Motivating Students">Motivating Students</option>
-                        <option value="Organize Student innovation sessions">Organize Student innovation sessions</option>
-                        <option value="Brain teasing / Brain storming Sessions">Brain teasing / Brain storming Sessions</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        value={row.details}
-                        onChange={(event) => handleDetailsChange(index, event)}
-                      />
-                    </td>
-                    <td>{row.score}</td>
-                    <td>
-                      <input
-                        type="text"
-                        value={row.dfac}
-                        onChange={(event) => handleDfacChange7(index, event)}
-                      />
-                    </td>
-                    <td>
-                      <button type="button" onClick={() => handleDeleteRow7(index)}>Delete Row</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Participation</th>
+                <th>Upload File (less than 100kB)</th>
+                <th>Score</th>
+                <th>DFAC</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows7.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.sNo}</td>
+                  <td>
+                    <select value={row.participation} onChange={(event) => handleParticipationChange(index, event)}>
+                      <option value="">Select Participation</option>
+                      <option value="Participation in state/national events with models">Participation in state/national events with models</option>
+                      <option value="First 3 Prizes winning">First 3 Prizes winning</option>
+                      <option value="Other Prizes">Other Prizes</option>
+                      <option value="Motivating Students">Motivating Students</option>
+                      <option value="Organize Student innovation sessions">Organize Student innovation sessions</option>
+                      <option value="Brain teasing / Brain storming Sessions">Brain teasing / Brain storming Sessions</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      className='file-upload-container'
+                      type="file"
+                      accept=".jpg,.jpeg,.png,.pdf"
+                      onChange={(event) => handleCertificateChange7(index, event)}
+                    />
+                  </td>
+                  <td>{row.score}</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={row.dfac}
+                      onChange={(event) => handleDfacChange7(index, event)}
+                    />
+                  </td>
+                  <td>
+                    <button type="button" onClick={() => handleDeleteRow7(index)}>Delete Row</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
             </table>
-            <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+            <button type="button" onClick={handleAddRow7} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+            <h5>Total Score: {totalScore7}</h5>
           </div>
         )}
       </fieldset>
 
         {/*table 8 */}
-      <fieldset>
+      <fieldset className="fieldset-table">
       <legend><h5>8. Consultancy</h5></legend>
       <h6>
         (participation) Give details with dates below authenticated by HOD: Include this in Co-Curricular File.
@@ -449,59 +514,61 @@ function PartCAssistantProfessor({ openTab }) {
         <option value="Yes">Yes</option>
       </select>
       {dataAvailable8 && (
-        <div>
-          <table className='table'>
-            <thead>
-              <tr>
-                <th>S.No.</th>
-                <th>Consultancy</th>
-                <th>Details</th>
-                <th>Score</th>
-                <th>DFAC</th>
-                <th>Action</th>
+        <div className="table-container">
+          <table >
+          <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Consultancy</th>
+              <th>Upload File (less than 100kB)</th>
+              <th>Score</th>
+              <th>DFAC</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows8.map((row, index) => (
+              <tr key={index}>
+                <td>{row.sNo}</td>
+                <td>
+                  <input
+                    type="number"
+                    value={row.consultancy}
+                    onChange={(event) => handleConsultancyChange(index, event)}
+                  />
+                </td>
+                <td>
+                  <input
+                    className='file-upload-container'
+                    type="file"
+                    accept=".jpg,.jpeg,.png,.pdf"
+                    onChange={(event) => handleCertificateChange8(index, event)}
+                  />
+                </td>
+                <td>{row.score}</td>
+                <td>
+                  <input
+                    type="text"
+                    value={row.dfac}
+                    onChange={(event) => handleDfacChange8(index, event)}
+                  />
+                </td>
+                <td>
+                  <button type="button" onClick={() => handleDeleteRow8(index)}>Delete Row</button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {rows8.map((row, index) => (
-                <tr key={index}>
-                  <td>{row.sNo}</td>
-                  <td>
-                    <input
-                      type="number"
-                      value={row.consultancy}
-                      onChange={(event) => handleConsultancyChange(index, event)}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value={row.details}
-                      onChange={(event) => handleDetailsChange8(index, event)}
-                    />
-                  </td>
-                  <td>{row.score}</td>
-                  <td>
-                    <input
-                      type="text"
-                      value={row.dfac}
-                      onChange={(event) => handleDfacChange8(index, event)}
-                    />
-                  </td>
-                  <td>
-                    <button type="button" onClick={() => handleDeleteRow8(index)}>Delete Row</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            ))}
+          </tbody>
           </table>
-          <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+          <button type="button" onClick={handleAddRow8} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+          <h5>Total Score: {totalScore8}</h5>
         </div>
       )}
     </fieldset>
 
 
-          {/*table 9 */}
-      <fieldset>
+      {/*table 9 */}
+      <fieldset className="fieldset-table">
         <legend><h5>9. Arranging Internships for students with proof</h5></legend>
         <h6>
           At Industry/ R & D Organisations per each student = 5 points
@@ -514,58 +581,60 @@ function PartCAssistantProfessor({ openTab }) {
           <option value="Yes">Yes</option>
         </select>
         {dataAvailable9 && (
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  <th>Internship</th>
-                  <th>Details</th>
-                  <th>Score</th>
-                  <th>DFAC</th>
-                  <th>Action</th>
+          <div className="table-container">
+            <table >
+            <thead>
+              <tr>
+                <th>S.No.</th>
+                <th>Internship</th>
+                <th>Upload File (less than 100kB)</th>
+                <th>Score</th>
+                <th>DFAC</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows9.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.sNo}</td>
+                  <td>
+                    <select value={row.internship} onChange={(event) => handleInternshipChange(index, event)}>
+                      <option value="">Select Internship</option>
+                      <option value="At Industry/ R & D Organisations per each student">At Industry/ R & D Organisations per each student</option>
+                      <option value="Identification of New Industry / Company / R&D Lab">Identification of New Industry / Company / R&D Lab</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      className='file-upload-container'
+                      type="file"
+                      accept=".jpg,.jpeg,.png,.pdf"
+                      onChange={(event) => handleCertificateChange9(index, event)}
+                    />
+                  </td>
+                  <td>{row.score}</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={row.dfac}
+                      onChange={(event) => handleDfacChange9(index, event)}
+                    />
+                  </td>
+                  <td>
+                    <button type="button" onClick={() => handleDeleteRow9(index)}>Delete Row</button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {rows9.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.sNo}</td>
-                    <td>
-                      <select value={row.internship} onChange={(event) => handleInternshipChange(index, event)}>
-                        <option value="">Select Internship</option>
-                        <option value="At Industry/ R & D Organisations per each student">At Industry/ R & D Organisations per each student</option>
-                        <option value="Identification of New Industry / Company / R&D Lab">Identification of New Industry / Company / R&D Lab</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        value={row.details}
-                        onChange={(event) => handleDetailsChange9(index, event)}
-                      />
-                    </td>
-                    <td>{row.score}</td>
-                    <td>
-                      <input
-                        type="text"
-                        value={row.dfac}
-                        onChange={(event) => handleDfacChange9(index, event)}
-                      />
-                    </td>
-                    <td>
-                      <button type="button" onClick={() => handleDeleteRow9(index)}>Delete Row</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              ))}
+            </tbody>
             </table>
-            <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+            <button type="button" onClick={handleAddRow9} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+            <h5>Total Score: {totalScore9}</h5>
           </div>
         )}
       </fieldset>
 
        {/*table 10 */}
-       <fieldset>
+       <fieldset className="fieldset-table">
         <legend><h5>10. Knowledge sharing with other departments</h5></legend>
         <h6>
           Short term training courses both theoretical and experimental for faculty and students of other departments in our college:
@@ -581,60 +650,71 @@ function PartCAssistantProfessor({ openTab }) {
           <option value="Yes">Yes</option>
         </select>
         {dataAvailable10 && (
-          <div>
+          <div className="table-container">
             <table>
-              <thead>
-                <tr>
-                  <th>S.No.</th>
-                  <th>Course Duration</th>
-                  <th>Feedback</th>
-                  <th>Score</th>
-                  <th>DFAC</th>
-                  <th>Action</th>
+            <thead>
+            <tr>
+              <th>S.No.</th>
+              <th>Course Duration</th>
+              <th>Feedback</th>
+              <th>Upload File (less than 100kB)</th>
+              <th>Score</th>
+              <th>DFAC</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              {rows10.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.sNo}</td>
+                  <td>
+                    <select value={row.courseDuration} onChange={(event) => handleCourseDurationChange(index, event)}>
+                      <option value="">Select Duration</option>
+                      <option value="1-3 Days">1-3 Days</option>
+                      <option value="4-6 Days">4-6 Days</option>
+                      <option value="7-10 Days">7-10 Days</option>
+                      <option value=">10 Days">greater than 10 Days</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      min="0"
+                      max="5"
+                      step="0.1"
+                      value={row.feedback}
+                      onChange={(event) => handleFeedbackChange(index, event)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      className='file-upload-container'
+                      type="file"
+                      accept=".jpg,.jpeg,.png,.pdf"
+                      onChange={(event) => handleCertificateChange10(index, event)}
+                    />
+                  </td>
+                  <td>{row.score}</td>
+                  <td>
+                    <input
+                      type="text"
+                      value={row.dfac}
+                      onChange={(event) => handleDfacChange10(index, event)}
+                    />
+                  </td>
+                  <td>
+                    <button type="button" onClick={() => handleDeleteRow10(index)}>Delete Row</button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {rows10.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.sNo}</td>
-                    <td>
-                      <select value={row.courseDuration} onChange={(event) => handleCourseDurationChange(index, event)}>
-                        <option value="">Select Duration</option>
-                        <option value="1-3 Days">1-3 Days</option>
-                        <option value="4-6 Days">4-6 Days</option>
-                        <option value="7-10 Days">7-10 Days</option>
-                        <option value=">10 Days">greater than 10 Days</option>
-                      </select>
-                    </td>
-                    <td>
-                      <input
-                        type="number"
-                        min="0"
-                        max="5"
-                        step="0.1"
-                        value={row.feedback}
-                        onChange={(event) => handleFeedbackChange(index, event)}
-                      />
-                    </td>
-                    <td>{row.score}</td>
-                    <td>
-                      <input
-                        type="text"
-                        value={row.dfac}
-                        onChange={(event) => handleDfacChange10(index, event)}
-                      />
-                    </td>
-                    <td>
-                      <button type="button" onClick={() => handleDeleteRow10(index)}>Delete Row</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
+              ))}
+            </tbody>
             </table>
             <button type="button" onClick={handleAddRow10} style={{ width: '100%', marginTop: '10px' }}>Add Row</button>
+            <h5>Total Score: {totalScore10}</h5>
           </div>
         )}
       </fieldset>
+
       <button type="button" onClick={() => openTab('Part-B')} className="btn btn-secondary">Previous</button>
       <span style={{ margin: '0 10px' }}></span> {/* Gap */}
       <button type="button" onClick={handleSave} style={{ backgroundColor: '#2896a7' }}>Save</button>
