@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './App.css';
 import Modal from 'react-modal';
@@ -11,6 +11,8 @@ function HomePage() {
   const [category, setCategory] = useState('');
   const [department, setDepartment] = useState('');
   const [profile, setProfile] = useState({
+    id: '',
+    username: '',
     name: '',
     gmail: '',
     phone: '',
@@ -22,6 +24,28 @@ function HomePage() {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const storedProfile = JSON.parse(localStorage.getItem('profile'));
+    if (storedProfile && storedProfile.id) {
+      setProfile({ ...profile, id: storedProfile.id });
+      fetchProfileDetails(storedProfile.id);
+    }
+  }, []);
+
+  const fetchProfileDetails = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/get-profile?username=${id}`);
+      if (response.status === 200) {
+        const data = await response.json();
+        setProfile(data);
+      } else {
+        console.error('Profile not found');
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
 
   const handleGenerate = () => {
     if (academicYear && category && department) {
@@ -67,12 +91,7 @@ function HomePage() {
     setMessage('');
   };
 
-  const saveProfile = () => {
-    localStorage.setItem('profile', JSON.stringify(profile));
-    saveProfileToServer(profile);
-  };
-
-  const saveProfileToServer = async (profile) => {
+  const saveProfile = async () => {
     try {
       const response = await fetch('http://localhost:5000/save-profile', {
         method: 'POST',
@@ -90,6 +109,7 @@ function HomePage() {
       setMessage('Error saving profile');
       console.error('Error saving profile:', error);
     }
+    localStorage.setItem('profile', JSON.stringify(profile));
   };
 
   const handleChangePassword = async () => {
@@ -115,7 +135,7 @@ function HomePage() {
   };
 
   const handleLogout = () => {
-    navigate('/LandingPage');
+    navigate('/');
   };
 
   return (
@@ -177,6 +197,14 @@ function HomePage() {
         <button className="close-button" onClick={closeModal}>&times;</button>
         <h2>Profile</h2>
         <form>
+          <div className="form-group">
+            <label htmlFor="id">ID:</label> {/* Add ID field in the form */}
+            <input type="text" id="id" name="id" value={profile.id} onChange={handleProfileChange} className="form-control" />
+          </div>
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input type="text" id="username" name="username" value={profile.username} onChange={handleProfileChange} className="form-control" />
+          </div>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input type="text" id="name" name="name" value={profile.name} onChange={handleProfileChange} className="form-control" />

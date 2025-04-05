@@ -89,6 +89,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    
   },
   password: {
     type: String,
@@ -98,6 +99,12 @@ const userSchema = new mongoose.Schema({
 
 // Create schema for Profile data
 const profileSchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    primaryKey: true // Set the ID field as a primary key
+  },
   username: String,
   name: String,
   gmail: String,
@@ -185,14 +192,14 @@ app.post('/save-partf-data', async (req, res) => {
 
 // Endpoint to save profile data
 app.post('/save-profile', async (req, res) => {
-  const { username, profile } = req.body;
+  const { id, ...profile } = req.body;
   try {
-    const existingProfile = await Profile.findOne({ username });
+    const existingProfile = await Profile.findOne({ id });
     if (existingProfile) {
-      await Profile.updateOne({ username }, { $set: profile });
+      await Profile.updateOne({ id }, { $set: profile });
       res.send({ message: 'Profile updated successfully' });
     } else {
-      const profileData = new Profile({ username, ...profile });
+      const profileData = new Profile({ id, ...profile });
       await profileData.save();
       res.send({ message: 'Profile saved successfully' });
     }
@@ -205,7 +212,7 @@ app.post('/save-profile', async (req, res) => {
 app.get('/get-profile', async (req, res) => {
   const { username } = req.query;
   try {
-    const profile = await Profile.findOne({ username });
+    const profile = await Profile.findOne({ id: username });
     if (profile) {
       res.send(profile);
     } else {

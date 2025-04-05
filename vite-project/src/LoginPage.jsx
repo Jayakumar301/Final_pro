@@ -19,7 +19,8 @@ function LoginPage() {
       });
       const data = await response.json();
       if (response.status === 200) {
-        navigate('/HomePage'); // Redirect to Homepage.jsx
+        localStorage.setItem('profile', JSON.stringify({ id: username }));
+        navigate('/HomePage'); // Redirect to HomePage.jsx
       } else {
         setError(data.message);
       }
