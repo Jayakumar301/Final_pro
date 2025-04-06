@@ -408,8 +408,9 @@ function PartA({ category, openTab }) {
           <button type="button" onClick={addEducationRow}>Create Row</button>
         </fieldset>
 
-        <fieldset>
+        <fieldset  className="fieldset-table">
           <legend>Experience</legend>
+        <div className="table-container">
           <table>
             <thead>
               <tr>
@@ -472,6 +473,7 @@ function PartA({ category, openTab }) {
               ))}
             </tbody>
           </table>
+        </div>
           <button type="button" onClick={addExperienceRow}>Create Row</button>
         </fieldset>
 

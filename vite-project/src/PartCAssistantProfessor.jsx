@@ -34,8 +34,6 @@ function PartCAssistantProfessor({ openTab }) {
     setDataAvailable10(event.target.value === 'Yes');
   };
   
-  
-  
 
   const handleAddRow6 = () => {
     setRows6([...rows6, { sNo: rows6.length + 1, event: '', certificateUrl: '', score: 0, dfac: '' }]);
@@ -345,6 +343,8 @@ function PartCAssistantProfessor({ openTab }) {
     <div >
       <h5>Co-Curricular Teaching& Learning Process of Assistant Professor</h5>
       <p>This is Part C content for Assistant Professor.</p>
+
+
 
       {/*table 6 */}
       <fieldset className="fieldset-table">
