@@ -100,11 +100,17 @@ function HomePage() {
         },
         body: JSON.stringify(profile),
       });
-      const result = await response.json();
-      setMessage('Profile saved successfully');
-      alert('Profile saved successfully:', result);
-      console.log('Profile saved successfully:', result);
-      closeModal();
+      if (response.ok) {
+        const result = await response.json();
+        setMessage('Profile saved successfully');
+        alert('Profile saved successfully:', result);
+        console.log('Profile saved successfully:', result);
+        closeModal();
+      } else {
+        const errorData = await response.text();
+        setMessage(`Error saving profile: ${errorData}`);
+        console.error('Error saving profile:', errorData);
+      }
     } catch (error) {
       setMessage('Error saving profile');
       console.error('Error saving profile:', error);

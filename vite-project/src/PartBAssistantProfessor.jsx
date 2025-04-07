@@ -417,8 +417,8 @@ const handleChange11 = (index, event) => {
         </fieldset>
 
         {/* Table 2 */}
-        <fieldset>
-        <div>
+        <fieldset className='fiel'>
+        <div className="table-container">
           <h5>2. Course files with the following data have been prepared by me (tick for compliance and Nil for Non-Compliance). Neatly filed course files (One course file per section/course) authenticated by HOD is required to be presented</h5>
           <table >
           <thead>

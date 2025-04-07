@@ -49,7 +49,7 @@ function PartFAssistantProfessor({ openTab }) {
 
   const finishForm = () => {
     alert('Form Submitted!');
-    navigate('/Login'); // Redirect to login page after form submission
+    navigate('/reports'); // Redirect to login page after form submission
   };
 
   const handleSave = async () => {

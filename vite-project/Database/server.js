@@ -6,7 +6,8 @@ import bodyParser from 'body-parser';
 // Initialize app and middleware
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '10mb' })); // Increase payload limit to 10MB
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 // MongoDB URI (replace with your actual URI)
 const mongoURI = 'mongodb://localhost:27017/FacultyDatabase';
@@ -130,67 +131,111 @@ const PartDData = mongoose.model("PartDData", partDDataSchema);
 const PartEData = mongoose.model("PartEData", partEDataSchema);
 const PartFData = mongoose.model("PartFData", partFDataSchema);
 
-// Endpoint to save PartA data
+// Endpoint to save PartA data (prevent duplicates)
 app.post('/save-parta-data', async (req, res) => {
-  const partAData = new PartAData(req.body);
   try {
-    await partAData.save();
-    res.send({ message: 'PartA data saved successfully' });
+    const { employeeId } = req.body;
+    const existingRecord = await PartAData.findOne({ employeeId });
+    if (existingRecord) {
+      await PartAData.updateOne({ employeeId }, { $set: req.body });
+      res.send({ message: 'PartA data updated successfully' });
+    } else {
+      const partAData = new PartAData(req.body);
+      await partAData.save();
+      res.send({ message: 'PartA data saved successfully' });
+    }
   } catch (err) {
     res.status(500).send({ message: 'Error saving PartA data', error: err });
   }
 });
 
-// Endpoint to save PartB data
+// Apply the same logic for other parts (B, C, D, E, F)
+
+// Endpoint to save PartB data (prevent duplicates)
 app.post('/save-partb-data', async (req, res) => {
-  const partBData = new PartBData(req.body);
   try {
-    await partBData.save();
-    res.send({ message: 'PartB data saved successfully' });
+    const { employeeId } = req.body;
+    const existingRecord = await PartBData.findOne({ employeeId });
+    if (existingRecord) {
+      await PartBData.updateOne({ employeeId }, { $set: req.body });
+      res.send({ message: 'PartB data updated successfully' });
+    } else {
+      const partBData = new PartBData(req.body);
+      await partBData.save();
+      res.send({ message: 'PartB data saved successfully' });
+    }
   } catch (err) {
     res.status(500).send({ message: 'Error saving PartB data', error: err });
   }
 });
 
-// Endpoint to save PartC data
+// Endpoint to save PartC data (prevent duplicates)
 app.post('/save-partc-data', async (req, res) => {
-  const partCData = new PartCData(req.body);
   try {
-    await partCData.save();
-    res.send({ message: 'PartC data saved successfully' });
+    const { employeeId } = req.body;
+    const existingRecord = await PartCData.findOne({ employeeId });
+    if (existingRecord) {
+      await PartCData.updateOne({ employeeId }, { $set: req.body });
+      res.send({ message: 'PartC data updated successfully' });
+    } else {
+      const partCData = new PartCData(req.body);
+      await partCData.save();
+      res.send({ message: 'PartC data saved successfully' });
+    }
   } catch (err) {
     res.status(500).send({ message: 'Error saving PartC data', error: err });
   }
 });
 
-// Endpoint to save PartD data
+// Endpoint to save PartD data (prevent duplicates)
 app.post('/save-partd-data', async (req, res) => {
-  const partDData = new PartDData(req.body);
   try {
-    await partDData.save();
-    res.send({ message: 'PartD data saved successfully' });
+    const { employeeId } = req.body;
+    const existingRecord = await PartDData.findOne({ employeeId });
+    if (existingRecord) {
+      await PartDData.updateOne({ employeeId }, { $set: req.body });
+      res.send({ message: 'PartD data updated successfully' });
+    } else {
+      const partDData = new PartDData(req.body);
+      await partDData.save();
+      res.send({ message: 'PartD data saved successfully' });
+    }
   } catch (err) {
     res.status(500).send({ message: 'Error saving PartD data', error: err });
   }
 });
 
-// Endpoint to save PartE data
+// Endpoint to save PartE data (prevent duplicates)
 app.post('/save-parte-data', async (req, res) => {
-  const partEData = new PartEData(req.body);
   try {
-    await partEData.save();
-    res.send({ message: 'PartE data saved successfully' });
+    const { employeeId } = req.body;
+    const existingRecord = await PartEData.findOne({ employeeId });
+    if (existingRecord) {
+      await PartEData.updateOne({ employeeId }, { $set: req.body });
+      res.send({ message: 'PartE data updated successfully' });
+    } else {
+      const partEData = new PartEData(req.body);
+      await partEData.save();
+      res.send({ message: 'PartE data saved successfully' });
+    }
   } catch (err) {
     res.status(500).send({ message: 'Error saving PartE data', error: err });
   }
 });
 
-// Endpoint to save PartF data
+// Endpoint to save PartF data (prevent duplicates)
 app.post('/save-partf-data', async (req, res) => {
-  const partFData = new PartFData(req.body);
   try {
-    await partFData.save();
-    res.send({ message: 'PartF data saved successfully' });
+    const { employeeId } = req.body;
+    const existingRecord = await PartFData.findOne({ employeeId });
+    if (existingRecord) {
+      await PartFData.updateOne({ employeeId }, { $set: req.body });
+      res.send({ message: 'PartF data updated successfully' });
+    } else {
+      const partFData = new PartFData(req.body);
+      await partFData.save();
+      res.send({ message: 'PartF data saved successfully' });
+    }
   } catch (err) {
     res.status(500).send({ message: 'Error saving PartF data', error: err });
   }
@@ -260,6 +305,32 @@ app.post('/change-password', async (req, res) => {
   }
 });
 
+// Endpoint to get data for a specific user
+app.get('/get-user-data', async (req, res) => {
+  try {
+    const { employeeId } = req.query;
+
+    const partAData = await PartAData.findOne({ employeeId });
+    const partBData = await PartBData.findOne({ employeeId });
+    const partCData = await PartCData.findOne({ employeeId });
+    const partDData = await PartDData.findOne({ employeeId });
+    const partEData = await PartEData.findOne({ employeeId });
+    const partFData = await PartFData.findOne({ employeeId });
+
+    const userData = {
+      partA: partAData,
+      partB: partBData,
+      partC: partCData,
+      partD: partDData,
+      partE: partEData,
+      partF: partFData,
+    };
+
+    res.send(userData);
+  } catch (error) {
+    res.status(500).send({ message: 'Error fetching user data', error });
+  }
+});
 
 // Start the server on a port
 const PORT = 5000;
