@@ -105,9 +105,12 @@ function PartBAssistantProfessor({ openTab }) {
   useEffect(() => {
     const fetchProfileId = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/get-profile-id?${savedProfile.id}`);
-        if(response.status === 200){
-          setProfileId(response.data.id);
+        const savedProfile = JSON.parse(localStorage.getItem('profile'));
+        if (savedProfile && savedProfile.id) {
+          const response = await axios.get(`http://localhost:5000/get-profile-id?id=${savedProfile.id}`);
+          if (response.status === 200) {
+            setProfileId(response.data.id);
+          }
         }
       } catch (error) {
         console.error('Error fetching profile ID:', error);
