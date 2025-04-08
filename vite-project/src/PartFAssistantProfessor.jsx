@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Import axios for making API requests
 
@@ -8,6 +8,8 @@ function PartFAssistantProfessor({ openTab }) {
   const [rows, setRows] = useState(
     Array(20).fill({ performance: '', score: 0, dfac: '' })
   );
+
+  const [profileId, setProfileId] = useState(''); // State to store profile ID
 
   const handlePerformanceChange = (index, event) => {
     const newRows = [...rows];
@@ -52,8 +54,27 @@ function PartFAssistantProfessor({ openTab }) {
     navigate('/reports'); // Redirect to login page after form submission
   };
 
+  useEffect(() => {
+    const fetchProfileId = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/get-profile-id?${savedProfile.id}`);
+        if(response.status === 200){
+          setProfileId(response.data.id);
+        }
+      } catch (error) {
+        console.error('Error fetching profile ID:', error);
+      }
+    };
+
+    fetchProfileId();
+  }, []);
+
   const handleSave = async () => {
-    const partFData = { rows };
+    const partFData = { 
+
+        id: profileId,
+        rows 
+      };
     try {
       const response = await axios.post('http://localhost:5000/save-partf-data', partFData);
       alert(response.data.message);

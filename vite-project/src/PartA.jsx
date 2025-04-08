@@ -33,7 +33,8 @@ function PartA({ category, openTab }) {
               name: profileData.name || '',
               gmail: profileData.gmail || '',
               contact: profileData.phone || '',
-              address: profileData.address || ''
+              address: profileData.address || '',
+              employeeId: savedProfile.id // Set employeeId from profile id
             });
           }
         } catch (error) {

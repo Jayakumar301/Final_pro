@@ -40,6 +40,7 @@ const partADataSchema = new mongoose.Schema({
 
 // Create schema for PartB data
 const partBDataSchema = new mongoose.Schema({
+  id: String,
   rows1: Array,
   rows2: Array,
   rows3: Array,
@@ -57,6 +58,7 @@ const partBDataSchema = new mongoose.Schema({
 
 // Create schema for PartC data (adjust fields as needed)
 const partCDataSchema = new mongoose.Schema({
+  id: String,
   rows6: Array,
   rows7: Array,
   rows8: Array,
@@ -66,6 +68,7 @@ const partCDataSchema = new mongoose.Schema({
 
 // Create schema for PartD data (adjust fields as needed)
 const partDDataSchema = new mongoose.Schema({
+  id: String,
   rows1: Array,
   rows2: Array,
   rows3: Array,
@@ -78,6 +81,7 @@ const partDDataSchema = new mongoose.Schema({
 
 // Create schema for PartE data (adjust fields as needed)
 const partEDataSchema = new mongoose.Schema({
+  id: String,
   rowsTable1: Array,
   rowsTable2: Array,
   rowsTable3: Array,
@@ -87,6 +91,7 @@ const partEDataSchema = new mongoose.Schema({
 
 // Create schema for PartF data (adjust fields as needed)
 const partFDataSchema = new mongoose.Schema({
+  id: String,
   rows: Array
 });
 
@@ -120,6 +125,7 @@ const profileSchema = new mongoose.Schema({
   photo: String
 });
 
+
 const User = mongoose.model('User', userSchema);
 const Profile = mongoose.model('Profile', profileSchema);
 
@@ -134,10 +140,10 @@ const PartFData = mongoose.model("PartFData", partFDataSchema);
 // Endpoint to save PartA data (prevent duplicates)
 app.post('/save-parta-data', async (req, res) => {
   try {
-    const { employeeId } = req.body;
-    const existingRecord = await PartAData.findOne({ employeeId });
+    const { id } = req.body;
+    const existingRecord = await PartAData.findOne({ id });
     if (existingRecord) {
-      await PartAData.updateOne({ employeeId }, { $set: req.body });
+      await PartAData.updateOne({ id }, { $set: req.body });
       res.send({ message: 'PartA data updated successfully' });
     } else {
       const partAData = new PartAData(req.body);
@@ -154,10 +160,10 @@ app.post('/save-parta-data', async (req, res) => {
 // Endpoint to save PartB data (prevent duplicates)
 app.post('/save-partb-data', async (req, res) => {
   try {
-    const { employeeId } = req.body;
-    const existingRecord = await PartBData.findOne({ employeeId });
+    const { id } = req.body;
+    const existingRecord = await PartBData.findOne({ id });
     if (existingRecord) {
-      await PartBData.updateOne({ employeeId }, { $set: req.body });
+      await PartBData.updateOne({ id }, { $set: req.body });
       res.send({ message: 'PartB data updated successfully' });
     } else {
       const partBData = new PartBData(req.body);
@@ -172,10 +178,10 @@ app.post('/save-partb-data', async (req, res) => {
 // Endpoint to save PartC data (prevent duplicates)
 app.post('/save-partc-data', async (req, res) => {
   try {
-    const { employeeId } = req.body;
-    const existingRecord = await PartCData.findOne({ employeeId });
+    const { id } = req.body;
+    const existingRecord = await PartCData.findOne({ id });
     if (existingRecord) {
-      await PartCData.updateOne({ employeeId }, { $set: req.body });
+      await PartCData.updateOne({ id }, { $set: req.body });
       res.send({ message: 'PartC data updated successfully' });
     } else {
       const partCData = new PartCData(req.body);
@@ -190,10 +196,10 @@ app.post('/save-partc-data', async (req, res) => {
 // Endpoint to save PartD data (prevent duplicates)
 app.post('/save-partd-data', async (req, res) => {
   try {
-    const { employeeId } = req.body;
-    const existingRecord = await PartDData.findOne({ employeeId });
+    const { id } = req.body;
+    const existingRecord = await PartDData.findOne({ id });
     if (existingRecord) {
-      await PartDData.updateOne({ employeeId }, { $set: req.body });
+      await PartDData.updateOne({ id }, { $set: req.body });
       res.send({ message: 'PartD data updated successfully' });
     } else {
       const partDData = new PartDData(req.body);
@@ -208,10 +214,10 @@ app.post('/save-partd-data', async (req, res) => {
 // Endpoint to save PartE data (prevent duplicates)
 app.post('/save-parte-data', async (req, res) => {
   try {
-    const { employeeId } = req.body;
-    const existingRecord = await PartEData.findOne({ employeeId });
+    const { id } = req.body;
+    const existingRecord = await PartEData.findOne({ id });
     if (existingRecord) {
-      await PartEData.updateOne({ employeeId }, { $set: req.body });
+      await PartEData.updateOne({ id }, { $set: req.body });
       res.send({ message: 'PartE data updated successfully' });
     } else {
       const partEData = new PartEData(req.body);
@@ -226,10 +232,10 @@ app.post('/save-parte-data', async (req, res) => {
 // Endpoint to save PartF data (prevent duplicates)
 app.post('/save-partf-data', async (req, res) => {
   try {
-    const { employeeId } = req.body;
-    const existingRecord = await PartFData.findOne({ employeeId });
+    const { id } = req.body;
+    const existingRecord = await PartFData.findOne({ id });
     if (existingRecord) {
-      await PartFData.updateOne({ employeeId }, { $set: req.body });
+      await PartFData.updateOne({ id }, { $set: req.body });
       res.send({ message: 'PartF data updated successfully' });
     } else {
       const partFData = new PartFData(req.body);
@@ -308,14 +314,14 @@ app.post('/change-password', async (req, res) => {
 // Endpoint to get data for a specific user
 app.get('/get-user-data', async (req, res) => {
   try {
-    const { employeeId } = req.query;
+    const { id } = req.query;
 
-    const partAData = await PartAData.findOne({ employeeId });
-    const partBData = await PartBData.findOne({ employeeId });
-    const partCData = await PartCData.findOne({ employeeId });
-    const partDData = await PartDData.findOne({ employeeId });
-    const partEData = await PartEData.findOne({ employeeId });
-    const partFData = await PartFData.findOne({ employeeId });
+    const partAData = await PartAData.findOne({ id });
+    const partBData = await PartBData.findOne({ id });
+    const partCData = await PartCData.findOne({ id });
+    const partDData = await PartDData.findOne({ id });
+    const partEData = await PartEData.findOne({ id });
+    const partFData = await PartFData.findOne({ id });
 
     const userData = {
       partA: partAData,
@@ -329,6 +335,27 @@ app.get('/get-user-data', async (req, res) => {
     res.send(userData);
   } catch (error) {
     res.status(500).send({ message: 'Error fetching user data', error });
+  }
+});
+
+
+// Endpoint to get profile ID
+app.get('/get-profile-id', async (req, res) => {
+  try {
+    const profileId = req.query.id; // Assuming profile ID is passed as a query parameter
+    if (!profileId) {
+      return res.status(400).send('Profile ID is required');
+    }
+
+    const profile = await Profile.findOne({ id: profileId });
+    if (!profile) {
+      return res.status(404).send('Profile not found');
+    }
+
+    res.json({ id: profile.id });
+  } catch (error) {
+    console.error('Error fetching profile ID:', error);
+    res.status(500).send('Server error');
   }
 });
 

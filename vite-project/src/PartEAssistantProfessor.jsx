@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'; 
 
 function PartEAssistantProfessor({ openTab }) {
@@ -7,6 +7,7 @@ function PartEAssistantProfessor({ openTab }) {
   const [dataAvailableTable3, setDataAvailableTable3] = useState(false);
   const [dataAvailableTable4, setDataAvailableTable4] = useState(false);
   const [dataAvailableTable5, setDataAvailableTable5] = useState(false);
+  const [profileId, setProfileId] = useState('');
   const [rowsTable1, setRowsTable1] = useState([
     { sNo: 1, activity: '', sem1: '', sem2: '', totalNumber: '', dfac: '' }
   ]);
@@ -240,8 +241,24 @@ function PartEAssistantProfessor({ openTab }) {
     setRowsTable4(newRow);
   };
 
+  useEffect(() => {
+    const fetchProfileId = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/get-profile-id?${savedProfile.id}`);
+        if(response.status === 200){
+          setProfileId(response.data.id);
+        }
+      } catch (error) {
+        console.error('Error fetching profile ID:', error);
+      }
+    };
+
+    fetchProfileId();
+  }, []);
+
   const handleSave = async () => {
     const partEData = {
+      id: profileId,
       rowsTable1,
       rowsTable2,
       rowsTable3,

@@ -34,6 +34,8 @@ function PartBAssistantProfessor({ openTab }) {
   const initialRows12 = [{ courseType: '', attendance: '', endCourseExamMarks: '', score: '' }];
   const initialRows13 = [{ involvement: 'Involvement of Faculty in Syllabus Framing (30)', selfScore: '', dfac: '' }];
 
+  const [profileId, setProfileId] = useState('');
+
   const [isDataAvailable5, setIsDataAvailable5] = useState(false);
   const [isDataAvailable6, setIsDataAvailable6] = useState(false);
   const [isDataAvailable7, setIsDataAvailable7] = useState(false);
@@ -99,6 +101,21 @@ function PartBAssistantProfessor({ openTab }) {
     }));
     setRows11(newRows11);
   }, [rows10]);
+
+  useEffect(() => {
+    const fetchProfileId = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/get-profile-id?${savedProfile.id}`);
+        if(response.status === 200){
+          setProfileId(response.data.id);
+        }
+      } catch (error) {
+        console.error('Error fetching profile ID:', error);
+      }
+    };
+
+    fetchProfileId();
+  }, []);
 
   const handleAddRow1 = () => {
     setRows1([...rows1, { subjectType: '', subjectCode: '', weeklyLoad: '', sem: '', subjectTitle: '', lectures: '' }]);
@@ -288,6 +305,7 @@ const handleChange11 = (index, event) => {
 
   const handleSave = async () => {
     const partBData  = {
+      id: profileId,
       rows1,
       rows2,
       rows3,

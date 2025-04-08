@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import axios for making API requests
 
 function PartDAssistantProfessor({ openTab }) {
@@ -10,6 +10,7 @@ function PartDAssistantProfessor({ openTab }) {
   const [dataAvailable6, setDataAvailable6] = useState(false);
   const [dataAvailable7, setDataAvailable7] = useState(false);
   const [dataAvailable8, setDataAvailable8] = useState(false);
+  const [profileId, setProfileId] = useState('');
 
   const [rows1, setRows1] = useState([
     { category: '', type: '', count: '', score: '', dfac: '', certificate: null }
@@ -419,8 +420,26 @@ function PartDAssistantProfessor({ openTab }) {
   const totalScore8 = rows8.reduce((acc, row) => acc + (parseInt(row.score, 10) || 0), 0);
 
 
+  useEffect(() => {
+    const fetchProfileId = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/get-profile-id?id=${profileId}`);
+        if(response.status === 200){
+          setProfileId(response.data.id);
+        }
+      } catch (error) {
+        console.error('Error fetching profile ID:', error);
+      }
+    };
+
+    fetchProfileId();
+  }, []);
+
+
   const handleSave = async () => {
     const partDData = {
+
+      id: profileId,
       rows1,
       rows2,
       rows3,
