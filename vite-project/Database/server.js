@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 const mongoURI = 'mongodb://localhost:27017/FacultyDatabase';
 
 // Connect to MongoDB
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true,upsert: true })
   .then(() => console.log('MongoDB connected successfully'))
   .catch((err) => console.log('Error connecting to MongoDB:', err));
 
@@ -21,7 +21,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 const partADataSchema = new mongoose.Schema({
   name: String,
   postHeld: String,
-  employeeId:
+  id:
   { 
     type: String,
     required: true,
@@ -167,10 +167,13 @@ app.post('/save-parta-data', async (req, res) => {
   try {
     const { id } = req.body;
     const existingRecord = await PartAData.findOne({ id });
+    console.log(existingRecord,"existing",id)
     if (existingRecord) {
-      await PartAData.updateOne({ id }, { $set: req.body });
+      await PartAData.updateOne({ id }, { $set: req.body },{ upsert: true });
       res.send({ message: 'PartA data updated successfully' });
+      console.log(error);
     } else {
+
       const partAData = new PartAData(req.body);
       await partAData.save();
       res.send({ message: 'PartA data saved successfully' });
@@ -196,6 +199,7 @@ app.post('/save-partb-data', async (req, res) => {
       res.send({ message: 'PartB data saved successfully' });
     }
   } catch (err) {
+    console.log(err,"error");
     res.status(500).send({ message: 'Error saving PartB data', error: err });
   }
 });

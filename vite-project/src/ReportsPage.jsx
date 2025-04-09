@@ -5,22 +5,22 @@ import html2canvas from 'html2canvas';
 
 function ReportsPage() {
   const [userData, setUserData] = useState({});
-  const [employeeId, setEmployeeId] = useState(null);
-  const [error, setError] = useState(null);
+  const [id, setid] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchEmployeeIdAndData = async () => {
+    const fetchidAndData = async () => {
       try {
-        // Fetch employeeId dynamically from the MongoDB collections
-        const employeeIdResponse = await axios.get('http://localhost:5000/get-available-employee-ids');
-        const { data } = employeeIdResponse;
+        // Fetch id dynamically from the MongoDB collections
+        const idResponse = await axios.get('http://localhost:5000/get-available-employee-ids');
+        const { data } = idResponse;
 
-        if (data && data.employeeId) {
-          setEmployeeId(data.employeeId); // Set the fetched employeeId
+        if (data && data.id) {
+          setid(data.id); // Set the fetched id
 
-          // Fetch all data associated with the employeeId
+          // Fetch all data associated with the id
           const userDataResponse = await axios.get('http://localhost:5000/get-user-data', {
-            params: { id: data.employeeId },
+            params: { id: data.id },
           });
 
           if (userDataResponse.status === 200) {
@@ -38,7 +38,7 @@ function ReportsPage() {
       }
     };
 
-    fetchEmployeeIdAndData();
+    fetchidAndData();
   }, []);
 
   const generatePDF = () => {
@@ -108,7 +108,7 @@ function ReportsPage() {
             <p>2. AICTE Designation: {userData.partA.designation}</p>
             <p>3. Name of the Department: {userData.partA.department}</p>
             <p>4. Post held: {userData.partA.postHeld}</p>
-            <p>5. Employee Identification Number: {userData.partA.employeeId}</p>
+            <p>5. Employee Identification Number: {userData.partA.id}</p>
             <p>6. Date of Appointment to the present post: {userData.partA.appointmentDate}</p>
             <p>7. Date of birth: {userData.partA.dob}</p>
             <p>8. Address: {userData.partA.address}</p>

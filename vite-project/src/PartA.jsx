@@ -10,7 +10,7 @@ function PartA({ category, openTab }) {
   const [formData, setFormData] = useState({
     name: '',
     postHeld: '',
-    employeeId: '',
+    id: '',
     appointmentDate: '',
     address: '',
     contact: '',
@@ -34,7 +34,7 @@ function PartA({ category, openTab }) {
               gmail: profileData.gmail || '',
               contact: profileData.phone || '',
               address: profileData.address || '',
-              employeeId: savedProfile.id // Set employeeId from profile id
+              id: savedProfile.id // Set id from profile id
             });
           }
         } catch (error) {
@@ -94,10 +94,10 @@ function PartA({ category, openTab }) {
       }
     });
 
-    // Validate employeeId format
-    const employeeIdRegex = /^(BEC|bec|Bec)\d{6}$/;
-    if (!employeeIdRegex.test(formData.employeeId)) {
-      newErrors.employeeId = 'Please enter a valid Identification Number';
+    // Validate id format
+    const idRegex = /^(BEC|bec|Bec)\d{6}$/;
+    if (!idRegex.test(formData.id)) {
+      newErrors.id = 'Please enter a valid Identification Number';
     }
 
     // Validate Gmail format
@@ -227,20 +227,20 @@ function PartA({ category, openTab }) {
 
         <div>
           <label
-            htmlFor="employeeId"
-            style={{ color: errors.employeeId ? 'red' : 'black' }}
+            htmlFor="id"
+            style={{ color: errors.id ? 'red' : 'black' }}
           >
             Employee Identification Number:
           </label>
           <input
             type="text"
-            id="employeeId"
-            name="employeeId"
-            value={formData.employeeId}
+            id="id"
+            name="id"
+            value={formData.id}
             onChange={handleInputChange}
             required
           />
-          {errors.employeeId && <span className="error-message">{errors.employeeId}</span>}
+          {errors.id && <span className="error-message">{errors.id}</span>}
         </div>
 
         <div>
