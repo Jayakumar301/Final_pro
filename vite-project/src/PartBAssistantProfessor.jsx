@@ -290,9 +290,6 @@ const handleChange11 = (index, event) => {
     setRows12(newRows12);
   };
 
-  const handleAddRow13 = () => {
-    setRows13([...rows13, { involvement: 'Involvement of Faculty in Syllabus Framing (30)', selfScore: '', dfac: '' }]);
-  };
   
   const handleDeleteRow13 = (index) => {
     const newRows13 = rows13.filter((row, i) => i !== index);

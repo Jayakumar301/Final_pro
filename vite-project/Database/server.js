@@ -40,7 +40,12 @@ const partADataSchema = new mongoose.Schema({
 
 // Create schema for PartB data
 const partBDataSchema = new mongoose.Schema({
-  id: String,
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    primaryKey: true // Set the ID field as a primary key
+  },
   rows1: Array,
   rows2: Array,
   rows3: Array,
@@ -58,7 +63,12 @@ const partBDataSchema = new mongoose.Schema({
 
 // Create schema for PartC data (adjust fields as needed)
 const partCDataSchema = new mongoose.Schema({
-  id: String,
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    primaryKey: true // Set the ID field as a primary key
+  },
   rows6: Array,
   rows7: Array,
   rows8: Array,
@@ -68,7 +78,12 @@ const partCDataSchema = new mongoose.Schema({
 
 // Create schema for PartD data (adjust fields as needed)
 const partDDataSchema = new mongoose.Schema({
-  id: String,
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    primaryKey: true // Set the ID field as a primary key
+  },
   rows1: Array,
   rows2: Array,
   rows3: Array,
@@ -81,7 +96,12 @@ const partDDataSchema = new mongoose.Schema({
 
 // Create schema for PartE data (adjust fields as needed)
 const partEDataSchema = new mongoose.Schema({
-  id: String,
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    primaryKey: true // Set the ID field as a primary key
+  },
   rowsTable1: Array,
   rowsTable2: Array,
   rowsTable3: Array,
@@ -91,7 +111,12 @@ const partEDataSchema = new mongoose.Schema({
 
 // Create schema for PartF data (adjust fields as needed)
 const partFDataSchema = new mongoose.Schema({
-  id: String,
+  id: {
+    type: String,
+    required: true,
+    unique: true,
+    primaryKey: true // Set the ID field as a primary key
+  },
   rows: Array
 });
 
@@ -100,7 +125,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
     
   },
   password: {

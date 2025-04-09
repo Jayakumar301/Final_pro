@@ -5,23 +5,40 @@ import html2canvas from 'html2canvas';
 
 function ReportsPage() {
   const [userData, setUserData] = useState({});
+  const [employeeId, setEmployeeId] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchEmployeeIdAndData = async () => {
       try {
-        const employeeId = 'BEC031036'; // Replace with actual employee ID
-        const response = await axios.get('http://localhost:5000/get-user-data', {
-          params: { employeeId },
-        });
-        if (response.status === 200) {
-          setUserData(response.data);
+        // Fetch employeeId dynamically from the MongoDB collections
+        const employeeIdResponse = await axios.get('http://localhost:5000/get-available-employee-ids');
+        const { data } = employeeIdResponse;
+
+        if (data && data.employeeId) {
+          setEmployeeId(data.employeeId); // Set the fetched employeeId
+
+          // Fetch all data associated with the employeeId
+          const userDataResponse = await axios.get('http://localhost:5000/get-user-data', {
+            params: { id: data.employeeId },
+          });
+
+          if (userDataResponse.status === 200) {
+            setUserData(userDataResponse.data);
+          } else {
+            setUserData({});
+            setError('You don\'t have saved data.');
+          }
+        } else {
+          setError('No employee data found in the database.');
         }
-      } catch (error) {
-        console.error('Error fetching user data:', error);
+      } catch (err) {
+        console.error('Error fetching employee ID or user data:', err);
+        setError('An error occurred while fetching data.');
       }
     };
-  
-    fetchUserData();
+
+    fetchEmployeeIdAndData();
   }, []);
 
   const generatePDF = () => {
@@ -37,6 +54,46 @@ function ReportsPage() {
         console.error('Error generating PDF:', error);
       });
   };
+
+  const renderData = (data, part) => {
+    if (!data) return null;
+    return (
+      <div>
+        <h2>{part}</h2>
+        {Object.keys(data).map((key, index) => {
+          if (key.startsWith('rows') && Array.isArray(data[key]) && data[key].length > 0) {
+            return (
+              <div key={index}>
+                <h3>{index + 1}. {key.replace(/rows(\d+)/, 'Section $1')}</h3>
+                <table className="styled-table">
+                  <thead>
+                    <tr>
+                      {Object.keys(data[key][0]).map((header, idx) => (
+                        <th key={idx}>{header}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data[key].map((row, idx) => (
+                      <tr key={idx}>
+                        {Object.values(row).map((value, id) => (
+                          <td key={id}>{value}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
+          return (
+            <p key={index}>{key}: {data[key]}</p>
+          );
+        })}
+      </div>
+    );
+  };
+
 
   return (
     <div>
